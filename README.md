@@ -270,4 +270,4 @@ Binary → Base-4 → Base-16 → Optimal base analysis
 
 This project is released under the [MIT License](LICENSE).
 
-The architecture concept, diagrams, and interactive visualization were created by Alp Eren Celebi.
+Created by Alperen Çelebi. AI tools were used for ideation and content refinement.
