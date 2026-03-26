@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hybrid Photonic Computer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0e17;--surface:#111827;--card:#151d2e;
+  --cyan:#00d4ff;--gold:#ffb800;--green:#00ff88;--red:#ff4057;
+  --text:#dde4f0;--muted:#667788;--border:rgba(255,255,255,0.07);
+}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI','Helvetica Neue',Arial,sans-serif;line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:rgba(10,14,23,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.logo-dots{display:flex;gap:5px}
+.ld{width:9px;height:9px;border-radius:50%}
+.ld.c{background:var(--cyan);box-shadow:0 0 7px var(--cyan);animation:ldpulse 2s 0s infinite}
+.ld.g{background:var(--gold);box-shadow:0 0 7px var(--gold);animation:ldpulse 2s 0.7s infinite}
+.ld.n{background:var(--green);box-shadow:0 0 7px var(--green);animation:ldpulse 2s 1.4s infinite}
+@keyframes ldpulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.nav-name{font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--text)}
+#lang-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:6px 14px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:12px;font-weight:700;letter-spacing:1px;transition:all .2s}
+#lang-btn:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 10px rgba(0,212,255,.25)}
+
+/* HERO */
+#hero{position:relative;height:100vh;min-height:540px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#canvas-hero{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+.hero-inner{position:relative;z-index:1;text-align:center;padding:0 24px;max-width:860px}
+.hero-badge{display:inline-block;padding:5px 16px;border:1px solid rgba(0,212,255,.3);border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2.5px;color:var(--cyan);margin-bottom:22px;text-transform:uppercase}
+.hero-h1{font-size:clamp(36px,7vw,72px);font-weight:700;line-height:1.08;margin-bottom:18px;background:linear-gradient(130deg,#fff 25%,var(--cyan) 60%,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-size:clamp(14px,2.2vw,17px);color:var(--muted);max-width:640px;margin:0 auto 38px;line-height:1.75}
+.hero-stats{display:flex;justify-content:center;gap:18px;flex-wrap:wrap}
+.hstat{text-align:center;padding:15px 26px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;backdrop-filter:blur(4px);min-width:110px}
+.hstat .val{display:block;font-size:20px;font-weight:700;font-family:'JetBrains Mono',Consolas,'Fira Code',monospace;letter-spacing:1px}
+.hstat .lbl{display:block;font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:4px}
+.hstat:nth-child(1) .val{color:var(--cyan);text-shadow:0 0 18px rgba(0,212,255,.6)}
+.hstat:nth-child(2) .val{color:var(--gold);text-shadow:0 0 18px rgba(255,184,0,.6)}
+.hstat:nth-child(3) .val{color:var(--green);text-shadow:0 0 18px rgba(0,255,136,.6)}
+
+/* SECTION WRAPPER */
+.sec{padding:80px 24px;max-width:1200px;margin:0 auto}
+.sec-head{text-align:center;margin-bottom:48px}
+.sec-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.sec-title{font-size:clamp(26px,4vw,38px);font-weight:700;background:linear-gradient(130deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px}
+.sec-desc{font-size:15px;color:var(--muted);max-width:580px;margin:0 auto}
+
+/* CANVAS PANELS */
+.cpanel{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin:0 auto 80px;max-width:1200px}
+.cpanel-bar{padding:14px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cpanel-title{font-size:13px;font-weight:600;letter-spacing:.5px;display:flex;align-items:center;gap:9px;color:var(--text)}
+.cpanel-hint{font-size:11px;color:var(--muted)}
+canvas{display:block;width:100%}
+#canvas-3d{height:460px}
+#canvas-arch{height:400px}
+#canvas-bars{height:420px}
+#canvas-flow{height:300px}
+#canvas-design{height:540px}
+
+/* COMPONENT CARDS */
+.cards3{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px}
+.ccard{background:var(--card);border-radius:14px;padding:28px;border:1px solid var(--border);transition:transform .3s,box-shadow .3s,border-color .3s}
+.ccard:hover{transform:translateY(-6px)}
+.ccard.elec{border-color:rgba(0,212,255,.12)}
+.ccard.elec:hover{border-color:rgba(0,212,255,.4);box-shadow:0 14px 40px rgba(0,212,255,.12)}
+.ccard.phot{border-color:rgba(255,184,0,.12)}
+.ccard.phot:hover{border-color:rgba(255,184,0,.4);box-shadow:0 14px 40px rgba(255,184,0,.12)}
+.ccard.buf{border-color:rgba(0,255,136,.12)}
+.ccard.buf:hover{border-color:rgba(0,255,136,.4);box-shadow:0 14px 40px rgba(0,255,136,.12)}
+.ccard-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px}
+.ccard.elec .ccard-icon{background:rgba(0,212,255,.1)}
+.ccard.phot .ccard-icon{background:rgba(255,184,0,.1)}
+.ccard.buf .ccard-icon{background:rgba(0,255,136,.1)}
+.ccard-name{font-size:17px;font-weight:700;margin-bottom:5px}
+.ccard.elec .ccard-name{color:var(--cyan)}
+.ccard.phot .ccard-name{color:var(--gold)}
+.ccard.buf .ccard-name{color:var(--green)}
+.ccard-role{font-size:11px;color:var(--muted);font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.ccard-desc{font-size:13px;color:#8899aa;line-height:1.65;margin-bottom:18px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{padding:3px 9px;border-radius:4px;font-size:11px;font-family:'JetBrains Mono',Consolas,monospace;font-weight:600}
+.ccard.elec .tag{background:rgba(0,212,255,.08);color:#44ccee;border:1px solid rgba(0,212,255,.18)}
+.ccard.phot .tag{background:rgba(255,184,0,.08);color:#ddaa44;border:1px solid rgba(255,184,0,.18)}
+.ccard.buf .tag{background:rgba(0,255,136,.08);color:#44dd99;border:1px solid rgba(0,255,136,.18)}
+
+/* COMPARISON TABLE */
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border)}
+.cmptbl{width:100%;border-collapse:collapse;font-size:13px}
+.cmptbl th{padding:13px 16px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);background:var(--card);border-bottom:1px solid var(--border)}
+.cmptbl td{padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--text);vertical-align:middle}
+.cmptbl tr:last-child td{border-bottom:none}
+.cmptbl tr:hover td{background:rgba(255,255,255,.02)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700;white-space:nowrap}
+.badge.up{background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.22)}
+.badge.dn{background:rgba(255,64,87,.1);color:var(--red);border:1px solid rgba(255,64,87,.22)}
+
+/* AI IMPACT */
+.impact6{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-bottom:48px}
+.icard{background:var(--card);border-radius:12px;padding:22px;border:1px solid var(--border);transition:transform .3s}
+.icard:hover{transform:translateY(-4px)}
+.icard-icon{font-size:26px;margin-bottom:11px;display:block}
+.icard-title{font-size:15px;font-weight:700;margin-bottom:8px}
+.icard-desc{font-size:12px;color:var(--muted);line-height:1.65;margin-bottom:14px}
+.icard-stat{background:rgba(0,0,0,.3);border-radius:8px;padding:10px 13px;font-family:'JetBrains Mono',Consolas,monospace;font-size:11px;line-height:1.8}
+.istat-today{color:#556677}
+.istat-arrow{color:var(--green);margin:0 5px}
+.istat-hybrid{color:var(--green);font-weight:700}
+.istat-pct{color:var(--gold);font-weight:700;float:right}
+.bars-sec-head{text-align:center;margin-bottom:28px}
+.bars-sec-title{font-size:22px;font-weight:700;color:var(--text);margin-bottom:8px}
+.bars-legend{display:flex;justify-content:center;gap:22px;font-size:12px;color:var(--muted)}
+.legend-dot{width:12px;height:12px;border-radius:2px;display:inline-block;vertical-align:middle;margin-right:5px}
+
+/* PROS CONS */
+.pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.pc-col{background:var(--card);border-radius:14px;padding:26px}
+.pc-col.pros{border:1px solid rgba(0,255,136,.15)}
+.pc-col.cons{border:1px solid rgba(255,64,87,.15)}
+.pc-head{font-size:15px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.pc-col.pros .pc-head{color:var(--green)}
+.pc-col.cons .pc-head{color:var(--red)}
+.pc-item{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.pc-item:last-child{border-bottom:none}
+.pc-ico{font-size:15px;flex-shrink:0;width:22px;text-align:center;margin-top:1px}
+.pc-name{font-size:13px;font-weight:600;margin-bottom:3px}
+.pc-body{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* FADE IN */
+.fi{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.fi.vis{opacity:1;transform:translateY(0)}
+.fi.d1{transition-delay:.1s}
+.fi.d2{transition-delay:.2s}
+.fi.d3{transition-delay:.3s}
+
+/* FOOTER */
+footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);margin-top:60px}
+.ft-logo{font-size:17px;font-weight:700;background:linear-gradient(130deg,var(--cyan),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;letter-spacing:2px}
+.ft-desc{font-size:13px;color:var(--muted);max-width:480px;margin:0 auto 14px;line-height:1.65}
+.ft-formula{font-family:'JetBrains Mono',Consolas,monospace;font-size:14px;color:var(--gold);margin-bottom:14px;letter-spacing:1px}
+.ft-copy{font-size:11px;color:#3a4a58}
+
+/* SPACE SECTION */
+.space-intro{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-bottom:40px;align-items:start}
+.space-intro-text{font-size:15px;color:#99aabb;line-height:1.75}
+.space-intro-text strong{color:var(--text)}
+.space-formula-box{background:rgba(0,212,255,0.04);border:1px solid rgba(0,212,255,0.15);border-radius:12px;padding:22px}
+.space-formula-box .sf-title{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.space-formula-box .sf-item{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px}
+.space-formula-box .sf-item:last-child{border-bottom:none}
+.space-formula-box .sf-label{color:var(--muted)}
+.space-formula-box .sf-val{color:var(--green);font-family:'JetBrains Mono',Consolas,monospace;font-weight:700;font-size:11px}
+.space-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:44px}
+.scard{background:var(--card);border-radius:12px;padding:22px;border:1px solid rgba(0,212,255,0.08);position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s}
+.scard:hover{transform:translateY(-5px);border-color:rgba(0,212,255,0.3);box-shadow:0 12px 36px rgba(0,212,255,0.1)}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.5),transparent);opacity:0;transition:opacity .3s}
+.scard:hover::before{opacity:1}
+.scard-ico{font-size:26px;margin-bottom:12px;display:block}
+.scard-name{font-size:14px;font-weight:700;color:var(--cyan);margin-bottom:7px}
+.scard-body{font-size:12px;color:#8899aa;line-height:1.65;margin-bottom:13px}
+.scard-metric{background:rgba(0,0,0,.35);border-radius:6px;padding:8px 12px;font-family:'JetBrains Mono',Consolas,monospace;font-size:11px;color:var(--gold);font-weight:600;border-left:2px solid var(--cyan)}
+.space-cmp-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .pc-grid{grid-template-columns:1fr;gap:16px}
+  .space-intro{grid-template-columns:1fr;gap:20px}
+  #canvas-3d{height:340px}
+  #canvas-arch{height:320px}
+  #canvas-bars{height:440px}
+}
+@media(max-width:600px){
+  nav{padding:11px 16px}
+  .sec{padding:56px 16px}
+  .cards3{grid-template-columns:1fr}
+  .impact6{grid-template-columns:1fr}
+  .space-grid{grid-template-columns:1fr}
+  .hero-stats{gap:10px}
+  .hstat{padding:11px 14px;min-width:90px}
+  #canvas-3d{height:280px}
+  #canvas-arch{height:260px}
+  #canvas-bars{height:480px}
+  #canvas-flow{height:240px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-dots"><div class="ld c"></div><div class="ld g"></div><div class="ld n"></div></div>
+    <span class="nav-name">HYBRID PHOTONIC</span>
+  </div>
+  <button id="lang-btn" onclick="toggleLang()">TR</button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="canvas-hero"></canvas>
+  <div class="hero-inner">
+    <div class="hero-badge" data-en="CONCEPTUAL NEXT-GEN ARCHITECTURE" data-tr="KAVRAMSAL YENİ NESİL MİMARİ">CONCEPTUAL NEXT-GEN ARCHITECTURE</div>
+    <h1 class="hero-h1" data-en="Hybrid Photonic<br>Computer" data-tr="Hibrit Fotonik<br>Bilgisayar">Hybrid Photonic<br>Computer</h1>
+    <p class="hero-sub" data-en="Next-generation theoretical architecture combining Base-4 electrical storage with Base-256 photonic processing via an asynchronous priority queue. Designed to make AI computation 100–1000× faster while consuming 85–90% less energy and water." data-tr="Taban-4 elektrik depolama ile Taban-256 fotonik işlemeyi asenkron öncelikli kuyruk aracılığıyla birleştiren yeni nesil teorik mimari. Yapay zeka hesaplamalarını %85–90 daha az enerji ve su tüketerek 100–1000 kat hızlandırmak için tasarlanmıştır.">Next-generation theoretical architecture combining Base-4 electrical storage with Base-256 photonic processing via an asynchronous priority queue. Designed to make AI computation 100–1000× faster while consuming 85–90% less energy and water.</p>
+    <div class="hero-stats">
+      <div class="hstat"><span class="val">BASE-4</span><span class="lbl" data-en="Electric System" data-tr="Elektrik Sistemi">Electric System</span></div>
+      <div class="hstat"><span class="val">BASE-256</span><span class="lbl" data-en="Photonic System" data-tr="Fotonik Sistem">Photonic System</span></div>
+      <div class="hstat"><span class="val">ASYNC</span><span class="lbl" data-en="Priority Queue" data-tr="Öncelik Kuyruğu">Priority Queue</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D COMPUTER RENDER -->
+<div class="sec" style="padding-bottom:0">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="VISUALIZATION" data-tr="GÖRSELLEŞTİRME">VISUALIZATION</div>
+    <h2 class="sec-title" data-en="3D Computer Concept" data-tr="3B Bilgisayar Konsepti">3D Computer Concept</h2>
+    <p class="sec-desc" data-en="Isometric visualization of the physical computer with all three modules and their interconnections. Move your mouse to rotate." data-tr="Üç modülü ve bağlantılarını gösteren fiziksel bilgisayarın izometrik görselleştirmesi. Döndürmek için farenizi hareket ettirin.">Isometric visualization of the physical computer with all three modules and their interconnections. Move your mouse to rotate.</p>
+  </div>
+</div>
+<div class="cpanel fi" style="margin:0 24px 80px;max-width:1152px;margin-left:auto;margin-right:auto">
+  <div class="cpanel-bar">
+    <div class="cpanel-title"><div class="ld c" style="width:8px;height:8px"></div><span data-en="3D Isometric Render" data-tr="3B İzometrik Render">3D Isometric Render</span></div>
+    <div class="cpanel-hint" data-en="Move mouse / drag to rotate view" data-tr="Görünümü döndürmek için fareyi hareket ettirin">Move mouse / drag to rotate view</div>
+  </div>
+  <canvas id="canvas-3d"></canvas>
+</div>
+
+<!-- ARCHITECTURE ANIMATION -->
+<div class="sec" style="padding-bottom:0">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="ARCHITECTURE" data-tr="MİMARİ">ARCHITECTURE</div>
+    <h2 class="sec-title" data-en="System Architecture" data-tr="Sistem Mimarisi">System Architecture</h2>
+    <p class="sec-desc" data-en="Two independent computing systems connected through an async priority queue buffer using LiNbO₃ electro-optic crystal. Packets flow by priority level." data-tr="LiNbO₃ elektro-optik kristal kullanan asenkron tampon aracılığıyla bağlanan iki bağımsız hesaplama sistemi. Paketler öncelik seviyesine göre akar.">Two independent computing systems connected through an async priority queue buffer using LiNbO₃ electro-optic crystal. Packets flow by priority level.</p>
+  </div>
+</div>
+<div class="cpanel fi" style="margin:0 24px 80px;max-width:1152px;margin-left:auto;margin-right:auto">
+  <div class="cpanel-bar">
+    <div class="cpanel-title"><div class="ld n" style="width:8px;height:8px"></div><span data-en="Live Architecture Animation" data-tr="Canlı Mimari Animasyonu">Live Architecture Animation</span></div>
+    <div class="cpanel-hint" data-en="● P0 Critical &nbsp; ● P1 Normal &nbsp; ● P2 Background" data-tr="● P0 Kritik &nbsp; ● P1 Normal &nbsp; ● P2 Arka Plan">● P0 Critical &nbsp; ● P1 Normal &nbsp; ● P2 Background</div>
+  </div>
+  <canvas id="canvas-arch"></canvas>
+</div>
+
+<!-- COMPONENT CARDS -->
+<div class="sec">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="COMPONENTS" data-tr="BİLEŞENLER">COMPONENTS</div>
+    <h2 class="sec-title" data-en="System Components" data-tr="Sistem Bileşenleri">System Components</h2>
+    <p class="sec-desc" data-en="Three specialized subsystems work independently, communicating only through the async buffer." data-tr="Üç özel alt sistem bağımsız olarak çalışır, yalnızca asenkron tampon üzerinden iletişim kurar.">Three specialized subsystems work independently, communicating only through the async buffer.</p>
+  </div>
+  <div class="cards3">
+    <div class="ccard elec fi d1">
+      <div class="ccard-icon">⚡</div>
+      <div class="ccard-name" data-en="Base-4 Electric" data-tr="Taban-4 Elektrik">Base-4 Electric</div>
+      <div class="ccard-role" data-en="Storage &amp; Everyday Computing" data-tr="Depolama &amp; Günlük Hesaplama">Storage &amp; Everyday Computing</div>
+      <div class="ccard-desc" data-en="Uses four voltage levels (0V, 1.1V, 2.2V, 3.3V) to store 2 bits per cell — double the density of binary. Based on proven MLC SSD technology with ~1.1V noise margin between each level." data-tr="Dört gerilim seviyesi (0V, 1.1V, 2.2V, 3.3V) kullanarak her hücreye 2 bit depolar — ikili sistemin iki katı yoğunluk. Kanıtlanmış MLC SSD teknolojisine dayalı, seviyeler arası ~1.1V gürültü marjı.">Uses four voltage levels (0V, 1.1V, 2.2V, 3.3V) to store 2 bits per cell — double the density of binary. Based on proven MLC SSD technology with ~1.1V noise margin between each level.</div>
+      <div class="tags">
+        <span class="tag">Silicon (Si)</span><span class="tag">2 bits/cell</span><span class="tag">~5 GHz</span><span class="tag">0V·1.1V·2.2V·3.3V</span><span class="tag">OS + I/O</span>
+      </div>
+    </div>
+    <div class="ccard phot fi d2">
+      <div class="ccard-icon">💡</div>
+      <div class="ccard-name" data-en="Base-256 Photonic" data-tr="Taban-256 Fotonik">Base-256 Photonic</div>
+      <div class="ccard-role" data-en="AI &amp; Heavy Processing" data-tr="Yapay Zeka &amp; Ağır İşleme">AI &amp; Heavy Processing</div>
+      <div class="ccard-desc" data-en="256 light intensity levels carry 8 bits per signal. Photons travel through Silicon Nitride waveguides at terahertz speeds with zero heat generation. WDM enables 80+ simultaneous wavelength channels on one fiber." data-tr="256 ışık yoğunluğu seviyesi sinyal başına 8 bit taşır. Fotonlar silikon nitrür dalga kılavuzlarında sıfır ısı üreterek terahertz hızlarında ilerler. WDM tek fiber üzerinde 80+ eş zamanlı dalga boyu kanalı sağlar.">256 light intensity levels carry 8 bits per signal. Photons travel through Silicon Nitride waveguides at terahertz speeds with zero heat generation. WDM enables 80+ simultaneous wavelength channels on one fiber.</div>
+      <div class="tags">
+        <span class="tag">InP + Si₃N₄</span><span class="tag">8 bits/signal</span><span class="tag">~THz</span><span class="tag">&gt;10 Tbps</span><span class="tag">WDM 80+</span><span class="tag">No Heat</span>
+      </div>
+    </div>
+    <div class="ccard buf fi d3">
+      <div class="ccard-icon">🔄</div>
+      <div class="ccard-name" data-en="Async Buffer" data-tr="Asenkron Tampon">Async Buffer</div>
+      <div class="ccard-role" data-en="Electro-Optic Bridge" data-tr="Elektro-Optik Köprü">Electro-Optic Bridge</div>
+      <div class="ccard-desc" data-en="LiNbO₃ crystal changes optical properties when voltage is applied — bridging electric writes and photonic reads. Three ring buffers ensure critical tasks (P0) always preempt normal (P1) and background (P2) work." data-tr="LiNbO₃ kristali gerilim uygulandığında optik özelliklerini değiştirir. Üç halka tampon, kritik görevlerin (P0) her zaman normal (P1) ve arka plan (P2) işlerini geçmesini sağlar.">LiNbO₃ crystal changes optical properties when voltage is applied — bridging electric writes and photonic reads. Three ring buffers ensure critical tasks (P0) always preempt normal (P1) and background (P2) work.</div>
+      <div class="tags">
+        <span class="tag">LiNbO₃</span><span class="tag">P0·P1·P2</span><span class="tag">Non-blocking</span><span class="tag">~1–5ns</span><span class="tag">Interrupt</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PHYSICAL DESIGN -->
+<div class="sec" style="padding-bottom:0">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="PRODUCT DESIGN" data-tr="ÜRÜN TASARIMI">PRODUCT DESIGN</div>
+    <h2 class="sec-title" data-en="What Would It Actually Look Like?" data-tr="Fiziksel Görünümü Nasıl Olur?">What Would It Actually Look Like?</h2>
+    <p class="sec-desc" data-en="A detailed product render of the HPC-X1 Hybrid Photonic Workstation. Three independent module zones are visible through the tempered glass panel — each with its own distinct glow signature." data-tr="HPC-X1 Hibrit Fotonik İş İstasyonunun ayrıntılı ürün renderi. Üç bağımsız modül bölgesi, temperli cam panel aracılığıyla görünürdür — her birinin kendine özgü parıltı imzası vardır.">A detailed product render of the HPC-X1 Hybrid Photonic Workstation. Three independent module zones are visible through the tempered glass panel — each with its own distinct glow signature.</p>
+  </div>
+</div>
+<div class="cpanel fi" style="margin:0 24px 80px;max-width:1152px;margin-left:auto;margin-right:auto">
+  <div class="cpanel-bar">
+    <div class="cpanel-title"><div class="ld c" style="width:8px;height:8px"></div><span data-en="HPC-X1 — Physical Design Concept" data-tr="HPC-X1 — Fiziksel Tasarım Konsepti">HPC-X1 — Physical Design Concept</span></div>
+    <div class="cpanel-hint" data-en="Tower workstation · Tempered glass side panel · Tri-color zone lighting" data-tr="Kule iş istasyonu · Temperli cam yan panel · Üç renkli bölge aydınlatması">Tower workstation · Tempered glass side panel · Tri-color zone lighting</div>
+  </div>
+  <canvas id="canvas-design"></canvas>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="sec">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="COMPARISON" data-tr="KARŞILAŞTIRMA">COMPARISON</div>
+    <h2 class="sec-title" data-en="Today vs Hybrid Photonic" data-tr="Bugün vs Hibrit Fotonik">Today vs Hybrid Photonic</h2>
+    <p class="sec-desc" data-en="A detailed feature-by-feature comparison showing where the hybrid architecture wins and where current challenges remain." data-tr="Hibrit mimarinin kazandığı ve mevcut zorlukların kaldığı yerleri gösteren ayrıntılı özellik karşılaştırması.">A detailed feature-by-feature comparison showing where the hybrid architecture wins and where current challenges remain.</p>
+  </div>
+  <div class="tbl-wrap fi">
+    <table class="cmptbl">
+      <thead>
+        <tr>
+          <th data-en="Feature" data-tr="Özellik">Feature</th>
+          <th data-en="Today (Binary)" data-tr="Bugün (İkili)">Today (Binary)</th>
+          <th data-en="Hybrid Photonic" data-tr="Hibrit Fotonik">Hybrid Photonic</th>
+          <th data-en="Status" data-tr="Durum">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-en="Number system" data-tr="Sayı sistemi">Number system</td><td>Base-2 (0, 1)</td><td>Base-4 + Base-256</td><td><span class="badge up">⬆ Better</span></td></tr>
+        <tr><td data-en="Bits per storage cell" data-tr="Depolama hücresi başına bit">Bits per storage cell</td><td>1 bit</td><td>2 bits</td><td><span class="badge up">⬆ 2×</span></td></tr>
+        <tr><td data-en="Bits per signal" data-tr="Sinyal başına bit">Bits per signal</td><td>1 bit</td><td>8 bits</td><td><span class="badge up">⬆ 8×</span></td></tr>
+        <tr><td data-en="Processing speed" data-tr="İşleme hızı">Processing speed</td><td>~5 GHz</td><td>~THz range</td><td><span class="badge up">⬆ 100–1000×</span></td></tr>
+        <tr><td data-en="Processing medium" data-tr="İşleme ortamı">Processing medium</td><td data-en="Electricity (copper)" data-tr="Elektrik (bakır)">Electricity (copper)</td><td data-en="Photons (light)" data-tr="Fotonlar (ışık)">Photons (light)</td><td><span class="badge up">⬆ Better</span></td></tr>
+        <tr><td data-en="Energy consumption" data-tr="Enerji tüketimi">Energy consumption</td><td data-en="High (heat problem)" data-tr="Yüksek (ısı sorunu)">High (heat problem)</td><td data-en="Very low (no heat)" data-tr="Çok düşük (ısı yok)">Very low (no heat)</td><td><span class="badge up">⬆ Better</span></td></tr>
+        <tr><td data-en="EMI resistance" data-tr="EMI direnci">EMI resistance</td><td data-en="Medium" data-tr="Orta">Medium</td><td data-en="Very high" data-tr="Çok yüksek">Very high</td><td><span class="badge up">⬆ Better</span></td></tr>
+        <tr><td data-en="Bandwidth" data-tr="Bant genişliği">Bandwidth</td><td>~100 Gbps</td><td>&gt;10 Tbps</td><td><span class="badge up">⬆ 100×</span></td></tr>
+        <tr><td data-en="Scalability" data-tr="Ölçeklenebilirlik">Scalability</td><td data-en="Near physical limits" data-tr="Fiziksel sınırlara yakın">Near physical limits</td><td data-en="Very high potential" data-tr="Çok yüksek potansiyel">Very high potential</td><td><span class="badge up">⬆ Better</span></td></tr>
+        <tr><td data-en="Water usage (AI)" data-tr="Su kullanımı (AI)">Water usage (AI)</td><td>~500ml / 100 queries</td><td>~50ml / 100 queries</td><td><span class="badge up">⬆ 90% less</span></td></tr>
+        <tr><td data-en="Manufacturing" data-tr="Üretim">Manufacturing</td><td data-en="Mature (70+ years)" data-tr="Olgunlaşmış (70+ yıl)">Mature (70+ years)</td><td data-en="Very difficult" data-tr="Çok zor">Very difficult</td><td><span class="badge dn">⬇ Harder</span></td></tr>
+        <tr><td data-en="Software compatibility" data-tr="Yazılım uyumluluğu">Software compatibility</td><td data-en="All existing software" data-tr="Tüm mevcut yazılım">All existing software</td><td data-en="New compilers needed" data-tr="Yeni derleyiciler gerekli">New compilers needed</td><td><span class="badge dn">⬇ New ecosystem</span></td></tr>
+        <tr><td data-en="Cost" data-tr="Maliyet">Cost</td><td data-en="Low (mass production)" data-tr="Düşük (kitlesel üretim)">Low (mass production)</td><td data-en="Very high (initially)" data-tr="Çok yüksek (başlangıçta)">Very high (initially)</td><td><span class="badge dn">⬇ Expensive</span></td></tr>
+        <tr><td data-en="Talent pool" data-tr="Yetenek havuzu">Talent pool</td><td data-en="Abundant" data-tr="Bol">Abundant</td><td data-en="Very niche" data-tr="Çok niş">Very niche</td><td><span class="badge dn">⬇ Scarce</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- AI IMPACT -->
+<div class="sec">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="AI IMPACT" data-tr="YAPAY ZEKA ETKİSİ">AI IMPACT</div>
+    <h2 class="sec-title" data-en="Revolutionizing AI Operations" data-tr="Yapay Zeka Operasyonlarında Devrim">Revolutionizing AI Operations</h2>
+    <p class="sec-desc" data-en="Photonic computing could fundamentally transform AI infrastructure economics, sustainability, and performance." data-tr="Fotonik hesaplama, yapay zeka altyapı ekonomisini, sürdürülebilirliğini ve performansını temelden dönüştürebilir.">Photonic computing could fundamentally transform AI infrastructure economics, sustainability, and performance.</p>
+  </div>
+  <div class="impact6">
+    <div class="icard fi d1">
+      <span class="icard-icon">💧</span>
+      <div class="icard-title" data-en="Water Usage" data-tr="Su Kullanımı">Water Usage</div>
+      <div class="icard-desc" data-en="Data centers consume millions of liters daily for cooling. Photonics produce no heat, eliminating cooling infrastructure almost entirely." data-tr="Veri merkezleri soğutma için günlük milyonlarca litre tüketir. Fotonlar ısı üretmez, soğutma altyapısını neredeyse tamamen ortadan kaldırır.">Data centers consume millions of liters daily for cooling. Photonics produce no heat, eliminating cooling infrastructure almost entirely.</div>
+      <div class="icard-stat"><span class="istat-today">~500ml/100 queries</span><span class="istat-arrow">→</span><span class="istat-hybrid">~50ml/100 queries</span><span class="istat-pct">90% less</span></div>
+    </div>
+    <div class="icard fi d2">
+      <span class="icard-icon">⚡</span>
+      <div class="icard-title" data-en="Energy per Query" data-tr="Sorgu Başına Enerji">Energy per Query</div>
+      <div class="icard-desc" data-en="A ChatGPT query consumes ~10× the energy of a Google search. Photonic matrix multiplication is ~100× more energy efficient." data-tr="Bir ChatGPT sorgusu, Google aramasının ~10 katı enerji tüketir. Fotonik matris çarpımı ~100 kat daha enerji verimlidir.">A ChatGPT query consumes ~10× the energy of a Google search. Photonic matrix multiplication is ~100× more energy efficient.</div>
+      <div class="icard-stat"><span class="istat-today">~10× Google search</span><span class="istat-arrow">→</span><span class="istat-hybrid">~0.5× Google search</span><span class="istat-pct">95% less</span></div>
+    </div>
+    <div class="icard fi d3">
+      <span class="icard-icon">🚀</span>
+      <div class="icard-title" data-en="Training Speed" data-tr="Eğitim Hızı">Training Speed</div>
+      <div class="icard-desc" data-en="GPT-4 training took months with thousands of GPUs. Photonic parallel processing plus WDM wavelength multiplexing could compress that to days." data-tr="GPT-4 eğitimi binlerce GPU ile aylarca sürdü. Fotonik paralel işleme ve WDM dalga boyu çoğullama bunu günlere indirebilir.">GPT-4 training took months with thousands of GPUs. Photonic parallel processing plus WDM wavelength multiplexing could compress that to days.</div>
+      <div class="icard-stat"><span class="istat-today">3–4 months</span><span class="istat-arrow">→</span><span class="istat-hybrid">3–7 days</span><span class="istat-pct">15–30× faster</span></div>
+    </div>
+    <div class="icard fi d1">
+      <span class="icard-icon">⏱</span>
+      <div class="icard-title" data-en="Inference Latency" data-tr="Çıkarım Gecikmesi">Inference Latency</div>
+      <div class="icard-desc" data-en="Current LLM response times of 1–5 seconds become sub-10ms with photonic matrix multiplication running at the speed of light." data-tr="Mevcut 1–5 saniyelik LLM yanıt süreleri, ışık hızında çalışan fotonik matris çarpımı ile 10ms altına düşer.">Current LLM response times of 1–5 seconds become sub-10ms with photonic matrix multiplication running at the speed of light.</div>
+      <div class="icard-stat"><span class="istat-today">1–5 seconds</span><span class="istat-arrow">→</span><span class="istat-hybrid">&lt;10 milliseconds</span><span class="istat-pct">98% faster</span></div>
+    </div>
+    <div class="icard fi d2">
+      <span class="icard-icon">💰</span>
+      <div class="icard-title" data-en="Operating Cost" data-tr="İşletme Maliyeti">Operating Cost</div>
+      <div class="icard-desc" data-en="Large AI clusters cost $50–100K per day in electricity alone. Eliminating cooling and reducing power draw cuts operational expenses by ~85%." data-tr="Büyük AI kümeleri yalnızca elektrik için günlük 50–100K $ tutar. Soğutmanın ortadan kaldırılması ve güç tüketiminin azaltılması operasyonel giderleri ~%85 düşürür.">Large AI clusters cost $50–100K per day in electricity alone. Eliminating cooling and reducing power draw cuts operational expenses by ~85%.</div>
+      <div class="icard-stat"><span class="istat-today">$50–100K/day</span><span class="istat-arrow">→</span><span class="istat-hybrid">$7–15K/day</span><span class="istat-pct">85% less</span></div>
+    </div>
+    <div class="icard fi d3">
+      <span class="icard-icon">🌍</span>
+      <div class="icard-title" data-en="Carbon Footprint" data-tr="Karbon Ayak İzi">Carbon Footprint</div>
+      <div class="icard-desc" data-en="The AI sector accounts for 3–4% of global carbon emissions, exceeding aviation. Photonic computing could reduce this to below 0.5% of global emissions." data-tr="AI sektörü, havacılığı geride bırakarak küresel karbon emisyonlarının %3–4'ünü oluşturur. Fotonik hesaplama bunu küresel emisyonların %0,5'inin altına indirebilir.">The AI sector accounts for 3–4% of global carbon emissions, exceeding aviation. Photonic computing could reduce this to below 0.5% of global emissions.</div>
+      <div class="icard-stat"><span class="istat-today">3–4% global emissions</span><span class="istat-arrow">→</span><span class="istat-hybrid">&lt;0.5% global</span><span class="istat-pct">85% less</span></div>
+    </div>
+  </div>
+
+  <!-- Bar Chart -->
+  <div class="bars-sec-head fi">
+    <div class="bars-sec-title" data-en="Performance Comparison Chart" data-tr="Performans Karşılaştırma Grafiği">Performance Comparison Chart</div>
+    <div class="bars-legend">
+      <span><span class="legend-dot" style="background:#555;border-radius:2px"></span><span data-en="Today (Binary)" data-tr="Bugün (İkili)">Today (Binary)</span></span>
+      <span><span class="legend-dot" style="background:linear-gradient(90deg,#00d4ff,#ffb800)"></span><span data-en="Hybrid Photonic" data-tr="Hibrit Fotonik">Hybrid Photonic</span></span>
+    </div>
+  </div>
+  <div class="cpanel fi">
+    <canvas id="canvas-bars"></canvas>
+  </div>
+</div>
+
+<!-- PROS CONS -->
+<div class="sec">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="TRADE-OFFS" data-tr="ÖDÜNLEŞMELER">TRADE-OFFS</div>
+    <h2 class="sec-title" data-en="Advantages &amp; Disadvantages" data-tr="Avantajlar &amp; Dezavantajlar">Advantages &amp; Disadvantages</h2>
+    <p class="sec-desc" data-en="An honest assessment of what this architecture gets right and where the hard engineering problems remain." data-tr="Bu mimarinin neyi doğru yaptığı ve zor mühendislik sorunlarının nerede kaldığının dürüst bir değerlendirmesi.">An honest assessment of what this architecture gets right and where the hard engineering problems remain.</p>
+  </div>
+  <div class="pc-grid">
+    <div class="pc-col pros fi">
+      <div class="pc-head">✓ <span data-en="Advantages" data-tr="Avantajlar">Advantages</span></div>
+      <div class="pc-item"><div class="pc-ico">⚡</div><div><div class="pc-name" data-en="100–1000× Faster Processing" data-tr="100–1000× Hızlı İşleme">100–1000× Faster Processing</div><div class="pc-body" data-en="Photonic signals travel at the speed of light through Si₃N₄ waveguides, enabling terahertz-range computation for AI workloads." data-tr="Fotonik sinyaller Si₃N₄ dalga kılavuzlarında ışık hızında ilerleyerek AI iş yükleri için terahertz aralığında hesaplama sağlar.">Photonic signals travel at the speed of light through Si₃N₄ waveguides, enabling terahertz-range computation for AI workloads.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">💧</div><div><div class="pc-name" data-en="90% Less Water Consumption" data-tr="90% Daha Az Su Tüketimi">90% Less Water Consumption</div><div class="pc-body" data-en="No heat generation means no cooling infrastructure. Data center water usage drops from ~500ml to ~50ml per 100 AI queries." data-tr="Isı üretimi olmadığı için soğutma altyapısı gerekmez. Veri merkezi su kullanımı 100 AI sorgusu başına ~500ml'den ~50ml'ye düşer.">No heat generation means no cooling infrastructure. Data center water usage drops from ~500ml to ~50ml per 100 AI queries.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🔋</div><div><div class="pc-name" data-en="85% Energy Savings" data-tr="85% Enerji Tasarrufu">85% Energy Savings</div><div class="pc-body" data-en="Light produces no resistive heat loss. Operating costs drop from $50–100K/day to $7–15K/day for large AI infrastructure." data-tr="Işık, dirençsel ısı kaybı üretmez. İşletme maliyetleri büyük AI altyapısı için günlük 50–100K $'dan 7–15K $'a düşer.">Light produces no resistive heat loss. Operating costs drop from $50–100K/day to $7–15K/day for large AI infrastructure.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🔀</div><div><div class="pc-name" data-en="Independent Scaling" data-tr="Bağımsız Ölçekleme">Independent Scaling</div><div class="pc-body" data-en="Async architecture lets each system scale independently. Add more photonic processors without touching the electric system." data-tr="Asenkron mimari, her sistemin bağımsız olarak ölçeklenmesine izin verir. Elektrik sistemine dokunmadan daha fazla fotonik işlemci ekleyin.">Async architecture lets each system scale independently. Add more photonic processors without touching the electric system.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🚀</div><div><div class="pc-name" data-en="15–30× Faster AI Training" data-tr="15–30× Hızlı AI Eğitimi">15–30× Faster AI Training</div><div class="pc-body" data-en="WDM enables 80+ parallel data streams on one waveguide. GPT-4-scale training could shrink from months to 3–7 days." data-tr="WDM tek dalga kılavuzunda 80+ paralel veri akışı sağlar. GPT-4 ölçeğinde eğitim aylardan 3–7 güne inebilir.">WDM enables 80+ parallel data streams on one waveguide. GPT-4-scale training could shrink from months to 3–7 days.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🛡</div><div><div class="pc-name" data-en="Fault Isolation" data-tr="Hata İzolasyonu">Fault Isolation</div><div class="pc-body" data-en="If the photonic system crashes, the electric system continues operating. Neither system can hang waiting for the other." data-tr="Fotonik sistem çökerse, elektrik sistemi çalışmaya devam eder. Hiçbir sistem diğerini bekleyerek askıda kalamaz.">If the photonic system crashes, the electric system continues operating. Neither system can hang waiting for the other.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">📡</div><div><div class="pc-name" data-en="EMI Immunity" data-tr="EMI Bağışıklığı">EMI Immunity</div><div class="pc-body" data-en="Photons are completely unaffected by electromagnetic interference, making photonic processors ideal for harsh environments." data-tr="Fotonlar elektromanyetik girişimden tamamen etkilenmez, bu da fotonik işlemcileri zorlu ortamlar için ideal kılar.">Photons are completely unaffected by electromagnetic interference, making photonic processors ideal for harsh environments.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">∞</div><div><div class="pc-name" data-en="Mathematical Harmony — 4⁴ = 256" data-tr="Matematiksel Uyum — 4⁴ = 256">Mathematical Harmony — 4⁴ = 256</div><div class="pc-body" data-en="Four Base-4 digits map perfectly to one Base-256 photonic symbol with zero conversion overhead. The bridge is lossless by design." data-tr="Dört Taban-4 rakamı, sıfır dönüşüm yüküyle tek bir Taban-256 fotonik sembolüyle mükemmel şekilde eşleşir. Köprü tasarım gereği kayıpsızdır.">Four Base-4 digits map perfectly to one Base-256 photonic symbol with zero conversion overhead. The bridge is lossless by design.</div></div></div>
+    </div>
+    <div class="pc-col cons fi">
+      <div class="pc-head">✗ <span data-en="Disadvantages" data-tr="Dezavantajlar">Disadvantages</span></div>
+      <div class="pc-item"><div class="pc-ico">🔧</div><div><div class="pc-name" data-en="Manufacturing Complexity" data-tr="Üretim Karmaşıklığı">Manufacturing Complexity</div><div class="pc-body" data-en="Two entirely different fabrication technologies — silicon CMOS and InP photonics — must be integrated at the chip level. This is a major unsolved engineering challenge." data-tr="İki tamamen farklı üretim teknolojisi — silikon CMOS ve InP fotonikleri — çip düzeyinde entegre edilmelidir. Bu büyük bir çözülmemiş mühendislik sorunudur.">Two entirely different fabrication technologies — silicon CMOS and InP photonics — must be integrated at the chip level. This is a major unsolved engineering challenge.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">💸</div><div><div class="pc-name" data-en="Very High Initial Cost" data-tr="Çok Yüksek Başlangıç Maliyeti">Very High Initial Cost</div><div class="pc-body" data-en="Photonic components are not yet mass-produced. A single InP photonic chip costs orders of magnitude more than an equivalent silicon chip today." data-tr="Fotonik bileşenler henüz kitlesel olarak üretilmemektedir. Tek bir InP fotonik çip bugün eşdeğer bir silikon çipten kat kat daha pahalıdır.">Photonic components are not yet mass-produced. A single InP photonic chip costs orders of magnitude more than an equivalent silicon chip today.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">💻</div><div><div class="pc-name" data-en="New Software Ecosystem Needed" data-tr="Yeni Yazılım Ekosistemi Gerekli">New Software Ecosystem Needed</div><div class="pc-body" data-en="New compilers, operating systems, device drivers, and programming languages would need to be built from scratch for Base-4 and Base-256 architectures." data-tr="Taban-4 ve Taban-256 mimarileri için yeni derleyiciler, işletim sistemleri, aygıt sürücüleri ve programlama dilleri sıfırdan oluşturulması gerekir.">New compilers, operating systems, device drivers, and programming languages would need to be built from scratch for Base-4 and Base-256 architectures.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">💾</div><div><div class="pc-name" data-en="Optical Memory Limitation" data-tr="Optik Bellek Sınırlaması">Optical Memory Limitation</div><div class="pc-body" data-en="Photons cannot be stopped — persistent optical storage is an unsolved problem. The photonic system requires electric-side memory for data persistence." data-tr="Fotonlar durdurulamaz — kalıcı optik depolama çözülmemiş bir sorundur. Fotonik sistem, veri kalıcılığı için elektrik tarafı belleği gerektirir.">Photons cannot be stopped — persistent optical storage is an unsolved problem. The photonic system requires electric-side memory for data persistence.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">⏱</div><div><div class="pc-name" data-en="Buffer Conversion Latency" data-tr="Tampon Dönüşüm Gecikmesi">Buffer Conversion Latency</div><div class="pc-body" data-en="The electro-optic conversion at the LiNbO₃ buffer introduces ~1–5ns overhead per crossing. For ultra-low-latency workloads this may be significant." data-tr="LiNbO₃ tamponundaki elektro-optik dönüşüm her geçişte ~1–5ns ek yük getirir. Ultra düşük gecikmeli iş yükleri için bu önemli olabilir.">The electro-optic conversion at the LiNbO₃ buffer introduces ~1–5ns overhead per crossing. For ultra-low-latency workloads this may be significant.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">👥</div><div><div class="pc-name" data-en="Talent Shortage" data-tr="Yetenek Açığı">Talent Shortage</div><div class="pc-body" data-en="Photonic engineering is an extremely niche discipline. There are far fewer photonic engineers than software engineers, creating a severe bottleneck for development." data-tr="Fotonik mühendisliği son derece niş bir disiplindir. Yazılım mühendislerinden çok daha az fotonik mühendisi vardır ve bu durum geliştirme için ciddi bir darboğaz oluşturur.">Photonic engineering is an extremely niche discipline. There are far fewer photonic engineers than software engineers, creating a severe bottleneck for development.</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SPACE APPLICATIONS -->
+<div class="sec">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="SPACE APPLICATIONS" data-tr="UZAY UYGULAMALARI">SPACE APPLICATIONS</div>
+    <h2 class="sec-title" data-en="Advantages in Space Exploration" data-tr="Uzay Araştırmalarındaki Avantajlar">Advantages in Space Exploration</h2>
+    <p class="sec-desc" data-en="Space is the harshest environment computers must survive. The hybrid photonic architecture addresses every critical constraint: radiation, vacuum heat, limited power, and the need for autonomous AI far from Earth." data-tr="Uzay, bilgisayarların hayatta kalması gereken en zorlu ortamdır. Hibrit fotonik mimari her kritik kısıtlamayı ele alır: radyasyon, vakum ısısı, sınırlı güç ve Dünya'dan uzakta özerk AI ihtiyacı.">Space is the harshest environment computers must survive. The hybrid photonic architecture addresses every critical constraint: radiation, vacuum heat, limited power, and the need for autonomous AI far from Earth.</p>
+  </div>
+
+  <!-- Intro: text + key numbers -->
+  <div class="space-intro fi">
+    <div class="space-intro-text">
+      <p data-en="Modern spacecraft computers (like those on Mars rovers) run at ~200 MHz — the speed of a 1990s PC — not because engineers lack ambition, but because <strong>radiation, heat, and power</strong> impose brutal constraints on electronics in space.<br><br>The hybrid photonic architecture was not designed for space, but it happens to solve the three biggest problems of space computing simultaneously. This is a consequence of its fundamental physics, not an engineering compromise." data-tr="Modern uzay aracı bilgisayarları (Mars gezginlerindekiler gibi) ~200 MHz'de çalışır — 1990'ların PC'si hızında — mühendislerin hırssızlığından değil, <strong>radyasyon, ısı ve güç</strong> uzaydaki elektroniğe acımasız kısıtlamalar dayattığı için.<br><br>Hibrit fotonik mimari uzay için tasarlanmadı, ancak tesadüfen uzay hesaplamalarının üç en büyük sorununu aynı anda çözüyor. Bu, temel fiziğinin bir sonucudur, bir mühendislik uzlaşması değil.">Modern spacecraft computers (like those on Mars rovers) run at ~200 MHz — the speed of a 1990s PC — not because engineers lack ambition, but because <strong>radiation, heat, and power</strong> impose brutal constraints on electronics in space.<br><br>The hybrid photonic architecture was not designed for space, but it happens to solve the three biggest problems of space computing simultaneously. This is a consequence of its fundamental physics, not an engineering compromise.</p>
+    </div>
+    <div class="space-formula-box fi d1">
+      <div class="sf-title" data-en="Key Space Numbers" data-tr="Temel Uzay Rakamları">Key Space Numbers</div>
+      <div class="sf-item"><span class="sf-label" data-en="Mars signal delay (one-way)" data-tr="Mars sinyal gecikmesi (tek yön)">Mars signal delay (one-way)</span><span class="sf-val">3–22 min</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Cost to orbit per kilogram" data-tr="Yörüngeye kg başına maliyet">Cost to orbit per kilogram</span><span class="sf-val">$2,200–22,000</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Cosmic ray SEU rate (current)" data-tr="Kozmik ışın SEU hızı (mevcut)">Cosmic ray SEU rate (current)</span><span class="sf-val">~1 / day / GB</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Mars rover CPU speed" data-tr="Mars gezgini CPU hızı">Mars rover CPU speed</span><span class="sf-val">~200 MHz</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Deep space data rate (today)" data-tr="Derin uzay veri hızı (bugün)">Deep space data rate (today)</span><span class="sf-val">~4–150 Mbps</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Photonic data rate (potential)" data-tr="Fotonik veri hızı (potansiyel)">Photonic data rate (potential)</span><span class="sf-val">&gt;10 Tbps</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Cooling mass / total computer" data-tr="Soğutma kütlesi / toplam bilgisayar">Cooling mass / total computer</span><span class="sf-val">~20–35%</span></div>
+    </div>
+  </div>
+
+  <!-- 8 space advantage cards -->
+  <div class="space-grid">
+    <div class="scard fi d1">
+      <span class="scard-ico">☄️</span>
+      <div class="scard-name" data-en="Cosmic Ray Immunity" data-tr="Kozmik Işın Bağışıklığı">Cosmic Ray Immunity</div>
+      <div class="scard-body" data-en="High-energy particles from deep space cause 'single-event upsets' (SEUs) — random bit flips that corrupt data or crash processors. This is why Mars rover CPUs run so slowly: radiation-hardened chips are primitive by design. Photons are electrically neutral and completely unaffected by ionizing radiation." data-tr="Derin uzaydan gelen yüksek enerjili parçacıklar 'tekil olay bozunmaları' (SEU) yaratır — veriyi bozan veya işlemciyi çökerten rastgele bit çevrilmeleri. Mars gezgini CPU'larının bu kadar yavaş çalışmasının nedeni budur: radyasyona dayanıklı çipler tasarım gereği ilkeldir. Fotonlar elektrik nötrüdür ve iyonlaştırıcı radyasyondan tamamen etkilenmez.">High-energy particles from deep space cause 'single-event upsets' (SEUs) — random bit flips that corrupt data or crash processors. This is why Mars rover CPUs run so slowly: radiation-hardened chips are primitive by design. Photons are electrically neutral and completely unaffected by ionizing radiation.</div>
+      <div class="scard-metric" data-en="SEU failure rate: near-zero vs ~1/day/GB today" data-tr="SEU hata hızı: günümüzdeki ~1/gün/GB'ye karşı sıfıra yakın">SEU failure rate: near-zero vs ~1/day/GB today</div>
+    </div>
+    <div class="scard fi d2">
+      <span class="scard-ico">🌡️</span>
+      <div class="scard-name" data-en="Vacuum Heat Problem — Solved" data-tr="Vakum Isı Sorunu — Çözüldü">Vacuum Heat Problem — Solved</div>
+      <div class="scard-body" data-en="In vacuum there is no convection — heat can only leave via radiation from panels. Spacecraft carry enormous radiator panels that add mass and complexity. Photonic processors generate near-zero heat: the thermal management problem is eliminated at the source, not patched with hardware." data-tr="Vakumda konveksiyon yoktur — ısı yalnızca panellerden radyasyon yoluyla gidebilir. Uzay araçları kütleye ve karmaşıklığa ekleme yapan devasa radyatör panelleri taşır. Fotonik işlemciler sıfıra yakın ısı üretir: termal yönetim sorunu kaynakta ortadan kalkar, donanımla yamamaz.">In vacuum there is no convection — heat can only leave via radiation from panels. Spacecraft carry enormous radiator panels that add mass and complexity. Photonic processors generate near-zero heat: the thermal management problem is eliminated at the source, not patched with hardware.</div>
+      <div class="scard-metric" data-en="Radiator panel mass reduction: ~70% · No thermal cycling stress" data-tr="Radyatör panel kütlesi azalması: ~70% · Termal döngü stresi yok">Radiator panel mass reduction: ~70% · No thermal cycling stress</div>
+    </div>
+    <div class="scard fi d3">
+      <span class="scard-ico">⚡</span>
+      <div class="scard-name" data-en="Power-Limited Missions Unlocked" data-tr="Güç Sınırlı Görevler Açıldı">Power-Limited Missions Unlocked</div>
+      <div class="scard-body" data-en="Beyond Mars, solar panels produce only ~3–4% of Earth-level power. Outer solar system and interstellar probes rely on RTGs (plutonium generators) producing just 100–300W. A 95% reduction in compute power consumption makes supercomputer-class AI possible on probes to Jupiter, Saturn, and beyond." data-tr="Mars'ın ötesinde güneş panelleri Dünya seviyesi gücün yalnızca ~%3–4'ünü üretir. Dış güneş sistemi ve yıldızlararası sondalar yalnızca 100–300W üreten RTG'lere (plütonyum jeneratörler) dayanır. Hesaplama gücü tüketimindeki %95 azalma, Jüpiter, Satürn ve ötesine giden sondalar için süperbilgisayar sınıfı AI'yı mümkün kılar.">Beyond Mars, solar panels produce only ~3–4% of Earth-level power. Outer solar system and interstellar probes rely on RTGs (plutonium generators) producing just 100–300W. A 95% reduction in compute power consumption makes supercomputer-class AI possible on probes to Jupiter, Saturn, and beyond.</div>
+      <div class="scard-metric" data-en="Enables AI on RTG-powered probes (Voyager, New Horizons class)" data-tr="RTG ile güçlendirilen sondalar için AI sağlar (Voyager, New Horizons sınıfı)">Enables AI on RTG-powered probes (Voyager, New Horizons class)</div>
+    </div>
+    <div class="scard fi d1">
+      <span class="scard-ico">🤖</span>
+      <div class="scard-name" data-en="Autonomous AI for Signal Delay" data-tr="Sinyal Gecikmesi için Özerk AI">Autonomous AI for Signal Delay</div>
+      <div class="scard-body" data-en="Mars has a 3–22 minute one-way signal delay — a Mars rover cannot ask Earth for help and get an answer in under 6–44 minutes. Spacecraft must make autonomous decisions in real time. Photonic AI running at terahertz speeds could perform complex terrain analysis, hazard avoidance, and scientific decision-making in milliseconds, completely independently." data-tr="Mars'ın tek yönlü sinyal gecikmesi 3–22 dakikadır — bir Mars gezgini Dünya'dan yardım isteyip 6–44 dakikadan kısa sürede cevap alamaz. Uzay araçları gerçek zamanlı özerk kararlar almalıdır. Terahertz hızlarında çalışan fotonik AI, milisaniyeler içinde karmaşık arazi analizi, tehlike kaçınma ve bilimsel karar verme işlemlerini tamamen bağımsız olarak gerçekleştirebilir.">Mars has a 3–22 minute one-way signal delay — a Mars rover cannot ask Earth for help and get an answer in under 6–44 minutes. Spacecraft must make autonomous decisions in real time. Photonic AI running at terahertz speeds could perform complex terrain analysis, hazard avoidance, and scientific decision-making in milliseconds, completely independently.</div>
+      <div class="scard-metric" data-en="Real-time autonomy: THz AI vs ~200 MHz today — 5,000× more capable" data-tr="Gerçek zamanlı özerklik: THz AI'ya karşı bugün ~200 MHz — 5.000× daha yetenekli">Real-time autonomy: THz AI vs ~200 MHz today — 5,000× more capable</div>
+    </div>
+    <div class="scard fi d2">
+      <span class="scard-ico">🚀</span>
+      <div class="scard-name" data-en="Launch Mass Savings" data-tr="Fırlatma Kütlesi Tasarrufu">Launch Mass Savings</div>
+      <div class="scard-body" data-en="Getting mass to orbit costs $2,200–$22,000 per kilogram (depending on rocket). Cooling systems, large power supplies, and radiation shielding represent 30–50% of a spacecraft computer's total mass. Photonic architecture nearly eliminates all three, potentially saving hundreds of kilograms on large missions — worth tens of millions of dollars per launch." data-tr="Kütleyi yörüngeye taşımak kilogram başına 2.200–22.000 $ maliyetlidir (rokete bağlı). Soğutma sistemleri, büyük güç kaynakları ve radyasyon kalkanları bir uzay aracı bilgisayarının toplam kütlesinin %30–50'sini oluşturur. Fotonik mimari üçünü de neredeyse ortadan kaldırır ve büyük görevlerde potansiyel olarak yüzlerce kilogram tasarruf sağlar — fırlatma başına on milyonlarca dolar değerinde.">Getting mass to orbit costs $2,200–$22,000 per kilogram (depending on rocket). Cooling systems, large power supplies, and radiation shielding represent 30–50% of a spacecraft computer's total mass. Photonic architecture nearly eliminates all three, potentially saving hundreds of kilograms on large missions — worth tens of millions of dollars per launch.</div>
+      <div class="scard-metric" data-en="$10,000–22,000 saved per kg eliminated · Enables smaller/cheaper launches" data-tr="Yok edilen her kg başına 10.000–22.000 $ tasarruf · Daha küçük/ucuz fırlatmaları mümkün kılar">$10,000–22,000 saved per kg eliminated · Enables smaller/cheaper launches</div>
+    </div>
+    <div class="scard fi d3">
+      <span class="scard-ico">📡</span>
+      <div class="scard-name" data-en="WDM Deep Space Communications" data-tr="WDM Derin Uzay İletişimi">WDM Deep Space Communications</div>
+      <div class="scard-body" data-en="Current deep space communication uses radio waves (DSN) at 4–150 Mbps. NASA's LLCD experiment demonstrated 622 Mbps laser comm from the Moon in 2013. Applying WDM (80+ wavelengths on one beam) to optical deep space links could push data rates to the terabit range — enabling live HD video from Mars and massive science data volumes from outer planets." data-tr="Mevcut derin uzay iletişimi 4–150 Mbps'de radyo dalgaları (DSN) kullanır. NASA'nın LLCD deneyi 2013'te Ay'dan 622 Mbps lazer iletişimi gösterdi. WDM'yi (tek ışında 80+ dalga boyu) optik derin uzay bağlantılarına uygulamak veri hızlarını terabit aralığına taşıyabilir — Mars'tan canlı HD video ve dış gezegenlerden büyük bilim veri hacimleri mümkün olur.">Current deep space communication uses radio waves (DSN) at 4–150 Mbps. NASA's LLCD experiment demonstrated 622 Mbps laser comm from the Moon in 2013. Applying WDM (80+ wavelengths on one beam) to optical deep space links could push data rates to the terabit range — enabling live HD video from Mars and massive science data volumes from outer planets.</div>
+      <div class="scard-metric" data-en=">10 Tbps potential vs ~150 Mbps today — 66,000× improvement" data-tr=">10 Tbps potansiyeline karşı bugün ~150 Mbps — 66.000× iyileşme">&gt;10 Tbps potential vs ~150 Mbps today — 66,000× improvement</div>
+    </div>
+    <div class="scard fi d1">
+      <span class="scard-ico">🌞</span>
+      <div class="scard-name" data-en="Solar Storm Immunity" data-tr="Güneş Fırtınası Bağışıklığı">Solar Storm Immunity</div>
+      <div class="scard-body" data-en="Solar flares and coronal mass ejections (CMEs) produce massive electromagnetic pulses that can destroy satellite electronics. The 1989 Quebec blackout and 2003 Halloween storms damaged or destroyed dozens of satellites. Photonic circuits are inherently immune: photons are not deflected by electric or magnetic fields." data-tr="Güneş patlamaları ve koronal kütle fırlatmaları (KMF), uydu elektroniğini tahrip edebilecek büyük elektromanyetik atımlar üretir. 1989 Quebec karartması ve 2003 Cadılar Bayramı fırtınaları onlarca uyduya zarar verdi veya tahrip etti. Fotonik devreler inherent olarak bağışıktır: fotonlar elektrik veya manyetik alanlarla saptırılmaz.">Solar flares and coronal mass ejections (CMEs) produce massive electromagnetic pulses that can destroy satellite electronics. The 1989 Quebec blackout and 2003 Halloween storms damaged or destroyed dozens of satellites. Photonic circuits are inherently immune: photons are not deflected by electric or magnetic fields.</div>
+      <div class="scard-metric" data-en="No Faraday cage needed · No radiation shielding · Operates through CMEs" data-tr="Faraday kafesi gerekmez · Radyasyon kalkanı yok · KMF'ler boyunca çalışır">No Faraday cage needed · No radiation shielding · Operates through CMEs</div>
+    </div>
+    <div class="scard fi d2">
+      <span class="scard-ico">🛰️</span>
+      <div class="scard-name" data-en="CubeSat Revolution" data-tr="CubeSat Devrimi">CubeSat Revolution</div>
+      <div class="scard-body" data-en="CubeSats (1–10 kg nanosatellites) currently carry bare-minimum computing due to power and thermal limits. A 1U CubeSat has ~1–3W power budget. With photonic efficiency, this budget could run what today requires a large satellite's full computer system — democratizing access to serious space science." data-tr="CubeSat'lar (1–10 kg nanosatellitler) şu anda güç ve termal limitler nedeniyle minimum hesaplama kapasitesi taşır. 1U CubeSat ~1–3W güç bütçesine sahiptir. Fotonik verimlilikle bu bütçe, bugün büyük bir uyduun tam bilgisayar sistemini gerektiren işleri çalıştırabilir — ciddi uzay bilimine erişimi demokratikleştirir.">CubeSats (1–10 kg nanosatellites) currently carry bare-minimum computing due to power and thermal limits. A 1U CubeSat has ~1–3W power budget. With photonic efficiency, this budget could run what today requires a large satellite's full computer system — democratizing access to serious space science.</div>
+      <div class="scard-metric" data-en="Supercomputer-class AI in 1U CubeSat (10cm × 10cm × 10cm)" data-tr="1U CubeSat'ta (10cm × 10cm × 10cm) süperbilgisayar sınıfı AI">Supercomputer-class AI in 1U CubeSat (10cm × 10cm × 10cm)</div>
+    </div>
+  </div>
+
+  <!-- Space comparison table -->
+  <div class="space-cmp-title fi" data-en="Space Challenge Comparison: Today vs Hybrid Photonic" data-tr="Uzay Meydan Okuması Karşılaştırması: Bugün vs Hibrit Fotonik">Space Challenge Comparison: Today vs Hybrid Photonic</div>
+  <div class="tbl-wrap fi">
+    <table class="cmptbl">
+      <thead>
+        <tr>
+          <th data-en="Space Challenge" data-tr="Uzay Meydan Okuması">Space Challenge</th>
+          <th data-en="Today's Computers" data-tr="Günümüz Bilgisayarları">Today's Computers</th>
+          <th data-en="Hybrid Photonic" data-tr="Hibrit Fotonik">Hybrid Photonic</th>
+          <th data-en="Impact" data-tr="Etki">Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td data-en="Cosmic ray (SEU) protection" data-tr="Kozmik ışın (SEU) koruması">Cosmic ray (SEU) protection</td><td data-en="Heavy rad-hardened chips, slow clocks" data-tr="Ağır rad-sertleştirilmiş çipler, yavaş saatler">Heavy rad-hardened chips, slow clocks</td><td data-en="Photons electrically neutral — inherently immune" data-tr="Fotonlar elektrik nötrü — inherent bağışıklık">Photons electrically neutral — inherently immune</td><td><span class="badge up">⬆ Critical</span></td></tr>
+        <tr><td data-en="Heat dissipation in vacuum" data-tr="Vakumda ısı dağılımı">Heat dissipation in vacuum</td><td data-en="Large radiator panels, heat pipes, complex thermal design" data-tr="Büyük radyatör panelleri, ısı boruları, karmaşık termal tasarım">Large radiator panels, heat pipes, complex thermal design</td><td data-en="Near-zero heat → minimal thermal hardware needed" data-tr="Sıfıra yakın ısı → minimum termal donanım gerekli">Near-zero heat → minimal thermal hardware needed</td><td><span class="badge up">⬆ ~70% mass saved</span></td></tr>
+        <tr><td data-en="Power budget (outer solar system)" data-tr="Güç bütçesi (dış güneş sistemi)">Power budget (outer solar system)</td><td data-en="RTG ~100–300W limits all computation" data-tr="RTG ~100–300W tüm hesaplamayı sınırlar">RTG ~100–300W limits all computation</td><td data-en="95% less power → THz AI on 15W budget" data-tr="95% daha az güç → 15W bütçede THz AI">95% less power → THz AI on 15W budget</td><td><span class="badge up">⬆ Game-changer</span></td></tr>
+        <tr><td data-en="Autonomous decision-making" data-tr="Özerk karar verme">Autonomous decision-making</td><td data-en="~200 MHz rad-hard CPU — very limited AI" data-tr="~200 MHz rad-sert CPU — çok sınırlı AI">~200 MHz rad-hard CPU — very limited AI</td><td data-en="THz photonic AI — full real-time autonomy" data-tr="THz fotonik AI — tam gerçek zamanlı özerklik">THz photonic AI — full real-time autonomy</td><td><span class="badge up">⬆ ~5,000×</span></td></tr>
+        <tr><td data-en="Solar storm / CME vulnerability" data-tr="Güneş fırtınası / KMF açığı">Solar storm / CME vulnerability</td><td data-en="Can destroy electronics, requires shielding" data-tr="Elektroniği tahrip edebilir, kalkan gerektirir">Can destroy electronics, requires shielding</td><td data-en="Immune — photons unaffected by EM fields" data-tr="Bağışık — fotonlar EM alanlardan etkilenmez">Immune — photons unaffected by EM fields</td><td><span class="badge up">⬆ Full immunity</span></td></tr>
+        <tr><td data-en="Science data return (deep space)" data-tr="Bilim verisi dönüşü (derin uzay)">Science data return (deep space)</td><td data-en="~4–150 Mbps radio link (DSN)" data-tr="~4–150 Mbps radyo bağlantısı (DSN)">~4–150 Mbps radio link (DSN)</td><td data-en="&gt;10 Tbps via WDM optical laser comm" data-tr="WDM optik lazer iletişimi ile &gt;10 Tbps">&gt;10 Tbps via WDM optical laser comm</td><td><span class="badge up">⬆ 66,000×</span></td></tr>
+        <tr><td data-en="Launch mass (computer system)" data-tr="Fırlatma kütlesi (bilgisayar sistemi)">Launch mass (computer system)</td><td data-en="30–50% is cooling + shielding + large PSU" data-tr="%30–50'si soğutma + kalkan + büyük PSU">30–50% is cooling + shielding + large PSU</td><td data-en="Near-zero cooling, minimal shielding, tiny PSU" data-tr="Sıfıra yakın soğutma, minimum kalkan, küçük PSU">Near-zero cooling, minimal shielding, tiny PSU</td><td><span class="badge up">⬆ Millions $ saved</span></td></tr>
+        <tr><td data-en="Operational lifetime" data-tr="Operasyonel ömür">Operational lifetime</td><td data-en="Limited by radiation damage accumulation" data-tr="Radyasyon hasarı birikimiyle sınırlı">Limited by radiation damage accumulation</td><td data-en="Photonic components not degraded by radiation" data-tr="Fotonik bileşenler radyasyon tarafından bozulmaz">Photonic components not degraded by radiation</td><td><span class="badge up">⬆ Extended missions</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- DATA FLOW ANIMATION -->
+<div class="sec" style="padding-bottom:0">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="DATA FLOW" data-tr="VERİ AKIŞI">DATA FLOW</div>
+    <h2 class="sec-title" data-en="Async Pipeline" data-tr="Asenkron Boru Hattı">Async Pipeline</h2>
+    <p class="sec-desc" data-en="The electric system writes to the buffer and continues immediately — the photonic system picks up jobs independently and returns results via interrupt." data-tr="Elektrik sistemi tampona yazar ve hemen devam eder — fotonik sistem işleri bağımsız olarak alır ve sonuçları kesme yoluyla döndürür.">The electric system writes to the buffer and continues immediately — the photonic system picks up jobs independently and returns results via interrupt.</p>
+  </div>
+</div>
+<div class="cpanel fi" style="margin:0 24px 80px;max-width:1152px;margin-left:auto;margin-right:auto">
+  <div class="cpanel-bar">
+    <div class="cpanel-title"><div class="ld g" style="width:8px;height:8px"></div><span data-en="Async Data Flow — Base-4 → Queue → Photonic" data-tr="Asenkron Veri Akışı — Taban-4 → Kuyruk → Fotonik">Async Data Flow — Base-4 → Queue → Photonic</span></div>
+    <div class="cpanel-hint" data-en="Neither system blocks — callback + interrupt" data-tr="Hiçbir sistem bloklamaz — callback + kesme">Neither system blocks — callback + interrupt</div>
+  </div>
+  <canvas id="canvas-flow"></canvas>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo">HYBRID PHOTONIC COMPUTER</div>
+  <p class="ft-desc" data-en="A theoretical next-generation computer architecture designed to revolutionize AI computation through the mathematical harmony of 4⁴ = 256." data-tr="4⁴ = 256'nın matematiksel uyumu aracılığıyla yapay zeka hesaplamalarında devrim yaratmak için tasarlanmış teorik yeni nesil bilgisayar mimarisi.">A theoretical next-generation computer architecture designed to revolutionize AI computation through the mathematical harmony of 4⁴ = 256.</p>
+  <div class="ft-formula">4⁴ = 256 — The Mathematical Foundation</div>
+  <div class="ft-copy" data-en="Designed by Alp Eren Celebi · Conceptual Architecture · 2024" data-tr="Alp Eren Celebi tarafından tasarlandı · Kavramsal Mimari · 2024">Designed by Alp Eren Celebi · Conceptual Architecture · 2024</div>
+</footer>
+
+<script>
+// ============================================================
+// LANGUAGE
+// ============================================================
+var LANG = 'en';
+function toggleLang() {
+  LANG = LANG === 'en' ? 'tr' : 'en';
+  var els = document.querySelectorAll('[data-en]');
+  for (var i = 0; i < els.length; i++) {
+    var el = els[i];
+    var txt = LANG === 'tr' ? el.getAttribute('data-tr') : el.getAttribute('data-en');
+    if (txt) el.innerHTML = txt;
+  }
+  document.getElementById('lang-btn').textContent = LANG === 'en' ? 'TR' : 'EN';
+}
+
+// ============================================================
+// SCROLL FADE-IN (no IntersectionObserver)
+// ============================================================
+function checkFade() {
+  var items = document.querySelectorAll('.fi:not(.vis)');
+  var wh = window.innerHeight || document.documentElement.clientHeight;
+  for (var i = 0; i < items.length; i++) {
+    var r = items[i].getBoundingClientRect();
+    if (r.top < wh * 0.92) items[i].classList.add('vis');
+  }
+}
+window.addEventListener('scroll', checkFade);
+// Fallback: show all after 2s
+setTimeout(function() {
+  var items = document.querySelectorAll('.fi');
+  for (var i = 0; i < items.length; i++) items[i].classList.add('vis');
+}, 2000);
+
+// ============================================================
+// CANVAS INIT UTILITY
+// ============================================================
+function initC(id, fallbackH) {
+  var canvas = document.getElementById(id);
+  if (!canvas) return null;
+  var dpr = window.devicePixelRatio || 1;
+  var w = canvas.offsetWidth;
+  var h = canvas.offsetHeight;
+  if (!w) w = canvas.parentElement ? canvas.parentElement.offsetWidth : 800;
+  if (!h) h = fallbackH || 400;
+  canvas.width = Math.round(w * dpr);
+  canvas.height = Math.round(h * dpr);
+  var ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  return {canvas: canvas, ctx: ctx, w: w, h: h};
+}
+
+// ============================================================
+// HERO CANVAS — Star field
+// ============================================================
+var hCtx, hW, hH, hP = [], hRaf;
+function initHero() {
+  var c = initC('canvas-hero', window.innerHeight);
+  if (!c) return;
+  hCtx = c.ctx; hW = c.w; hH = c.h;
+  hP = [];
+  var n = Math.min(120, Math.floor(hW * hH / 9000));
+  for (var i = 0; i < n; i++) {
+    hP.push({
+      x: Math.random() * hW,
+      y: Math.random() * hH,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      r: Math.random() * 1.4 + 0.4,
+      col: Math.random() < 0.3 ? '#00d4ff' : (Math.random() < 0.5 ? '#ffb800' : '#ffffff'),
+      a: Math.random() * 0.5 + 0.15
+    });
+  }
+  if (hRaf) cancelAnimationFrame(hRaf);
+  animHero();
+}
+function animHero() {
+  hCtx.clearRect(0, 0, hW, hH);
+  var g = hCtx.createLinearGradient(0, 0, hW, hH);
+  g.addColorStop(0, '#0a0e17'); g.addColorStop(1, '#0c1221');
+  hCtx.fillStyle = g; hCtx.fillRect(0, 0, hW, hH);
+  // grid
+  hCtx.strokeStyle = 'rgba(255,255,255,0.025)'; hCtx.lineWidth = 1;
+  for (var x = 0; x < hW; x += 70) { hCtx.beginPath(); hCtx.moveTo(x,0); hCtx.lineTo(x,hH); hCtx.stroke(); }
+  for (var y = 0; y < hH; y += 70) { hCtx.beginPath(); hCtx.moveTo(0,y); hCtx.lineTo(hW,y); hCtx.stroke(); }
+  // particles
+  for (var i = 0; i < hP.length; i++) {
+    var p = hP[i];
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = hW; if (p.x > hW) p.x = 0;
+    if (p.y < 0) p.y = hH; if (p.y > hH) p.y = 0;
+    hCtx.globalAlpha = p.a; hCtx.fillStyle = p.col;
+    hCtx.beginPath(); hCtx.arc(p.x, p.y, p.r, 0, Math.PI*2); hCtx.fill();
+    if (p.r > 1.1 && p.col !== '#ffffff') {
+      hCtx.globalAlpha = p.a * 0.2;
+      hCtx.beginPath(); hCtx.arc(p.x, p.y, p.r * 4, 0, Math.PI*2); hCtx.fill();
+    }
+  }
+  // connections
+  hCtx.lineWidth = 0.5;
+  for (var i = 0; i < hP.length; i++) {
+    for (var j = i+1; j < hP.length; j++) {
+      var dx = hP[i].x - hP[j].x, dy = hP[i].y - hP[j].y;
+      var d = dx*dx + dy*dy;
+      if (d < 8000) {
+        hCtx.globalAlpha = (1 - d/8000) * 0.12;
+        hCtx.strokeStyle = '#00d4ff';
+        hCtx.beginPath(); hCtx.moveTo(hP[i].x, hP[i].y); hCtx.lineTo(hP[j].x, hP[j].y); hCtx.stroke();
+      }
+    }
+  }
+  hCtx.globalAlpha = 1;
+  hRaf = requestAnimationFrame(animHero);
+}
+
+// ============================================================
+// 3D CANVAS — Isometric computer render
+// ============================================================
+var r3Ctx, r3W, r3H, r3Raf;
+var r3MouseX = 0.5, r3MouseY = 0.5;
+var r3TiltX = 0, r3TiltY = 0;
+var r3Particles = [];
+var r3FanAngle = 0;
+var r3Time = 0;
+
+function initR3() {
+  var c = initC('canvas-3d', 460);
+  if (!c) return;
+  r3Ctx = c.ctx; r3W = c.w; r3H = c.h;
+  r3Particles = [];
+  for (var i = 0; i < 18; i++) {
+    r3Particles.push(makeR3Particle());
+  }
+  // Mouse interaction
+  var cv = c.canvas;
+  cv.onmousemove = function(e) {
+    var rect = cv.getBoundingClientRect();
+    r3MouseX = (e.clientX - rect.left) / cv.offsetWidth;
+    r3MouseY = (e.clientY - rect.top) / cv.offsetHeight;
+  };
+  cv.ontouchmove = function(e) {
+    e.preventDefault();
+    var rect = cv.getBoundingClientRect();
+    r3MouseX = (e.touches[0].clientX - rect.left) / cv.offsetWidth;
+    r3MouseY = (e.touches[0].clientY - rect.top) / cv.offsetHeight;
+  };
+  if (r3Raf) cancelAnimationFrame(r3Raf);
+  animR3();
+}
+
+function makeR3Particle() {
+  var types = ['e2b','b2p','ret'];
+  var t = types[Math.floor(Math.random() * types.length)];
+  return {
+    t: t,
+    prog: Math.random(),
+    spd: 0.003 + Math.random() * 0.003,
+    col: t === 'e2b' ? '#00d4ff' : (t === 'b2p' ? '#00ff88' : '#ffb800'),
+    sz: 3 + Math.random() * 2
+  };
+}
+
+function r3ParticlePos(p, cx, cy, sc) {
+  // cx,cy = center of canvas, sc = scale factor
+  // e2b: electric module center → buffer center
+  // b2p: buffer center → photonic center
+  // ret: photonic → electric (return path, lower)
+  var eX = cx - sc*160, eY = cy + sc*40;
+  var bX = cx,           bY = cy + sc*20;
+  var pX = cx + sc*170,  pY = cy + sc*35;
+  var pr = p.prog;
+  if (p.t === 'e2b') {
+    return { x: eX + (bX-eX)*pr, y: eY + (bY-eY)*pr - Math.sin(pr*Math.PI)*sc*25 };
+  } else if (p.t === 'b2p') {
+    return { x: bX + (pX-bX)*pr, y: bY + (pY-bY)*pr - Math.sin(pr*Math.PI)*sc*20 };
+  } else {
+    return { x: pX + (eX-pX)*pr, y: pY + (eY-pY)*pr + Math.sin(pr*Math.PI)*sc*18 };
+  }
+}
+
+function drawBox(ctx, x, y, w, h, dx, dy, faceCol, topCol, sideCol, stroke) {
+  // front face
+  ctx.fillStyle = faceCol;
+  ctx.strokeStyle = stroke; ctx.lineWidth = 1.2;
+  ctx.beginPath(); ctx.rect(x, y-h, w, h); ctx.fill(); ctx.stroke();
+  // top face
+  ctx.fillStyle = topCol;
+  ctx.beginPath();
+  ctx.moveTo(x,y-h); ctx.lineTo(x+dx,y-h-dy);
+  ctx.lineTo(x+w+dx,y-h-dy); ctx.lineTo(x+w,y-h);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  // right face
+  ctx.fillStyle = sideCol;
+  ctx.beginPath();
+  ctx.moveTo(x+w,y-h); ctx.lineTo(x+w+dx,y-h-dy);
+  ctx.lineTo(x+w+dx,y-dy); ctx.lineTo(x+w,y);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+}
+
+function animR3() {
+  r3Time++;
+  // Smooth tilt
+  var targetTX = (r3MouseX - 0.5) * 1.4;
+  var targetTY = (r3MouseY - 0.5) * 0.6;
+  r3TiltX += (targetTX - r3TiltX) * 0.04;
+  r3TiltY += (targetTY - r3TiltY) * 0.04;
+  r3FanAngle += 0.06;
+
+  var ctx = r3Ctx;
+  ctx.clearRect(0, 0, r3W, r3H);
+  ctx.fillStyle = '#0a0e17'; ctx.fillRect(0, 0, r3W, r3H);
+
+  var sc = Math.min(r3W, r3H) / 600;
+  var cx = r3W / 2 + r3TiltX * 30;
+  var cy = r3H * 0.72;
+  // depth direction adjusted by tilt
+  var depX = 60 * sc * (1 + r3TiltX * 0.2);
+  var depY = 32 * sc * (1 - r3TiltY * 0.4);
+
+  // Floor grid
+  ctx.strokeStyle = 'rgba(255,255,255,0.04)'; ctx.lineWidth = 0.5;
+  var gBase = cy + 20 * sc;
+  for (var i = -6; i <= 6; i++) {
+    ctx.beginPath(); ctx.moveTo(cx + i*50*sc, gBase-5); ctx.lineTo(cx + i*50*sc + depX*2.5, gBase - depY*2.5); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx-300*sc, gBase+i*depY*0.4); ctx.lineTo(cx+300*sc, gBase+i*depY*0.4); ctx.stroke();
+  }
+
+  // Main chassis
+  var chW = 370*sc, chH = 55*sc, chX = cx - chW/2, chY = cy;
+  drawBox(ctx, chX, chY, chW, chH, depX*1.4, depY*1.4, '#141c2a', '#1a2438', '#0d1220', '#334455');
+
+  // ELECTRIC MODULE (left)
+  var eW=135*sc, eH=130*sc, eX=chX+15*sc, eY=chY-chH;
+  drawBox(ctx, eX, eY, eW, eH, depX, depY, '#001a2e', '#002240', '#00101c', '#00d4ff');
+  // label
+  ctx.fillStyle = '#00d4ff'; ctx.font = 'bold ' + Math.round(10*sc) + 'px Inter,Segoe UI,sans-serif';
+  ctx.textAlign = 'center';
+  ctx.globalAlpha = 0.9;
+  ctx.fillText('BASE-4', eX+eW/2, eY-eH+16*sc);
+  ctx.fillText('ELECTRIC', eX+eW/2, eY-eH+28*sc);
+  ctx.globalAlpha = 0.5; ctx.fillStyle = '#aaccdd';
+  ctx.font = Math.round(7*sc) + 'px Consolas,monospace';
+  ctx.fillText('CPU · RAM · Storage', eX+eW/2, eY-eH+42*sc);
+  ctx.fillText('0V·1.1V·2.2V·3.3V', eX+eW/2, eY-eH+54*sc);
+  ctx.globalAlpha = 1;
+  // voltage dots on top face
+  var vtopY = eY - eH - depY * 0.7;
+  var vtopX = eX + depX * 0.5 + eW * 0.15;
+  var dotColors = ['#222', '#113344', '#226688', '#00aaff'];
+  for (var d = 0; d < 4; d++) {
+    ctx.fillStyle = dotColors[d]; ctx.beginPath();
+    ctx.arc(vtopX + d*14*sc, vtopY, 4*sc, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#00d4ff'; ctx.lineWidth = 0.8; ctx.stroke();
+  }
+
+  // BUFFER MODULE (center)
+  var bW=110*sc, bH=115*sc, bX=cx-bW/2, bY=chY-chH;
+  drawBox(ctx, bX, bY, bW, bH, depX, depY, '#001c12', '#00271a', '#000f09', '#00ff88');
+  ctx.fillStyle = '#00ff88'; ctx.font = 'bold ' + Math.round(9*sc) + 'px Inter,Segoe UI,sans-serif';
+  ctx.textAlign = 'center'; ctx.globalAlpha = 0.9;
+  ctx.fillText('ASYNC', bX+bW/2, bY-bH+16*sc);
+  ctx.fillText('BUFFER', bX+bW/2, bY-bH+28*sc);
+  ctx.globalAlpha = 0.5; ctx.fillStyle = '#88ccaa';
+  ctx.font = Math.round(7*sc) + 'px Consolas,monospace';
+  ctx.fillText('LiNbO₃', bX+bW/2, bY-bH+42*sc);
+  // P0/P1/P2
+  var pColors = ['#ff4057','#00d4ff','#888'];
+  var pLabels = ['P0','P1','P2'];
+  for (var pi = 0; pi < 3; pi++) {
+    ctx.fillStyle = pColors[pi]; ctx.globalAlpha = 0.7;
+    ctx.font = 'bold ' + Math.round(7*sc) + 'px Consolas,monospace';
+    ctx.fillText(pLabels[pi], bX+bW/2, bY-bH+(54+pi*13)*sc);
+  }
+  ctx.globalAlpha = 1;
+
+  // PHOTONIC MODULE (right)
+  var pW=150*sc, pH=140*sc, pX=chX+chW-pW-15*sc, pY=chY-chH;
+  drawBox(ctx, pX, pY, pW, pH, depX, depY, '#1e1200', '#281900', '#100a00', '#ffb800');
+  ctx.fillStyle = '#ffb800'; ctx.font = 'bold ' + Math.round(9*sc) + 'px Inter,Segoe UI,sans-serif';
+  ctx.textAlign = 'center'; ctx.globalAlpha = 0.9;
+  ctx.fillText('BASE-256', pX+pW/2, pY-pH+16*sc);
+  ctx.fillText('PHOTONIC', pX+pW/2, pY-pH+28*sc);
+  ctx.globalAlpha = 0.5; ctx.fillStyle = '#ccaa66';
+  ctx.font = Math.round(7*sc) + 'px Consolas,monospace';
+  ctx.fillText('InP + Si₃N₄', pX+pW/2, pY-pH+42*sc);
+  ctx.fillText('Laser · Mod · WG', pX+pW/2, pY-pH+54*sc);
+  ctx.fillText('256 intensity levels', pX+pW/2, pY-pH+66*sc);
+  // WDM lines
+  for (var wl = 0; wl < 4; wl++) {
+    ctx.strokeStyle = 'rgba(255,184,0,' + (0.3-wl*0.05) + ')';
+    ctx.lineWidth = 0.7; ctx.setLineDash([3,5]);
+    var wly = pY-pH+78*sc + wl*8*sc;
+    ctx.beginPath(); ctx.moveTo(pX+10*sc, wly); ctx.lineTo(pX+pW-10*sc, wly); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  ctx.globalAlpha = 1;
+
+  // FANS on chassis front
+  var fanY = chY - chH * 0.5 + 5*sc;
+  for (var f = 0; f < 3; f++) {
+    var fanX = chX + (80 + f*100)*sc;
+    var fr = 20*sc;
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)'; ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.arc(fanX, fanY, fr, 0, Math.PI*2); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)'; ctx.lineWidth = 1;
+    for (var bl = 0; bl < 6; bl++) {
+      var ang = r3FanAngle + bl * Math.PI/3;
+      ctx.beginPath();
+      ctx.moveTo(fanX, fanY);
+      ctx.lineTo(fanX + Math.cos(ang)*fr*0.85, fanY + Math.sin(ang)*fr*0.85);
+      ctx.stroke();
+    }
+    // hub
+    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+    ctx.beginPath(); ctx.arc(fanX, fanY, fr*0.2, 0, Math.PI*2); ctx.fill();
+  }
+
+  // Status LEDs
+  var ledCols = ['#00d4ff','#ffb800','#00ff88','#ff4057'];
+  for (var l = 0; l < 4; l++) {
+    var ledX = chX + chW - 60*sc + l*13*sc;
+    var ledY = chY - chH*0.3;
+    var pulse = 0.5 + 0.5 * Math.sin(r3Time * 0.04 + l * 1.2);
+    ctx.globalAlpha = 0.4 + pulse * 0.5;
+    ctx.fillStyle = ledCols[l];
+    ctx.beginPath(); ctx.arc(ledX, ledY, 4*sc, 0, Math.PI*2); ctx.fill();
+    ctx.globalAlpha = pulse * 0.3;
+    ctx.beginPath(); ctx.arc(ledX, ledY, 9*sc, 0, Math.PI*2); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
+  // Particles between modules
+  for (var i = 0; i < r3Particles.length; i++) {
+    var pt = r3Particles[i];
+    pt.prog += pt.spd;
+    if (pt.prog > 1) { r3Particles[i] = makeR3Particle(); continue; }
+    var pos = r3ParticlePos(pt, cx, cy, sc);
+    // Trail
+    ctx.globalAlpha = 0.25;
+    ctx.fillStyle = pt.col;
+    var tpos = r3ParticlePos({t:pt.t, prog:Math.max(0,pt.prog-0.08)}, cx, cy, sc);
+    ctx.beginPath(); ctx.arc(tpos.x, tpos.y, pt.sz*0.6, 0, Math.PI*2); ctx.fill();
+    // Main dot with glow
+    ctx.globalAlpha = 0.9;
+    ctx.fillStyle = pt.col;
+    ctx.shadowColor = pt.col; ctx.shadowBlur = 8*sc;
+    ctx.beginPath(); ctx.arc(pos.x, pos.y, pt.sz*sc*0.7, 0, Math.PI*2); ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+  ctx.globalAlpha = 1;
+
+  // Labels under modules
+  ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.font = Math.round(8*sc) + 'px Inter,Segoe UI,sans-serif';
+  ctx.fillText('Silicon (Si)', eX+eW/2, chY+12*sc);
+  ctx.fillText('LiNbO₃', bX+bW/2, chY+12*sc);
+  ctx.fillText('InP + Si₃N₄', pX+pW/2, chY+12*sc);
+
+  r3Raf = requestAnimationFrame(animR3);
+}
+
+// ============================================================
+// ARCHITECTURE CANVAS — Data flow animation
+// ============================================================
+var aCtx, aW, aH, aRaf, aTime = 0;
+var aPackets = [];
+
+function initArch() {
+  var c = initC('canvas-arch', 400);
+  if (!c) return;
+  aCtx = c.ctx; aW = c.w; aH = c.h;
+  aPackets = [];
+  for (var i = 0; i < 12; i++) { aPackets.push(makePacket()); }
+  if (aRaf) cancelAnimationFrame(aRaf);
+  animArch();
+}
+
+function makePacket() {
+  var types = ['e2b','b2p','ret'];
+  var t = types[Math.floor(Math.random() * types.length)];
+  var prio = Math.random();
+  var pri = prio < 0.2 ? 'P0' : (prio < 0.65 ? 'P1' : 'P2');
+  var col = pri === 'P0' ? '#ff4057' : (pri === 'P1' ? '#00d4ff' : '#888888');
+  return { t: t, prog: Math.random(), spd: 0.004 + Math.random()*0.004, col: col, pri: pri, sz: pri==='P0'?4:3 };
+}
+
+function getBoxes() {
+  var pad = 24;
+  var bw = Math.floor((aW - pad*4) / 3);
+  var bh = Math.floor(aH * 0.65);
+  var by = Math.floor((aH - bh) / 2);
+  return {
+    e: { x: pad, y: by, w: bw, h: bh },
+    b: { x: pad*2+bw, y: by+10, w: bw, h: bh-20 },
+    p: { x: pad*3+bw*2, y: by, w: bw, h: bh }
+  };
+}
+
+function pktPos(pk) {
+  var boxes = getBoxes();
+  var eCx = boxes.e.x + boxes.e.w/2, eCy = boxes.e.y + boxes.e.h/2;
+  var bCx = boxes.b.x + boxes.b.w/2, bCy = boxes.b.y + boxes.b.h/2;
+  var pCx = boxes.p.x + boxes.p.w/2, pCy = boxes.p.y + boxes.p.h/2;
+  var pr = pk.prog;
+  if (pk.t === 'e2b') return { x: eCx+(bCx-eCx)*pr, y: eCy+(bCy-eCy)*pr - Math.sin(pr*Math.PI)*25 };
+  if (pk.t === 'b2p') return { x: bCx+(pCx-bCx)*pr, y: bCy+(pCy-bCy)*pr - Math.sin(pr*Math.PI)*20 };
+  return { x: pCx+(eCx-pCx)*pr, y: pCy+(eCy-pCy)*pr + Math.sin(pr*Math.PI)*22 };
+}
+
+function animArch() {
+  aTime++;
+  var ctx = aCtx;
+  ctx.clearRect(0, 0, aW, aH);
+  ctx.fillStyle = '#0c1018'; ctx.fillRect(0, 0, aW, aH);
+
+  var boxes = getBoxes();
+
+  // Draw the three system boxes
+  function drawSysBox(box, colStroke, colFill, title, lines, subLines) {
+    // Glow border
+    ctx.shadowColor = colStroke; ctx.shadowBlur = 15;
+    ctx.strokeStyle = colStroke; ctx.lineWidth = 1.5;
+    ctx.fillStyle = colFill;
+    roundRect(ctx, box.x, box.y, box.w, box.h, 10);
+    ctx.fill(); ctx.stroke(); ctx.shadowBlur = 0;
+    // Header bar
+    ctx.fillStyle = colStroke; ctx.globalAlpha = 0.12;
+    roundRect(ctx, box.x, box.y, box.w, 28, [10,10,0,0]);
+    ctx.fill(); ctx.globalAlpha = 1;
+    // Title
+    ctx.fillStyle = colStroke; ctx.font = 'bold 11px Inter,Segoe UI,sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(title, box.x + box.w/2, box.y + 18);
+    // Lines
+    ctx.fillStyle = '#889aaa'; ctx.font = '9px Inter,Segoe UI,sans-serif';
+    for (var i = 0; i < lines.length; i++) {
+      ctx.fillText(lines[i], box.x + box.w/2, box.y + 38 + i*14);
+    }
+    // Sub info
+    if (subLines) {
+      ctx.fillStyle = colStroke; ctx.globalAlpha = 0.4;
+      ctx.font = 'bold 8px Consolas,monospace';
+      for (var i = 0; i < subLines.length; i++) {
+        ctx.fillText(subLines[i], box.x + box.w/2, box.y + box.h - 12 - (subLines.length-1-i)*13);
+      }
+      ctx.globalAlpha = 1;
+    }
+    // Floating internal particles
+    for (var i = 0; i < 3; i++) {
+      var phase = (aTime*0.02 + i*2.1) % (Math.PI*2);
+      var px = box.x + box.w*0.2 + i * box.w*0.3 + Math.cos(phase)*8;
+      var py = box.y + box.h*0.5 + Math.sin(phase + i)*15;
+      ctx.fillStyle = colStroke; ctx.globalAlpha = 0.2 + Math.sin(phase)*0.1;
+      ctx.beginPath(); ctx.arc(px, py, 3, 0, Math.PI*2); ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  drawSysBox(boxes.e, '#00d4ff', 'rgba(0,20,40,0.85)',
+    'BASE-4 ELECTRIC',
+    ['CPU · RAM · Storage','Quaternary Logic','0V/1.1V/2.2V/3.3V','Role: OS + I/O'],
+    ['Silicon (Si)','~5 GHz','2 bits/cell']);
+
+  drawSysBox(boxes.b, '#00ff88', 'rgba(0,25,15,0.85)',
+    'ASYNC BUFFER',
+    ['LiNbO₃ Crystal','Electro-Optic Bridge','Non-blocking','~1–5ns conversion'],
+    ['P0 Critical','P1 Normal','P2 Background']);
+
+  drawSysBox(boxes.p, '#ffb800', 'rgba(30,18,0,0.85)',
+    'BASE-256 PHOTONIC',
+    ['Laser · Mod · WDM','256 intensity levels','Terahertz range','Role: AI + Matrix ops'],
+    ['InP + Si₃N₄','>10 Tbps','8 bits/signal']);
+
+  // Connection lines (channels)
+  ctx.setLineDash([5,5]);
+  ctx.strokeStyle = 'rgba(0,212,255,0.15)'; ctx.lineWidth = 1;
+  var ey = boxes.e.y + boxes.e.h/2 - 10;
+  ctx.beginPath(); ctx.moveTo(boxes.e.x+boxes.e.w, ey); ctx.lineTo(boxes.b.x, ey); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,184,0,0.15)';
+  var py2 = boxes.b.y + boxes.b.h/2 + 10;
+  ctx.beginPath(); ctx.moveTo(boxes.b.x+boxes.b.w, py2); ctx.lineTo(boxes.p.x, py2); ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Channel labels
+  ctx.fillStyle = 'rgba(0,255,136,0.5)'; ctx.font = 'bold 9px Consolas,monospace'; ctx.textAlign = 'center';
+  var midEB = (boxes.e.x+boxes.e.w + boxes.b.x)/2;
+  var midBP = (boxes.b.x+boxes.b.w + boxes.p.x)/2;
+  ctx.fillText('write →', midEB, boxes.e.y + boxes.e.h/2 - 20);
+  ctx.fillText('← interrupt', midEB, boxes.e.y + boxes.e.h/2 + 10);
+  ctx.fillText('optical read →', midBP, boxes.b.y + boxes.b.h/2 - 20);
+  ctx.fillText('← result', midBP, boxes.b.y + boxes.b.h/2 + 10);
+
+  // Packets
+  for (var i = 0; i < aPackets.length; i++) {
+    var pk = aPackets[i];
+    pk.prog += pk.spd;
+    if (pk.prog > 1) { aPackets[i] = makePacket(); continue; }
+    var pos = pktPos(pk);
+    // Trail
+    ctx.globalAlpha = 0.2; ctx.fillStyle = pk.col;
+    var tpos = pktPos({ t: pk.t, prog: Math.max(0, pk.prog-0.1) });
+    ctx.beginPath(); ctx.arc(tpos.x, tpos.y, pk.sz*0.7, 0, Math.PI*2); ctx.fill();
+    // Packet
+    ctx.globalAlpha = 0.95;
+    ctx.shadowColor = pk.col; ctx.shadowBlur = 10;
+    ctx.fillStyle = pk.col;
+    ctx.beginPath(); ctx.arc(pos.x, pos.y, pk.sz, 0, Math.PI*2); ctx.fill();
+    ctx.shadowBlur = 0; ctx.globalAlpha = 1;
+  }
+
+  // Priority legend at bottom
+  ctx.textAlign = 'left'; ctx.font = '10px Inter,Segoe UI,sans-serif';
+  var lx = 12, ly = aH - 14;
+  ctx.fillStyle = '#ff4057'; ctx.fillRect(lx, ly-8, 10, 8); ctx.fillStyle = '#667788'; ctx.fillText('P0 Critical', lx+14, ly);
+  lx += 90;
+  ctx.fillStyle = '#00d4ff'; ctx.fillRect(lx, ly-8, 10, 8); ctx.fillStyle = '#667788'; ctx.fillText('P1 Normal', lx+14, ly);
+  lx += 85;
+  ctx.fillStyle = '#888'; ctx.fillRect(lx, ly-8, 10, 8); ctx.fillStyle = '#667788'; ctx.fillText('P2 Background', lx+14, ly);
+
+  aRaf = requestAnimationFrame(animArch);
+}
+
+// roundRect helper
+function roundRect(ctx, x, y, w, h, r) {
+  if (typeof r === 'number') r = [r,r,r,r];
+  ctx.beginPath();
+  ctx.moveTo(x + r[0], y);
+  ctx.lineTo(x + w - r[1], y); ctx.arcTo(x+w, y, x+w, y+r[1], r[1]);
+  ctx.lineTo(x+w, y+h-r[2]); ctx.arcTo(x+w, y+h, x+w-r[2], y+h, r[2]);
+  ctx.lineTo(x+r[3], y+h); ctx.arcTo(x, y+h, x, y+h-r[3], r[3]);
+  ctx.lineTo(x, y+r[0]); ctx.arcTo(x, y, x+r[0], y, r[0]);
+  ctx.closePath();
+}
+
+// ============================================================
+// BAR CHART CANVAS
+// ============================================================
+var bCtx, bW, bH;
+var bProgress = 0, bStart = null, bDone = false;
+var BAR_DATA = [
+  { en:'Water Usage',        tr:'Su Kullanımı',         today:'~500ml / 100 queries', hybrid:'~50ml / 100 queries',   todayPct:1.0, hybridPct:0.10, label:'90% less' },
+  { en:'Energy per Query',   tr:'Sorgu Başına Enerji',  today:'~10× Google search',   hybrid:'~0.5× Google search',   todayPct:1.0, hybridPct:0.05, label:'95% less' },
+  { en:'Training Time',      tr:'Eğitim Süresi',        today:'3–4 months',           hybrid:'3–7 days',              todayPct:1.0, hybridPct:0.055,label:'15–30× faster' },
+  { en:'Inference Latency',  tr:'Çıkarım Gecikmesi',    today:'1–5 seconds',          hybrid:'<10 milliseconds',      todayPct:1.0, hybridPct:0.004,label:'98% faster' },
+  { en:'Operating Cost',     tr:'İşletme Maliyeti',     today:'$50–100K/day',         hybrid:'$7–15K/day',            todayPct:1.0, hybridPct:0.15, label:'85% less' },
+  { en:'Carbon Footprint',   tr:'Karbon Ayak İzi',      today:'3–4% global',          hybrid:'<0.5% global',          todayPct:1.0, hybridPct:0.125,label:'85% less' }
+];
+
+function initBars() {
+  var c = initC('canvas-bars', 420);
+  if (!c) return;
+  bCtx = c.ctx; bW = c.w; bH = c.h;
+  bProgress = 0; bStart = null; bDone = false;
+  animBars(null);
+}
+
+function animBars(ts) {
+  if (!bStart && ts) bStart = ts;
+  if (ts && bStart) {
+    bProgress = Math.min(1, (ts - bStart) / 900);
+  }
+  var ease = bProgress < 1 ? 1 - Math.pow(1 - bProgress, 3) : 1;
+  drawBars(ease);
+  if (bProgress < 1) requestAnimationFrame(animBars);
+  else bDone = true;
+}
+
+function drawBars(ease) {
+  var ctx = bCtx;
+  ctx.clearRect(0, 0, bW, bH);
+  ctx.fillStyle = '#0c1018'; ctx.fillRect(0, 0, bW, bH);
+
+  var n = BAR_DATA.length;
+  var labelW = Math.min(160, bW * 0.22);
+  var rightPad = Math.min(130, bW * 0.18);
+  var chartX = labelW + 16;
+  var chartW = bW - chartX - rightPad;
+  var rowH = (bH - 40) / n;
+  var barH = Math.min(rowH * 0.32, 14);
+  var gap = barH * 0.6;
+
+  ctx.font = '10px Inter,Segoe UI,sans-serif';
+
+  for (var i = 0; i < n; i++) {
+    var d = BAR_DATA[i];
+    var y = 20 + i * rowH + rowH * 0.5;
+    var label = LANG === 'tr' ? d.tr : d.en;
+
+    // Row label
+    ctx.fillStyle = '#aabbcc'; ctx.textAlign = 'right';
+    ctx.font = '11px Inter,Segoe UI,sans-serif';
+    ctx.fillText(label, chartX - 10, y + barH * 0.5);
+
+    // Today bar (full, gray)
+    var tW = chartW * ease;
+    ctx.fillStyle = '#333d4d';
+    roundRect(ctx, chartX, y - gap/2 - barH, tW, barH, 3); ctx.fill();
+    // Today label
+    ctx.fillStyle = '#445566'; ctx.textAlign = 'left'; ctx.font = '9px Consolas,monospace';
+    ctx.fillText(d.today, chartX + 4, y - gap/2 - barH/2 + 3);
+
+    // Hybrid bar
+    var hW = Math.max(8, chartW * d.hybridPct * ease);
+    var grad = ctx.createLinearGradient(chartX, 0, chartX + chartW, 0);
+    grad.addColorStop(0, '#00d4ff'); grad.addColorStop(1, '#ffb800');
+    ctx.fillStyle = grad;
+    ctx.shadowColor = '#00d4ff'; ctx.shadowBlur = 6;
+    roundRect(ctx, chartX, y + gap/2, hW, barH, 3); ctx.fill();
+    ctx.shadowBlur = 0;
+    // Hybrid label
+    ctx.fillStyle = '#00cc99'; ctx.font = '9px Consolas,monospace';
+    ctx.fillText(d.hybrid, chartX + 4, y + gap/2 + barH/2 + 3);
+
+    // Improvement badge
+    var bx = chartX + chartW + 8;
+    ctx.fillStyle = 'rgba(0,255,136,0.1)';
+    roundRect(ctx, bx, y - barH - gap/2, rightPad - 10, barH*2 + gap, 5); ctx.fill();
+    ctx.strokeStyle = 'rgba(0,255,136,0.25)'; ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.fillStyle = '#00ff88'; ctx.textAlign = 'center';
+    ctx.font = 'bold 10px Inter,Segoe UI,sans-serif';
+    ctx.fillText(d.label, bx + (rightPad-10)/2, y + 4);
+  }
+
+  // X-axis
+  ctx.strokeStyle = '#222d3a'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(chartX, bH-16); ctx.lineTo(chartX+chartW, bH-16); ctx.stroke();
+  // Tick labels
+  ctx.fillStyle = '#445566'; ctx.textAlign = 'center'; ctx.font = '9px Consolas,monospace';
+  for (var t = 0; t <= 4; t++) {
+    var tx = chartX + chartW * t/4;
+    ctx.fillText((t*25)+'%', tx, bH-4);
+    ctx.strokeStyle = '#1a2230'; ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(tx, 16); ctx.lineTo(tx, bH-16); ctx.stroke();
+  }
+}
+
+// ============================================================
+// DATA FLOW CANVAS — Pipeline
+// ============================================================
+var fCtx, fW, fH, fRaf, fTime = 0;
+var fPackets = [];
+
+function initFlow() {
+  var c = initC('canvas-flow', 300);
+  if (!c) return;
+  fCtx = c.ctx; fW = c.w; fH = c.h;
+  fPackets = [];
+  for (var i = 0; i < 14; i++) {
+    fPackets.push(makeFlowPacket());
+  }
+  if (fRaf) cancelAnimationFrame(fRaf);
+  animFlow();
+}
+
+function makeFlowPacket() {
+  var prio = Math.random();
+  var pri = prio < 0.2 ? 'P0' : (prio < 0.65 ? 'P1' : 'P2');
+  return {
+    prog: Math.random(),
+    spd: 0.004 + Math.random() * 0.003,
+    col: pri==='P0' ? '#ff4057' : (pri==='P1' ? '#00d4ff' : '#aaaaaa'),
+    sz: pri==='P0' ? 5 : 3.5,
+    lane: Math.floor(Math.random() * 3) - 1 // -1, 0, 1
+  };
+}
+
+function animFlow() {
+  fTime++;
+  var ctx = fCtx;
+  ctx.clearRect(0, 0, fW, fH);
+  ctx.fillStyle = '#0c1018'; ctx.fillRect(0, 0, fW, fH);
+
+  var stages = [
+    { label: LANG==='tr' ? 'TABAN-4 GİRİŞ' : 'BASE-4 INPUT',    col: '#00d4ff', x: fW*0.12, w: fW*0.22 },
+    { label: LANG==='tr' ? 'ASENKRON KUYRUK' : 'ASYNC QUEUE',     col: '#00ff88', x: fW*0.39, w: fW*0.22 },
+    { label: LANG==='tr' ? 'FOTONİK ÇIKIŞ' : 'PHOTONIC OUTPUT', col: '#ffb800', x: fW*0.66, w: fW*0.22 }
+  ];
+  var stageH = fH * 0.55, stageY = (fH - stageH) / 2;
+  var pipeY = fH / 2;
+
+  // Draw pipes between stages
+  for (var i = 0; i < stages.length - 1; i++) {
+    var s1 = stages[i], s2 = stages[i+1];
+    var px1 = s1.x + s1.w, px2 = s2.x;
+    ctx.strokeStyle = 'rgba(0,255,136,0.15)'; ctx.lineWidth = 16;
+    ctx.beginPath(); ctx.moveTo(px1, pipeY); ctx.lineTo(px2, pipeY); ctx.stroke();
+    ctx.strokeStyle = 'rgba(0,255,136,0.25)'; ctx.lineWidth = 1;
+    ctx.setLineDash([0]);
+    ctx.beginPath(); ctx.moveTo(px1, pipeY-8); ctx.lineTo(px2, pipeY-8); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(px1, pipeY+8); ctx.lineTo(px2, pipeY+8); ctx.stroke();
+  }
+
+  // Return pipe (top)
+  var retY = stageY - 18;
+  ctx.strokeStyle = 'rgba(255,184,0,0.1)'; ctx.lineWidth = 8;
+  ctx.beginPath(); ctx.moveTo(stages[2].x+stages[2].w, retY); ctx.lineTo(stages[0].x, retY); ctx.stroke();
+  ctx.strokeStyle = 'rgba(255,184,0,0.2)'; ctx.lineWidth = 0.8;
+  ctx.beginPath(); ctx.moveTo(stages[2].x+stages[2].w, retY-4); ctx.lineTo(stages[0].x, retY-4); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(stages[2].x+stages[2].w, retY+4); ctx.lineTo(stages[0].x, retY+4); ctx.stroke();
+  // Return label
+  ctx.fillStyle = 'rgba(255,184,0,0.4)'; ctx.font = '9px Inter,Segoe UI,sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('← callback / interrupt result', fW/2, retY-8);
+
+  // Draw stage boxes
+  for (var i = 0; i < stages.length; i++) {
+    var s = stages[i];
+    ctx.shadowColor = s.col; ctx.shadowBlur = 12;
+    ctx.strokeStyle = s.col; ctx.lineWidth = 1.5;
+    ctx.fillStyle = i===0 ? 'rgba(0,20,35,0.9)' : (i===1 ? 'rgba(0,20,12,0.9)' : 'rgba(25,14,0,0.9)');
+    roundRect(ctx, s.x, stageY, s.w, stageH, 8); ctx.fill(); ctx.stroke(); ctx.shadowBlur=0;
+    ctx.fillStyle = s.col; ctx.font = 'bold 10px Inter,Segoe UI,sans-serif'; ctx.textAlign='center';
+    ctx.fillText(s.label, s.x+s.w/2, stageY+18);
+    // Pulse indicator
+    var pulse = 0.4 + 0.4*Math.sin(fTime*0.05 + i*2.1);
+    ctx.globalAlpha = pulse;
+    ctx.fillStyle = s.col;
+    ctx.beginPath(); ctx.arc(s.x+s.w/2, stageY+stageH/2, 8, 0, Math.PI*2); ctx.fill();
+    ctx.globalAlpha = pulse*0.3;
+    ctx.beginPath(); ctx.arc(s.x+s.w/2, stageY+stageH/2, 16, 0, Math.PI*2); ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // Stage sublabels
+    ctx.fillStyle = 'rgba(255,255,255,0.25)'; ctx.font = '8px Consolas,monospace';
+    var lines = i===0?['Write & continue','Non-blocking']:i===1?['P0 first','1-5ns convert']:['Matrix ops','Return result'];
+    for (var li=0;li<lines.length;li++) ctx.fillText(lines[li], s.x+s.w/2, stageY+stageH-14+li*11);
+  }
+
+  // Update and draw packets
+  for (var i = 0; i < fPackets.length; i++) {
+    var pk = fPackets[i];
+    pk.prog += pk.spd;
+    if (pk.prog > 1) { fPackets[i] = makeFlowPacket(); continue; }
+    var s0 = stages[0], sN = stages[stages.length-1];
+    var totalW = sN.x + sN.w - s0.x;
+    var px = s0.x + totalW * pk.prog;
+    var py = pipeY + pk.lane * 4;
+    // Trail
+    ctx.globalAlpha = 0.25; ctx.fillStyle = pk.col;
+    ctx.beginPath(); ctx.arc(px - pk.spd*totalW*4, py, pk.sz*0.6, 0, Math.PI*2); ctx.fill();
+    // Main
+    ctx.globalAlpha = 1; ctx.shadowColor = pk.col; ctx.shadowBlur = 8;
+    ctx.fillStyle = pk.col;
+    ctx.beginPath(); ctx.arc(px, py, pk.sz, 0, Math.PI*2); ctx.fill();
+    ctx.shadowBlur = 0;
+  }
+  ctx.globalAlpha = 1;
+
+  fRaf = requestAnimationFrame(animFlow);
+}
+
+// ============================================================
+// DESIGN CANVAS — Physical product render
+// ============================================================
+var dCtx, dW, dH, dRaf, dTime = 0;
+var dParts = [];
+
+function initDesign() {
+  var c = initC('canvas-design', 540);
+  if (!c) return;
+  dCtx = c.ctx; dW = c.w; dH = c.h;
+  dParts = [];
+  for (var i = 0; i < 55; i++) {
+    var zn = Math.floor(Math.random() * 3);
+    dParts.push({
+      zone: zn,
+      xr: Math.random(), yr: Math.random(),
+      vxr: (Math.random()-0.5)*0.0015,
+      vyr: (Math.random()-0.5)*0.002,
+      r: 1 + Math.random()*1.8,
+      a: 0.25 + Math.random()*0.45,
+      col: ['#00d4ff','#00ff88','#ffb800'][zn]
+    });
+  }
+  if (dRaf) cancelAnimationFrame(dRaf);
+  animDesign();
+}
+
+function animDesign() {
+  dTime++;
+  var ctx = dCtx;
+  ctx.clearRect(0, 0, dW, dH);
+  var bg = ctx.createLinearGradient(0,0,dW,dH);
+  bg.addColorStop(0,'#07090f'); bg.addColorStop(1,'#090d15');
+  ctx.fillStyle = bg; ctx.fillRect(0,0,dW,dH);
+  // subtle grid
+  ctx.strokeStyle='rgba(255,255,255,0.018)'; ctx.lineWidth=1;
+  for(var gx=0;gx<dW;gx+=60){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,dH);ctx.stroke();}
+  for(var gy=0;gy<dH;gy+=60){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(dW,gy);ctx.stroke();}
+
+  var sc = Math.min(dW/800, dH/540);
+  var tCX = dW * 0.26;   // tower front face center X
+  var tCY = dH * 0.51;   // tower center Y
+  var fW  = 148 * sc;    // front face width
+  var fH  = 370 * sc;    // front face height
+  var dpX =  58 * sc;    // perspective depth X
+  var dpY =  28 * sc;    // perspective depth Y
+  var tx  = tCX - fW/2;  // front face left X
+  var ty  = tCY - fH/2;  // front face top Y
+
+  // floor shadow
+  ctx.globalAlpha=0.08; ctx.fillStyle='#00d4ff';
+  ctx.beginPath(); ctx.ellipse(tx+fW/2+dpX*0.5, ty+fH+4, fW*0.55, 10*sc, 0, 0, Math.PI*2); ctx.fill();
+  ctx.globalAlpha=1;
+
+  // RIGHT SIDE FACE
+  var rfg = ctx.createLinearGradient(tx+fW,ty,tx+fW+dpX,ty+fH);
+  rfg.addColorStop(0,'#0c1120'); rfg.addColorStop(1,'#080c16');
+  ctx.fillStyle=rfg; ctx.strokeStyle='#222d3d'; ctx.lineWidth=1;
+  ctx.beginPath();
+  ctx.moveTo(tx+fW, ty);         ctx.lineTo(tx+fW+dpX, ty-dpY);
+  ctx.lineTo(tx+fW+dpX, ty+fH-dpY); ctx.lineTo(tx+fW, ty+fH);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+
+  // TOP FACE
+  var tfg = ctx.createLinearGradient(tx,ty,tx+fW+dpX,ty-dpY);
+  tfg.addColorStop(0,'#141a28'); tfg.addColorStop(1,'#0e1420');
+  ctx.fillStyle=tfg;
+  ctx.beginPath();
+  ctx.moveTo(tx,ty); ctx.lineTo(tx+dpX, ty-dpY);
+  ctx.lineTo(tx+fW+dpX, ty-dpY); ctx.lineTo(tx+fW, ty);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+
+  // FRONT FACE base
+  var ffg = ctx.createLinearGradient(tx,ty,tx+fW,ty+fH);
+  ffg.addColorStop(0,'#161e2e'); ffg.addColorStop(0.5,'#1c2540'); ffg.addColorStop(1,'#121820');
+  ctx.fillStyle=ffg; ctx.strokeStyle='#2a3550'; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.rect(tx,ty,fW,fH); ctx.fill(); ctx.stroke();
+
+  // TOP HEADER STRIP
+  ctx.fillStyle='rgba(255,255,255,0.04)';
+  ctx.fillRect(tx, ty, fW, 24*sc);
+  ctx.fillStyle='rgba(255,255,255,0.4)';
+  ctx.font='bold '+Math.round(7.5*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText('HPC-X1  HYBRID PHOTONIC', tx+fW/2, ty+10*sc);
+  ctx.fillStyle='rgba(255,255,255,0.2)'; ctx.font=Math.round(6*sc)+'px Consolas,monospace';
+  ctx.fillText('WORKSTATION  ·  CONCEPTUAL', tx+fW/2, ty+20*sc);
+
+  // GLASS WINDOW
+  var gwX=tx+fW*0.07, gwY=ty+28*sc, gwW=fW*0.86, gwH=fH*0.56;
+  ctx.fillStyle='rgba(0,5,15,0.7)'; ctx.strokeStyle='#1e2c44'; ctx.lineWidth=1;
+  roundRect(ctx,gwX,gwY,gwW,gwH,4); ctx.fill(); ctx.stroke();
+
+  // ZONE 1: ELECTRIC (top 43%)
+  var z1H = gwH*0.43;
+  ctx.save();
+  ctx.beginPath(); roundRect(ctx,gwX,gwY,gwW,z1H,[4,4,0,0]); ctx.clip();
+  ctx.fillStyle='rgba(0,18,35,0.85)'; ctx.fillRect(gwX,gwY,gwW,z1H);
+  var ez=ctx.createRadialGradient(gwX+gwW*0.5,gwY+z1H*0.4,5,gwX+gwW*0.5,gwY+z1H*0.4,gwW*0.5);
+  ez.addColorStop(0,'rgba(0,212,255,0.15)'); ez.addColorStop(1,'rgba(0,212,255,0.01)');
+  ctx.fillStyle=ez; ctx.fillRect(gwX,gwY,gwW,z1H);
+  // PCB chip grid
+  for(var ci=0;ci<4;ci++){ for(var cj=0;cj<2;cj++){
+    var cx3=gwX+gwW*0.1+ci*gwW*0.22, cy3=gwY+z1H*0.18+cj*z1H*0.42;
+    ctx.fillStyle='rgba(0,212,255,0.09)'; ctx.strokeStyle='rgba(0,212,255,0.18)'; ctx.lineWidth=0.5;
+    ctx.fillRect(cx3,cy3,gwW*0.17,z1H*0.32); ctx.strokeRect(cx3,cy3,gwW*0.17,z1H*0.32);
+    // chip center
+    ctx.fillStyle='rgba(0,212,255,0.2)';
+    ctx.fillRect(cx3+gwW*0.04,cy3+z1H*0.07,gwW*0.09,z1H*0.18);
+  }}
+  // RAM sticks (left)
+  for(var ri=0;ri<3;ri++){
+    ctx.fillStyle='rgba(0,212,255,0.14)'; ctx.strokeStyle='rgba(0,212,255,0.28)'; ctx.lineWidth=0.5;
+    ctx.fillRect(gwX+gwW*0.04+ri*gwW*0.055, gwY+z1H*0.08, gwW*0.04, z1H*0.78);
+    ctx.strokeRect(gwX+gwW*0.04+ri*gwW*0.055, gwY+z1H*0.08, gwW*0.04, z1H*0.78);
+  }
+  // Glow edge
+  ctx.globalAlpha=0.25; ctx.shadowColor='#00d4ff'; ctx.shadowBlur=18;
+  ctx.strokeStyle='#00d4ff'; ctx.lineWidth=1;
+  ctx.strokeRect(gwX,gwY,gwW,z1H); ctx.globalAlpha=1; ctx.shadowBlur=0;
+  ctx.restore();
+
+  // ZONE 2: BUFFER (thin strip ~6%)
+  var z2H=gwH*0.065, z2Y=gwY+z1H;
+  ctx.fillStyle='rgba(0,20,12,0.92)'; ctx.fillRect(gwX,z2Y,gwW,z2H);
+  var bpulse=0.35+0.65*Math.abs(Math.sin(dTime*0.025));
+  var bz=ctx.createLinearGradient(gwX,z2Y,gwX+gwW,z2Y+z2H);
+  bz.addColorStop(0,'rgba(0,255,136,0.04)'); bz.addColorStop(0.3,'rgba(0,255,136,'+bpulse*0.45+')');
+  bz.addColorStop(0.7,'rgba(0,255,136,'+bpulse*0.45+')'); bz.addColorStop(1,'rgba(0,255,136,0.04)');
+  ctx.fillStyle=bz; ctx.fillRect(gwX,z2Y,gwW,z2H);
+  ctx.globalAlpha=bpulse*0.6; ctx.shadowColor='#00ff88'; ctx.shadowBlur=12;
+  ctx.strokeStyle='#00ff88'; ctx.lineWidth=1; ctx.strokeRect(gwX,z2Y,gwW,z2H);
+  ctx.globalAlpha=1; ctx.shadowBlur=0;
+  // Buffer label
+  ctx.fillStyle='rgba(0,255,136,0.6)'; ctx.font='bold '+Math.round(6.5*sc)+'px Consolas,monospace';
+  ctx.textAlign='center'; ctx.fillText('LiNbO₃  ASYNC BUFFER', gwX+gwW/2, z2Y+z2H/2+2.5);
+
+  // ZONE 3: PHOTONIC (bottom ~52%)
+  var z3Y=z2Y+z2H, z3H=gwH-z1H-z2H;
+  ctx.save();
+  ctx.beginPath(); roundRect(ctx,gwX,z3Y,gwW,z3H,[0,0,4,4]); ctx.clip();
+  ctx.fillStyle='rgba(20,10,0,0.85)'; ctx.fillRect(gwX,z3Y,gwW,z3H);
+  var pgz=ctx.createRadialGradient(gwX+gwW*0.5,z3Y+z3H*0.5,5,gwX+gwW*0.5,z3Y+z3H*0.5,gwW*0.5);
+  pgz.addColorStop(0,'rgba(255,184,0,0.2)'); pgz.addColorStop(1,'rgba(255,184,0,0.02)');
+  ctx.fillStyle=pgz; ctx.fillRect(gwX,z3Y,gwW,z3H);
+  // Waveguide lines (animated)
+  for(var wl=0;wl<9;wl++){
+    var wa=0.12+0.12*Math.sin(dTime*0.035+wl*0.65);
+    ctx.strokeStyle='rgba(255,184,0,'+wa+')';
+    ctx.lineWidth=0.8; ctx.setLineDash([5,7]);
+    ctx.beginPath(); ctx.moveTo(gwX+4,z3Y+z3H*0.08+wl*(z3H*0.9)/9); ctx.lineTo(gwX+gwW-4,z3Y+z3H*0.08+wl*(z3H*0.9)/9); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  // Photon dots traveling along waveguides
+  for(var pd=0;pd<6;pd++){
+    var ph=dTime*0.04+pd*1.05;
+    var pdx=gwX+((ph%(1))*(gwW-8))+4;
+    if(pdx<gwX+4) pdx=gwX+4; if(pdx>gwX+gwW-4) pdx=gwX+4+(pdx-(gwX+gwW-4));
+    var pdy=z3Y+z3H*0.08+pd*(z3H*0.9)/6;
+    ctx.globalAlpha=0.5+0.5*Math.sin(ph*2); ctx.shadowColor='#ffb800'; ctx.shadowBlur=10;
+    ctx.fillStyle='#ffb800'; ctx.beginPath(); ctx.arc((gwX+((dTime*2+pd*120)%(gwW-8))+4), pdy, 2.5, 0, Math.PI*2); ctx.fill();
+    ctx.shadowBlur=0; ctx.globalAlpha=1;
+  }
+  ctx.globalAlpha=0.3; ctx.shadowColor='#ffb800'; ctx.shadowBlur=20;
+  ctx.strokeStyle='#ffb800'; ctx.lineWidth=1;
+  ctx.strokeRect(gwX,z3Y,gwW,z3H); ctx.globalAlpha=1; ctx.shadowBlur=0;
+  ctx.restore();
+
+  // Interior floating particles
+  for(var i=0;i<dParts.length;i++){
+    var pp=dParts[i]; pp.xr+=pp.vxr; pp.yr+=pp.vyr;
+    if(pp.xr<0)pp.xr=1; if(pp.xr>1)pp.xr=0;
+    if(pp.yr<0)pp.yr=1; if(pp.yr>1)pp.yr=0;
+    var pzY2,pzH2;
+    if(pp.zone===0){pzY2=gwY;pzH2=z1H;}
+    else if(pp.zone===1){pzY2=z2Y;pzH2=z2H;}
+    else{pzY2=z3Y;pzH2=z3H;}
+    var ppx=gwX+pp.xr*gwW, ppy=pzY2+pp.yr*pzH2;
+    ctx.globalAlpha=pp.a; ctx.fillStyle=pp.col;
+    ctx.shadowColor=pp.col; ctx.shadowBlur=5;
+    ctx.beginPath(); ctx.arc(ppx,ppy,pp.r,0,Math.PI*2); ctx.fill();
+    ctx.shadowBlur=0;
+  }
+  ctx.globalAlpha=1;
+
+  // FRONT PANEL LOWER (below glass window)
+  var fpY2=gwY+gwH+6*sc, fpH2=fH-(fpY2-ty)-8*sc;
+  // Optical fiber ports (3)
+  var opRowY=fpY2+fpH2*0.2;
+  var opCols=['#00d4ff','#00ff88','#ffb800'];
+  for(var op=0;op<3;op++){
+    var opX2=tx+fW*0.18+op*fW*0.24;
+    ctx.fillStyle='#060a10'; ctx.strokeStyle=opCols[op]; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(opX2,opRowY,5.5*sc,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    var opGl=0.5+0.5*Math.sin(dTime*0.04+op*2.1);
+    ctx.globalAlpha=opGl; ctx.shadowColor=opCols[op]; ctx.shadowBlur=10;
+    ctx.fillStyle=opCols[op]; ctx.beginPath(); ctx.arc(opX2,opRowY,2.5*sc,0,Math.PI*2); ctx.fill();
+    ctx.shadowBlur=0; ctx.globalAlpha=1;
+  }
+  // Port labels
+  ctx.fillStyle='rgba(255,255,255,0.2)'; ctx.font=Math.round(5.5*sc)+'px Consolas,monospace'; ctx.textAlign='center';
+  ctx.fillText('ELEC',tx+fW*0.18,opRowY+9*sc);
+  ctx.fillText('BUF', tx+fW*0.42,opRowY+9*sc);
+  ctx.fillText('OPT', tx+fW*0.66,opRowY+9*sc);
+  // Power button
+  var pwX2=tx+fW/2, pwY2=fpY2+fpH2*0.55;
+  var pwP=0.5+0.5*Math.abs(Math.sin(dTime*0.018));
+  ctx.globalAlpha=pwP; ctx.shadowColor='#00ff88'; ctx.shadowBlur=14;
+  ctx.fillStyle='#00ff88'; ctx.beginPath(); ctx.arc(pwX2,pwY2,7.5*sc,0,Math.PI*2); ctx.fill();
+  ctx.globalAlpha=pwP*0.3; ctx.beginPath(); ctx.arc(pwX2,pwY2,16*sc,0,Math.PI*2); ctx.fill();
+  ctx.shadowBlur=0; ctx.globalAlpha=1;
+  ctx.strokeStyle='#1a3a28'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.arc(pwX2,pwY2,11*sc,0,Math.PI*2); ctx.stroke();
+  // Status LEDs row
+  var ledRow=['#00d4ff','#ffb800','#00ff88','#ff4057'];
+  for(var li2=0;li2<4;li2++){
+    var lx3=tx+fW*0.12+li2*fW*0.19, ly3=fpY2+fpH2*0.8;
+    var lp2=0.45+0.55*Math.sin(dTime*0.03+li2*1.8);
+    ctx.globalAlpha=lp2; ctx.fillStyle=ledRow[li2];
+    ctx.shadowColor=ledRow[li2]; ctx.shadowBlur=7;
+    ctx.beginPath(); ctx.arc(lx3,ly3,3.5*sc,0,Math.PI*2); ctx.fill();
+    ctx.shadowBlur=0; ctx.globalAlpha=1;
+  }
+  // Ventilation slots (bottom strip)
+  ctx.strokeStyle='rgba(255,255,255,0.08)'; ctx.lineWidth=0.6;
+  for(var vs=0;vs<14;vs++){
+    ctx.beginPath();
+    ctx.moveTo(tx+fW*0.06+vs*fW*0.065, ty+fH-16*sc);
+    ctx.lineTo(tx+fW*0.06+vs*fW*0.065, ty+fH-5*sc);
+    ctx.stroke();
+  }
+  // LEFT EDGE LED STRIP (tri-color)
+  var lstPulse=0.4+0.6*Math.abs(Math.sin(dTime*0.022));
+  var lsg=ctx.createLinearGradient(0,gwY,0,gwY+gwH);
+  lsg.addColorStop(0,'rgba(0,212,255,'+lstPulse*0.7+')');
+  lsg.addColorStop(0.44,'rgba(0,212,255,'+lstPulse*0.7+')');
+  lsg.addColorStop(0.47,'rgba(0,255,136,'+lstPulse+')');
+  lsg.addColorStop(0.53,'rgba(0,255,136,'+lstPulse+')');
+  lsg.addColorStop(0.56,'rgba(255,184,0,'+lstPulse*0.7+')');
+  lsg.addColorStop(1,'rgba(255,184,0,'+lstPulse*0.7+')');
+  ctx.fillStyle=lsg; ctx.shadowColor='#00ff88'; ctx.shadowBlur=8;
+  ctx.fillRect(tx-3.5*sc, gwY, 3*sc, gwH);
+  ctx.shadowBlur=0;
+
+  // CALLOUT LINES AND LABELS (right side)
+  var callX=tx+fW+dpX+14;
+  ctx.font=Math.round(10*sc)+'px Inter,Segoe UI,sans-serif'; ctx.lineWidth=0.8;
+  ctx.textAlign='left';
+
+  // Zone 1 callout
+  var z1cy=gwY+z1H*0.48;
+  ctx.strokeStyle='rgba(0,212,255,0.35)'; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(gwX+gwW,z1cy); ctx.lineTo(callX,z1cy); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='#00d4ff'; ctx.font='bold '+Math.round(10*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.fillText(LANG==='tr'?'TABAN-4 ELEKTRİK SİSTEMİ':'BASE-4 ELECTRIC SYSTEM', callX+6, z1cy-7);
+  ctx.fillStyle='#556677'; ctx.font=Math.round(8.5*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.fillText(LANG==='tr'?'CPU · RAM · Depolama · Silicon (Si)':'CPU · RAM · Storage · Silicon (Si)', callX+6, z1cy+5);
+  ctx.fillText('~5 GHz · 2 bits/cell · OS + I/O', callX+6, z1cy+16);
+
+  // Zone 2 callout
+  var z2cy2=z2Y+z2H*0.5;
+  ctx.strokeStyle='rgba(0,255,136,0.4)'; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(gwX+gwW,z2cy2); ctx.lineTo(callX,z2cy2); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='#00ff88'; ctx.font='bold '+Math.round(10*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.fillText(LANG==='tr'?'ASENKRON TAMPON':'ASYNC BUFFER', callX+6, z2cy2-4);
+  ctx.fillStyle='#556677'; ctx.font=Math.round(8.5*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.fillText('LiNbO₃ Crystal · P0/P1/P2 · ~1–5ns', callX+6, z2cy2+8);
+
+  // Zone 3 callout
+  var z3cy=z3Y+z3H*0.48;
+  ctx.strokeStyle='rgba(255,184,0,0.4)'; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(gwX+gwW,z3cy); ctx.lineTo(callX,z3cy); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='#ffb800'; ctx.font='bold '+Math.round(10*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.fillText(LANG==='tr'?'TABAN-256 FOTONİK SİSTEM':'BASE-256 PHOTONIC SYSTEM', callX+6, z3cy-7);
+  ctx.fillStyle='#556677'; ctx.font=Math.round(8.5*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.fillText('InP + Si₃N₄ Waveguides · WDM 80+', callX+6, z3cy+5);
+  ctx.fillText('~THz · 256 levels · 8 bits/signal', callX+6, z3cy+16);
+
+  // Bottom: model + optical port labels
+  ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.font=Math.round(8*sc)+'px Consolas,monospace'; ctx.textAlign='left';
+  ctx.fillText(LANG==='tr'?'● Optik Fiber I/O Portları (3×)':'● Optical Fiber I/O Ports (3×)', callX+6, fpY2+fpH2*0.2+4);
+  ctx.fillText(LANG==='tr'?'● Güç düğmesi (yeşil LED)':'● Power button (green LED)', callX+6, fpY2+fpH2*0.55+4);
+  ctx.fillText(LANG==='tr'?'● Sistem durum LED\'leri (4×)':'● System status LEDs (4×)', callX+6, fpY2+fpH2*0.8+4);
+
+  // LEFT CALLOUTS
+  var lCallX=tx-12;
+  ctx.textAlign='right';
+  // LED strip callout
+  ctx.strokeStyle='rgba(0,255,136,0.25)'; ctx.setLineDash([2,4]);
+  ctx.beginPath(); ctx.moveTo(tx-3*sc, gwY+gwH*0.5); ctx.lineTo(lCallX,gwY+gwH*0.5); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle='#445566'; ctx.font=Math.round(8*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.fillText(LANG==='tr'?'Üç Renkli LED Şerit':'Tri-Color LED Strip', lCallX-4, gwY+gwH*0.5+3);
+
+  // DIMENSIONS
+  // Height (far left)
+  var dimX=tx-35*sc;
+  ctx.strokeStyle='rgba(255,255,255,0.12)'; ctx.lineWidth=0.6; ctx.setLineDash([]);
+  ctx.beginPath(); ctx.moveTo(dimX,ty); ctx.lineTo(dimX,ty+fH); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(dimX-3,ty+4); ctx.lineTo(dimX,ty); ctx.lineTo(dimX+3,ty+4); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(dimX-3,ty+fH-4); ctx.lineTo(dimX,ty+fH); ctx.lineTo(dimX+3,ty+fH-4); ctx.stroke();
+  ctx.save(); ctx.translate(dimX-9*sc, ty+fH/2); ctx.rotate(-Math.PI/2);
+  ctx.fillStyle='#445566'; ctx.font=Math.round(8*sc)+'px Consolas,monospace'; ctx.textAlign='center';
+  ctx.fillText('~45 cm', 0, 0); ctx.restore();
+  // Width (bottom)
+  var dimY2=ty+fH+18*sc;
+  ctx.beginPath(); ctx.moveTo(tx,dimY2); ctx.lineTo(tx+fW,dimY2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(tx+4,dimY2-3); ctx.lineTo(tx,dimY2); ctx.lineTo(tx+4,dimY2+3); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(tx+fW-4,dimY2-3); ctx.lineTo(tx+fW,dimY2); ctx.lineTo(tx+fW-4,dimY2+3); ctx.stroke();
+  ctx.fillStyle='#445566'; ctx.font=Math.round(8*sc)+'px Consolas,monospace'; ctx.textAlign='center';
+  ctx.fillText('~25 cm', tx+fW/2, dimY2+9*sc);
+  // Depth label
+  ctx.fillStyle='#334455'; ctx.textAlign='left';
+  ctx.fillText('~35 cm depth', tx+fW+dpX*0.55, ty-dpY*0.6);
+
+  // INTERIOR CROSS-SECTION INSET (bottom right)
+  drawDesignInset(ctx, dW*0.72, dH*0.55, Math.min(dW*0.27, 220), Math.min(dH*0.4, 200), sc);
+
+  dRaf = requestAnimationFrame(animDesign);
+}
+
+function drawDesignInset(ctx, ix, iy, iw, ih, sc) {
+  // Box
+  ctx.fillStyle='rgba(5,8,14,0.88)'; ctx.strokeStyle='#1a2438'; ctx.lineWidth=1;
+  roundRect(ctx,ix,iy,iw,ih,8); ctx.fill(); ctx.stroke();
+  ctx.fillStyle='#445566'; ctx.font='bold '+Math.round(8*sc)+'px Inter,Segoe UI,sans-serif'; ctx.textAlign='center';
+  ctx.fillText(LANG==='tr'?'İÇ YAPI — KESİT':'INTERIOR — CROSS SECTION', ix+iw/2, iy+13);
+  var pad=10, gz=3, z1h2=Math.round(ih*0.36), z2h2=Math.round(ih*0.065), z3h2=ih-(z1h2+z2h2+gz*2+24);
+  var z1y2=iy+22, z2y2=z1y2+z1h2+gz, z3y2=z2y2+z2h2+gz;
+  // Electric
+  ctx.fillStyle='rgba(0,18,35,0.85)'; ctx.strokeStyle='#00d4ff'; ctx.lineWidth=1;
+  roundRect(ctx,ix+pad,z1y2,iw-pad*2,z1h2,4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle='#00d4ff'; ctx.font='bold '+Math.round(7.5*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.fillText(LANG==='tr'?'ELEKTRİK MODÜLÜ':'ELECTRIC MODULE', ix+iw/2, z1y2+12);
+  ctx.fillStyle='#334455'; ctx.font=Math.round(6.5*sc)+'px Consolas,monospace';
+  ctx.fillText('Si · CPU · RAM · Storage', ix+iw/2, z1y2+22);
+  for(var ci2=0;ci2<4;ci2++){
+    ctx.fillStyle='rgba(0,212,255,0.12)'; ctx.strokeStyle='rgba(0,212,255,0.22)'; ctx.lineWidth=0.5;
+    ctx.fillRect(ix+pad+5+ci2*(iw-pad*2-10)/4, z1y2+28, (iw-pad*2-14)/4, z1h2-34);
+    ctx.strokeRect(ix+pad+5+ci2*(iw-pad*2-10)/4, z1y2+28, (iw-pad*2-14)/4, z1h2-34);
+  }
+  // Buffer
+  ctx.fillStyle='rgba(0,22,14,0.9)'; ctx.strokeStyle='#00ff88'; ctx.lineWidth=1;
+  roundRect(ctx,ix+pad,z2y2,iw-pad*2,z2h2,3); ctx.fill(); ctx.stroke();
+  ctx.fillStyle='rgba(0,255,136,0.55)'; ctx.font='bold '+Math.round(6*sc)+'px Consolas,monospace';
+  ctx.fillText('ASYNC BUFFER  (LiNbO₃)', ix+iw/2, z2y2+z2h2/2+3);
+  // Photonic
+  ctx.fillStyle='rgba(20,10,0,0.85)'; ctx.strokeStyle='#ffb800'; ctx.lineWidth=1;
+  roundRect(ctx,ix+pad,z3y2,iw-pad*2,z3h2,4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle='#ffb800'; ctx.font='bold '+Math.round(7.5*sc)+'px Inter,Segoe UI,sans-serif';
+  ctx.fillText(LANG==='tr'?'FOTONİK MODÜL':'PHOTONIC MODULE', ix+iw/2, z3y2+12);
+  ctx.fillStyle='#554422'; ctx.font=Math.round(6.5*sc)+'px Consolas,monospace';
+  ctx.fillText('InP + Si₃N₄ · WDM · Laser', ix+iw/2, z3y2+22);
+  for(var wl3=0;wl3<4;wl3++){
+    var wa2=0.15+0.15*Math.sin(dTime*0.04+wl3*1.0);
+    ctx.strokeStyle='rgba(255,184,0,'+wa2+')'; ctx.lineWidth=0.8; ctx.setLineDash([4,6]);
+    ctx.beginPath(); ctx.moveTo(ix+pad+5,z3y2+28+wl3*(z3h2-34)/4); ctx.lineTo(ix+iw-pad-5,z3y2+28+wl3*(z3h2-34)/4); ctx.stroke();
+  }
+  ctx.setLineDash([]);
+  // Interface arrows
+  var arX2=ix+iw-6;
+  ctx.strokeStyle='rgba(0,255,136,0.45)'; ctx.lineWidth=1.2;
+  ctx.beginPath(); ctx.moveTo(arX2,z1y2+z1h2); ctx.lineTo(arX2,z2y2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(arX2-3,z2y2-4); ctx.lineTo(arX2,z2y2); ctx.lineTo(arX2+3,z2y2-4); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(arX2,z2y2+z2h2); ctx.lineTo(arX2,z3y2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(arX2-3,z3y2-4); ctx.lineTo(arX2,z3y2); ctx.lineTo(arX2+3,z3y2-4); ctx.stroke();
+}
+
+// ============================================================
+// INIT
+// ============================================================
+window.addEventListener('load', function() {
+  checkFade();
+  initHero();
+  initR3();
+  initArch();
+  initDesign();
+  setTimeout(initBars, 800);
+  initFlow();
+});
+
+window.addEventListener('resize', function() {
+  clearTimeout(window._rsz);
+  window._rsz = setTimeout(function() {
+    if (hRaf) cancelAnimationFrame(hRaf);
+    if (r3Raf) cancelAnimationFrame(r3Raf);
+    if (aRaf) cancelAnimationFrame(aRaf);
+    if (fRaf) cancelAnimationFrame(fRaf);
+    if (dRaf) cancelAnimationFrame(dRaf);
+    initHero(); initR3(); initArch(); initDesign(); initBars(); initFlow();
+  }, 200);
+});
+</script>
+</body>
+</html>

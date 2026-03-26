@@ -1,0 +1,232 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0a0e17;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#0d1520;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="electricGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#003344;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#001a22;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="bufferGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#003322;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#001a11;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="photonicGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#332200;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#1a1100;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00d4ff;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#00ff88;stop-opacity:1"/>
+    </linearGradient>
+    <linearGradient id="arrowGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#00ff88;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#ffb800;stop-opacity:1"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="softGlow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowCyan" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00d4ff"/>
+    </marker>
+    <marker id="arrowGold" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#ffb800"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#00ff88"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="400" fill="url(#bgGrad)"/>
+
+  <!-- Grid lines (subtle) -->
+  <g opacity="0.05" stroke="#ffffff" stroke-width="0.5">
+    <line x1="0" y1="50" x2="900" y2="50"/>
+    <line x1="0" y1="100" x2="900" y2="100"/>
+    <line x1="0" y1="150" x2="900" y2="150"/>
+    <line x1="0" y1="200" x2="900" y2="200"/>
+    <line x1="0" y1="250" x2="900" y2="250"/>
+    <line x1="0" y1="300" x2="900" y2="300"/>
+    <line x1="0" y1="350" x2="900" y2="350"/>
+    <line x1="100" y1="0" x2="100" y2="400"/>
+    <line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/>
+    <line x1="450" y1="0" x2="450" y2="400"/>
+    <line x1="600" y1="0" x2="600" y2="400"/>
+    <line x1="700" y1="0" x2="700" y2="400"/>
+    <line x1="800" y1="0" x2="800" y2="400"/>
+  </g>
+
+  <!-- Title -->
+  <text x="450" y="28" text-anchor="middle" fill="#ffffff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="14" font-weight="600" letter-spacing="3" opacity="0.9">HYBRID PHOTONIC COMPUTER — SYSTEM ARCHITECTURE</text>
+
+  <!-- ===== BASE-4 ELECTRIC SYSTEM (LEFT) ===== -->
+  <rect x="20" y="45" width="240" height="310" rx="8" ry="8" fill="url(#electricGrad)" stroke="#00d4ff" stroke-width="1.5" opacity="0.9"/>
+  <rect x="20" y="45" width="240" height="24" rx="8" ry="8" fill="#00d4ff" opacity="0.15"/>
+  <text x="140" y="62" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" filter="url(#glow)">BASE-4 ELECTRIC SYSTEM</text>
+
+  <!-- CPU sub-box -->
+  <rect x="35" y="82" width="100" height="52" rx="4" fill="#00d4ff" fill-opacity="0.08" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="85" y="100" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">CPU</text>
+  <text x="85" y="114" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Quaternary ALU</text>
+  <text x="85" y="126" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Base-4 Instructions</text>
+
+  <!-- RAM sub-box -->
+  <rect x="145" y="82" width="100" height="52" rx="4" fill="#00d4ff" fill-opacity="0.08" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="195" y="100" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">RAM</text>
+  <text x="195" y="114" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">2 bits/cell</text>
+  <text x="195" y="126" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Volatile storage</text>
+
+  <!-- Storage sub-box -->
+  <rect x="35" y="146" width="210" height="52" rx="4" fill="#00d4ff" fill-opacity="0.08" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.4"/>
+  <text x="140" y="164" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">STORAGE (MLC-style)</text>
+  <text x="140" y="178" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">4 voltage levels: 0V / 1.1V / 2.2V / 3.3V</text>
+  <text x="140" y="190" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Gap: ~1.1V per level (noise tolerant)</text>
+
+  <!-- Voltage dots -->
+  <text x="35" y="218" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Voltage Levels:</text>
+  <circle cx="45" cy="234" r="6" fill="#333333" stroke="#00d4ff" stroke-width="1"/>
+  <text x="45" y="237" text-anchor="middle" fill="#00d4ff" font-family="Consolas, monospace" font-size="6">0</text>
+  <text x="45" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">0.0V</text>
+
+  <circle cx="85" cy="234" r="6" fill="#003355" stroke="#00d4ff" stroke-width="1"/>
+  <text x="85" y="237" text-anchor="middle" fill="#00d4ff" font-family="Consolas, monospace" font-size="6">1</text>
+  <text x="85" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">1.1V</text>
+
+  <circle cx="125" cy="234" r="6" fill="#005588" stroke="#00d4ff" stroke-width="1.5"/>
+  <text x="125" y="237" text-anchor="middle" fill="#00d4ff" font-family="Consolas, monospace" font-size="6">2</text>
+  <text x="125" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">2.2V</text>
+
+  <circle cx="165" cy="234" r="6" fill="#0077bb" stroke="#00d4ff" stroke-width="2"/>
+  <text x="165" y="237" text-anchor="middle" fill="#ffffff" font-family="Consolas, monospace" font-size="6">3</text>
+  <text x="165" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">3.3V</text>
+
+  <!-- OS/IO labels -->
+  <text x="35" y="278" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8" opacity="0.8">Role: OS · File Management · I/O</text>
+  <text x="35" y="292" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Material: Silicon (Si)</text>
+  <text x="35" y="306" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Speed: ~5 GHz</text>
+  <text x="35" y="320" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Density: 2 bits/cell (2× binary)</text>
+  <text x="35" y="334" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">4 qubits → maps to 1 Base-256 symbol</text>
+
+  <!-- Equation highlight -->
+  <rect x="35" y="342" width="210" height="7" rx="2" fill="#00d4ff" fill-opacity="0.05"/>
+  <text x="140" y="350" text-anchor="middle" fill="#00d4ff" font-family="Consolas, monospace" font-size="9" font-weight="700">4⁴ = 256  ↔  Perfect Mapping</text>
+
+
+  <!-- ===== ASYNC BUFFER (CENTER) ===== -->
+  <rect x="320" y="45" width="210" height="310" rx="8" ry="8" fill="url(#bufferGrad)" stroke="#00ff88" stroke-width="1.5" opacity="0.9"/>
+  <rect x="320" y="45" width="210" height="24" rx="8" ry="8" fill="#00ff88" opacity="0.12"/>
+  <text x="425" y="62" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" filter="url(#glow)">ASYNC PRIORITY BUFFER</text>
+
+  <!-- LiNbO3 material note -->
+  <text x="425" y="80" text-anchor="middle" fill="#88bb99" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">LiNbO₃ Electro-Optic Crystal</text>
+
+  <!-- P0 Critical Ring -->
+  <rect x="340" y="94" width="170" height="46" rx="6" fill="#ff405720" stroke="#ff4057" stroke-width="1.5" stroke-dasharray="4,2"/>
+  <text x="355" y="110" fill="#ff4057" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">P0 — CRITICAL</text>
+  <text x="355" y="123" fill="#cc8888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Real-time sensors, safety, security</text>
+  <text x="355" y="134" fill="#cc8888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Immediate interrupt trigger</text>
+  <circle cx="492" cy="112" r="8" fill="#ff4057" fill-opacity="0.3" stroke="#ff4057" stroke-width="1"/>
+  <text x="492" y="116" text-anchor="middle" fill="#ff4057" font-family="Consolas, monospace" font-size="8" font-weight="700">!</text>
+
+  <!-- P1 Normal Ring -->
+  <rect x="340" y="150" width="170" height="46" rx="6" fill="#00d4ff15" stroke="#00d4ff" stroke-width="1.2" stroke-dasharray="4,2"/>
+  <text x="355" y="166" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">P1 — NORMAL</text>
+  <text x="355" y="179" fill="#88aabb" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">AI inference, heavy computation</text>
+  <text x="355" y="190" fill="#88aabb" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Standard priority queue</text>
+
+  <!-- P2 Background Ring -->
+  <rect x="340" y="206" width="170" height="46" rx="6" fill="#88888815" stroke="#888888" stroke-width="1" stroke-dasharray="4,2"/>
+  <text x="355" y="222" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">P2 — BACKGROUND</text>
+  <text x="355" y="235" fill="#888888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Optimization, batch jobs, learning</text>
+  <text x="355" y="246" fill="#888888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Low priority, non-blocking</text>
+
+  <!-- Packet structure -->
+  <text x="340" y="270" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8" font-weight="700">PACKET STRUCTURE:</text>
+  <rect x="340" y="275" width="170" height="52" rx="4" fill="#00ff8810" stroke="#00ff88" stroke-width="0.5" stroke-opacity="0.4"/>
+  <text x="350" y="287" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">priority : P0 | P1 | P2</text>
+  <text x="350" y="298" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">size     : packet size</text>
+  <text x="350" y="309" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">timestamp: creation time</text>
+  <text x="350" y="320" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">callback : return address</text>
+
+  <!-- Non-blocking note -->
+  <text x="425" y="345" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Non-blocking async · 1–5ns conversion</text>
+  <text x="425" y="355" text-anchor="middle" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">Interrupt-driven callback mechanism</text>
+
+
+  <!-- ===== BASE-256 PHOTONIC SYSTEM (RIGHT) ===== -->
+  <rect x="590" y="45" width="295" height="310" rx="8" ry="8" fill="url(#photonicGrad)" stroke="#ffb800" stroke-width="1.5" opacity="0.9"/>
+  <rect x="590" y="45" width="295" height="24" rx="8" ry="8" fill="#ffb800" opacity="0.12"/>
+  <text x="737" y="62" text-anchor="middle" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" filter="url(#glow)">BASE-256 PHOTONIC SYSTEM</text>
+
+  <!-- Laser sub-box -->
+  <rect x="605" y="82" width="120" height="52" rx="4" fill="#ffb80010" stroke="#ffb800" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="665" y="100" text-anchor="middle" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">LASER SOURCE</text>
+  <text x="665" y="114" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">III-V Semiconductor</text>
+  <text x="665" y="126" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Photon generation</text>
+
+  <!-- Modulator sub-box -->
+  <rect x="735" y="82" width="135" height="52" rx="4" fill="#ffb80010" stroke="#ffb800" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="802" y="100" text-anchor="middle" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">MODULATOR</text>
+  <text x="802" y="114" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">256 intensity levels</text>
+  <text x="802" y="126" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">8 bits per signal</text>
+
+  <!-- Waveguide sub-box -->
+  <rect x="605" y="146" width="265" height="52" rx="4" fill="#ffb80010" stroke="#ffb800" stroke-width="1" stroke-opacity="0.5"/>
+  <text x="737" y="164" text-anchor="middle" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">WAVEGUIDES (Si₃N₄) + WDM</text>
+  <text x="737" y="178" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Silicon Nitride · Low optical loss</text>
+  <text x="737" y="190" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">WDM: 80+ wavelengths simultaneously on one fiber</text>
+
+  <!-- WDM wavelength lines visual -->
+  <line x1="620" y1="220" x2="860" y2="220" stroke="#ffb800" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="2,4"/>
+  <line x1="620" y1="228" x2="860" y2="228" stroke="#ff9900" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="2,4"/>
+  <line x1="620" y1="236" x2="860" y2="236" stroke="#ffcc00" stroke-width="1" stroke-opacity="0.3" stroke-dasharray="2,4"/>
+  <text x="605" y="246" fill="#cc9933" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">← WDM channels (each carries independent data stream)</text>
+
+  <!-- Specs -->
+  <text x="605" y="268" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8" opacity="0.9">Role: AI · Matrix ops · Data analysis · Model training</text>
+  <text x="605" y="282" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Speed: Terahertz range (100–1000× electronic)</text>
+  <text x="605" y="296" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Material: InP processor + Si₃N₄ waveguides</text>
+  <text x="605" y="310" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Bandwidth: &gt;10 Tbps · No heat · No EMI</text>
+  <text x="605" y="324" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Intensity levels: 0–255 (256 total = 8 bits/symbol)</text>
+  <text x="605" y="338" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Photodetector: reads light → digital output</text>
+
+  <!-- Independent system note -->
+  <rect x="605" y="344" width="265" height="7" rx="2" fill="#ffb800" fill-opacity="0.05"/>
+  <text x="737" y="352" text-anchor="middle" fill="#ffb800" font-family="Consolas, monospace" font-size="9" font-weight="700">Completely Independent · Own CPU + RAM + Storage</text>
+
+
+  <!-- ===== ARROWS ===== -->
+  <!-- Electric → Buffer (write) -->
+  <line x1="262" y1="190" x2="318" y2="190" stroke="#00d4ff" stroke-width="2" marker-end="url(#arrowCyan)" stroke-dasharray="5,3" opacity="0.8"/>
+  <text x="290" y="184" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">write</text>
+
+  <!-- Electric ← Buffer (interrupt) -->
+  <line x1="318" y1="210" x2="262" y2="210" stroke="#00ff88" stroke-width="2" marker-end="url(#arrowGreen)" stroke-dasharray="5,3" opacity="0.8"/>
+  <text x="290" y="225" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">interrupt</text>
+
+  <!-- Buffer → Photonic (optical read) -->
+  <line x1="532" y1="190" x2="588" y2="190" stroke="#00ff88" stroke-width="2" marker-end="url(#arrowGold)" stroke-dasharray="5,3" opacity="0.8"/>
+  <text x="560" y="184" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">optical read</text>
+
+  <!-- Buffer ← Photonic (result) -->
+  <line x1="588" y1="210" x2="532" y2="210" stroke="#ffb800" stroke-width="2" marker-end="url(#arrowGreen)" stroke-dasharray="5,3" opacity="0.8"/>
+  <text x="560" y="225" text-anchor="middle" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">result</text>
+
+  <!-- Data flow particles (static representation) -->
+  <circle cx="280" cy="190" r="3" fill="#00d4ff" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="550" cy="190" r="3" fill="#00ff88" opacity="0.9" filter="url(#glow)"/>
+  <circle cx="555" cy="210" r="3" fill="#ffb800" opacity="0.9" filter="url(#glow)"/>
+
+  <!-- Bottom data flow label -->
+  <text x="450" y="388" text-anchor="middle" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8" opacity="0.7">
+    Electric writes → Buffer queues (P0/P1/P2) → Photonic picks up → result returns via interrupt callback
+  </text>
+</svg>

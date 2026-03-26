@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh auth status)",
+      "Bash(git -C \"c:/Users/90552/Desktop/With AI/hybridcomputerarchitecture\" init)",
+      "Bash(git -C \"c:/Users/90552/Desktop/With AI/hybridcomputerarchitecture\" add .)",
+      "Bash(git -C:*)"
+    ]
+  }
+}
