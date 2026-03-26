@@ -1,5 +1,8 @@
 # Hybrid Photonic Computer Architecture
 
+[![DOI](https://img.shields.io/badge/DOI-10.17605%2FOSF.IO%2F4U6QB-blue)](https://doi.org/10.17605/OSF.IO/4U6QB)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 > A next-generation theoretical computer architecture combining **Base-4 electrical storage** with **Base-256 photonic processing** via an asynchronous priority queue buffer — designed to make AI computation 100–1000× faster while consuming 85–90% less energy and water.
 
 ![Architecture Diagram](assets/architecture-diagram.svg)
