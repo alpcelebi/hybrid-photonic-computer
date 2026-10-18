@@ -2,13 +2,14 @@
 
 [![DOI (v1.0)](https://img.shields.io/badge/DOI%20v1.0-10.17605%2FOSF.IO%2F4U6QB-blue)](https://doi.org/10.17605/OSF.IO/4U6QB)
 [![Version](https://img.shields.io/badge/version-1.1%20revised-orange)](zenodo-submission.html)
+[![Paper PDF](https://img.shields.io/badge/paper-PDF-red)](hybrid-photonic-computer-v1.1.pdf)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 > A conceptual architecture in which a standard **electronic host** offloads matrix math to a **photonic accelerator** through **asynchronous priority queues**. **Base-4 digit slicing** lets every optical pass use proven PAM-4 signalling. Under stated assumptions, the photonic core reaches roughly **5–7× lower energy per operation** than a current GPU in its best configurations.
 
 ![Architecture Diagram](assets/architecture-diagram.svg)
 
-> **v1.1 (October 19, 2026) is a revision.** Several claims in v1.0 (March 26, 2026) were physically wrong or unsupported: THz processing, "photons produce no heat", 90% water savings, a LiNbO₃ crystal storing the queue, and radiation immunity in space. They are corrected or withdrawn. The full list is in [Appendix A of the paper](zenodo-submission.html).
+> **v1.1 (October 19, 2026) is a revision.** Several claims in v1.0 (March 26, 2026) were physically wrong or unsupported: THz processing, "photons produce no heat", 90% water savings, a LiNbO₃ crystal storing the queue, and radiation immunity in space. They are corrected or withdrawn. The full list is in Appendix A of the paper ([HTML](zenodo-submission.html) · [PDF](hybrid-photonic-computer-v1.1.pdf)).
 
 ---
 
@@ -148,7 +149,8 @@ Photonic matrix multiplication with MZI meshes (Shen et al., 2017), phase-change
 ```
 hybrid-photonic-computer/
 ├── index.html                      # Interactive visualization (TR/EN, self-contained)
-├── zenodo-submission.html          # Technical concept paper (v1.1, printable)
+├── zenodo-submission.html          # Technical concept paper (v1.1, HTML)
+├── hybrid-photonic-computer-v1.1.pdf  # Same paper as PDF (A4, 15 pages)
 ├── README.md                       # This file
 ├── LICENSE                         # MIT
 └── assets/

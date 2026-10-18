@@ -251,15 +251,19 @@
 
   /* PRINT */
   @media print {
-    body { padding: 15mm 18mm; font-size: 10.5pt; }
+    body { padding: 0; max-width: none; font-size: 10.5pt; }
     .title-page { page-break-after: always; min-height: auto; padding-bottom: 0; }
     h2.sec { page-break-before: auto; }
+    h2.sec, h3.subsec { break-after: avoid; page-break-after: avoid; }
+    p { orphans: 3; widows: 3; }
     .no-break { page-break-inside: avoid; }
     .page-break { page-break-before: always; }
     a { color: #111; text-decoration: none; }
+    .ascii-fig { font-size: 6.8pt !important; overflow: visible !important; padding: 10px !important; }
   }
 
   @page {
+    size: A4;
     margin: 18mm 20mm;
     @bottom-center {
       content: counter(page);
@@ -364,7 +368,7 @@
 </p>
 
 <div class="figure no-break">
-  <div style="border:1px solid #ccc;padding:16px;background:#fafafa;font-family:'Courier New',monospace;font-size:9pt;line-height:1.8;text-align:left;white-space:pre;overflow-x:auto;">┌────────────────────┐  submit  ┌──────────────────────────┐  PAM-4   ┌──────────────────────┐
+  <div class="ascii-fig" style="border:1px solid #ccc;padding:16px;background:#fafafa;font-family:'Courier New',monospace;font-size:9pt;line-height:1.8;text-align:left;white-space:pre;overflow-x:auto;">┌────────────────────┐  submit  ┌──────────────────────────┐  PAM-4   ┌──────────────────────┐
 │  ELECTRONIC HOST   │ ───────► │  CONTROL DIE             │ ───────► │  PHOTONIC CORE       │
 │  binary CMOS       │          │  SQ/CQ rings P0/P1/P2    │  TFLN    │  N×N weight mesh     │
 │  CPU · DRAM        │ ◄─────── │  scheduler · DAC / ADC   │ ◄─────── │  Si₃N₄ · M λ (WDM)   │
@@ -663,7 +667,7 @@
 <!-- ═══════════════════════════════════════════════════════
      APPENDIX A — ERRATA
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">Appendix A. Errata Relative to v1.0</h2>
+<h2 class="sec" style="break-before:page;page-break-before:always;">Appendix A. Errata Relative to v1.0</h2>
 
 <div class="tbl-wrap">
   <table>
