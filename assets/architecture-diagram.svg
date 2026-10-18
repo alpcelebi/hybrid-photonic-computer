@@ -70,69 +70,69 @@
   <!-- ===== BASE-4 ELECTRIC SYSTEM (LEFT) ===== -->
   <rect x="20" y="45" width="240" height="310" rx="8" ry="8" fill="url(#electricGrad)" stroke="#00d4ff" stroke-width="1.5" opacity="0.9"/>
   <rect x="20" y="45" width="240" height="24" rx="8" ry="8" fill="#00d4ff" opacity="0.15"/>
-  <text x="140" y="62" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" filter="url(#glow)">BASE-4 ELECTRIC SYSTEM</text>
+  <text x="140" y="62" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" filter="url(#glow)">ELECTRONIC HOST</text>
 
   <!-- CPU sub-box -->
   <rect x="35" y="82" width="100" height="52" rx="4" fill="#00d4ff" fill-opacity="0.08" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.4"/>
   <text x="85" y="100" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">CPU</text>
-  <text x="85" y="114" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Quaternary ALU</text>
-  <text x="85" y="126" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Base-4 Instructions</text>
+  <text x="85" y="114" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Binary ALU</text>
+  <text x="85" y="126" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Standard ISA</text>
 
   <!-- RAM sub-box -->
   <rect x="145" y="82" width="100" height="52" rx="4" fill="#00d4ff" fill-opacity="0.08" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.4"/>
   <text x="195" y="100" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">RAM</text>
-  <text x="195" y="114" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">2 bits/cell</text>
+  <text x="195" y="114" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">DRAM</text>
   <text x="195" y="126" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Volatile storage</text>
 
   <!-- Storage sub-box -->
   <rect x="35" y="146" width="210" height="52" rx="4" fill="#00d4ff" fill-opacity="0.08" stroke="#00d4ff" stroke-width="1" stroke-opacity="0.4"/>
-  <text x="140" y="164" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">STORAGE (MLC-style)</text>
-  <text x="140" y="178" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">4 voltage levels: 0V / 1.1V / 2.2V / 3.3V</text>
-  <text x="140" y="190" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Gap: ~1.1V per level (noise tolerant)</text>
+  <text x="140" y="164" text-anchor="middle" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">STORAGE (MLC/TLC NAND)</text>
+  <text x="140" y="178" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Multi-level cells: 2–3 bits/cell</text>
+  <text x="140" y="190" text-anchor="middle" fill="#88ccdd" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Multi-level only in storage, not logic</text>
 
   <!-- Voltage dots -->
-  <text x="35" y="218" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Voltage Levels:</text>
+  <text x="35" y="218" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">MLC cell states:</text>
   <circle cx="45" cy="234" r="6" fill="#333333" stroke="#00d4ff" stroke-width="1"/>
   <text x="45" y="237" text-anchor="middle" fill="#00d4ff" font-family="Consolas, monospace" font-size="6">0</text>
-  <text x="45" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">0.0V</text>
+  <text x="45" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">L0</text>
 
   <circle cx="85" cy="234" r="6" fill="#003355" stroke="#00d4ff" stroke-width="1"/>
   <text x="85" y="237" text-anchor="middle" fill="#00d4ff" font-family="Consolas, monospace" font-size="6">1</text>
-  <text x="85" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">1.1V</text>
+  <text x="85" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">L1</text>
 
   <circle cx="125" cy="234" r="6" fill="#005588" stroke="#00d4ff" stroke-width="1.5"/>
   <text x="125" y="237" text-anchor="middle" fill="#00d4ff" font-family="Consolas, monospace" font-size="6">2</text>
-  <text x="125" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">2.2V</text>
+  <text x="125" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">L2</text>
 
   <circle cx="165" cy="234" r="6" fill="#0077bb" stroke="#00d4ff" stroke-width="2"/>
   <text x="165" y="237" text-anchor="middle" fill="#ffffff" font-family="Consolas, monospace" font-size="6">3</text>
-  <text x="165" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">3.3V</text>
+  <text x="165" y="248" text-anchor="middle" fill="#aaaaaa" font-family="Consolas, monospace" font-size="7">L3</text>
 
   <!-- OS/IO labels -->
   <text x="35" y="278" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8" opacity="0.8">Role: OS · File Management · I/O</text>
   <text x="35" y="292" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Material: Silicon (Si)</text>
   <text x="35" y="306" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Speed: ~5 GHz</text>
-  <text x="35" y="320" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Density: 2 bits/cell (2× binary)</text>
-  <text x="35" y="334" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">4 qubits → maps to 1 Base-256 symbol</text>
+  <text x="35" y="320" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Logic: binary CMOS · ~0.7–0.9 V</text>
+  <text x="35" y="334" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">8-bit operand → 4 base-4 digits (PAM-4)</text>
 
   <!-- Equation highlight -->
   <rect x="35" y="342" width="210" height="7" rx="2" fill="#00d4ff" fill-opacity="0.05"/>
-  <text x="140" y="350" text-anchor="middle" fill="#00d4ff" font-family="Consolas, monospace" font-size="9" font-weight="700">4⁴ = 256  ↔  Perfect Mapping</text>
+  <text x="140" y="350" text-anchor="middle" fill="#00d4ff" font-family="Consolas, monospace" font-size="9" font-weight="700">Wx = Σ 4ᵏ·(W xₖ) · digit slicing</text>
 
 
   <!-- ===== ASYNC BUFFER (CENTER) ===== -->
   <rect x="320" y="45" width="210" height="310" rx="8" ry="8" fill="url(#bufferGrad)" stroke="#00ff88" stroke-width="1.5" opacity="0.9"/>
   <rect x="320" y="45" width="210" height="24" rx="8" ry="8" fill="#00ff88" opacity="0.12"/>
-  <text x="425" y="62" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" filter="url(#glow)">ASYNC PRIORITY BUFFER</text>
+  <text x="425" y="62" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" filter="url(#glow)">ASYNC PRIORITY QUEUES</text>
 
   <!-- LiNbO3 material note -->
-  <text x="425" y="80" text-anchor="middle" fill="#88bb99" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">LiNbO₃ Electro-Optic Crystal</text>
+  <text x="425" y="80" text-anchor="middle" fill="#88bb99" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">SRAM rings · TFLN modulators</text>
 
   <!-- P0 Critical Ring -->
   <rect x="340" y="94" width="170" height="46" rx="6" fill="#ff405720" stroke="#ff4057" stroke-width="1.5" stroke-dasharray="4,2"/>
-  <text x="355" y="110" fill="#ff4057" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">P0 — CRITICAL</text>
+  <text x="355" y="110" fill="#ff4057" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">P0 — URGENT</text>
   <text x="355" y="123" fill="#cc8888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Real-time sensors, safety, security</text>
-  <text x="355" y="134" fill="#cc8888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Immediate interrupt trigger</text>
+  <text x="355" y="134" fill="#cc8888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Preempts at next tile boundary</text>
   <circle cx="492" cy="112" r="8" fill="#ff4057" fill-opacity="0.3" stroke="#ff4057" stroke-width="1"/>
   <text x="492" y="116" text-anchor="middle" fill="#ff4057" font-family="Consolas, monospace" font-size="8" font-weight="700">!</text>
 
@@ -140,31 +140,31 @@
   <rect x="340" y="150" width="170" height="46" rx="6" fill="#00d4ff15" stroke="#00d4ff" stroke-width="1.2" stroke-dasharray="4,2"/>
   <text x="355" y="166" fill="#00d4ff" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">P1 — NORMAL</text>
   <text x="355" y="179" fill="#88aabb" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">AI inference, heavy computation</text>
-  <text x="355" y="190" fill="#88aabb" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Standard priority queue</text>
+  <text x="355" y="190" fill="#88aabb" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Weighted round-robin</text>
 
   <!-- P2 Background Ring -->
   <rect x="340" y="206" width="170" height="46" rx="6" fill="#88888815" stroke="#888888" stroke-width="1" stroke-dasharray="4,2"/>
   <text x="355" y="222" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">P2 — BACKGROUND</text>
   <text x="355" y="235" fill="#888888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Optimization, batch jobs, learning</text>
-  <text x="355" y="246" fill="#888888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Low priority, non-blocking</text>
+  <text x="355" y="246" fill="#888888" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Min. share + aging</text>
 
   <!-- Packet structure -->
-  <text x="340" y="270" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8" font-weight="700">PACKET STRUCTURE:</text>
+  <text x="340" y="270" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8" font-weight="700">SUBMISSION ENTRY:</text>
   <rect x="340" y="275" width="170" height="52" rx="4" fill="#00ff8810" stroke="#00ff88" stroke-width="0.5" stroke-opacity="0.4"/>
   <text x="350" y="287" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">priority : P0 | P1 | P2</text>
-  <text x="350" y="298" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">size     : packet size</text>
-  <text x="350" y="309" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">timestamp: creation time</text>
-  <text x="350" y="320" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">callback : return address</text>
+  <text x="350" y="298" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">weight_id: resident weights</text>
+  <text x="350" y="309" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">timestamp: for aging</text>
+  <text x="350" y="320" fill="#88ccaa" font-family="Consolas, monospace" font-size="7">cq_id    : completion queue</text>
 
   <!-- Non-blocking note -->
-  <text x="425" y="345" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Non-blocking async · 1–5ns conversion</text>
-  <text x="425" y="355" text-anchor="middle" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">Interrupt-driven callback mechanism</text>
+  <text x="425" y="345" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Non-blocking submit · BUSY backpressure</text>
+  <text x="425" y="355" text-anchor="middle" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">Completion interrupt (coalesced)</text>
 
 
   <!-- ===== BASE-256 PHOTONIC SYSTEM (RIGHT) ===== -->
   <rect x="590" y="45" width="295" height="310" rx="8" ry="8" fill="url(#photonicGrad)" stroke="#ffb800" stroke-width="1.5" opacity="0.9"/>
   <rect x="590" y="45" width="295" height="24" rx="8" ry="8" fill="#ffb800" opacity="0.12"/>
-  <text x="737" y="62" text-anchor="middle" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" filter="url(#glow)">BASE-256 PHOTONIC SYSTEM</text>
+  <text x="737" y="62" text-anchor="middle" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1" filter="url(#glow)">PHOTONIC ACCELERATOR</text>
 
   <!-- Laser sub-box -->
   <rect x="605" y="82" width="120" height="52" rx="4" fill="#ffb80010" stroke="#ffb800" stroke-width="1" stroke-opacity="0.5"/>
@@ -175,14 +175,14 @@
   <!-- Modulator sub-box -->
   <rect x="735" y="82" width="135" height="52" rx="4" fill="#ffb80010" stroke="#ffb800" stroke-width="1" stroke-opacity="0.5"/>
   <text x="802" y="100" text-anchor="middle" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">MODULATOR</text>
-  <text x="802" y="114" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">256 intensity levels</text>
-  <text x="802" y="126" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">8 bits per signal</text>
+  <text x="802" y="114" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">PAM-4 (4 levels)</text>
+  <text x="802" y="126" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">2 bits / symbol / pass</text>
 
   <!-- Waveguide sub-box -->
   <rect x="605" y="146" width="265" height="52" rx="4" fill="#ffb80010" stroke="#ffb800" stroke-width="1" stroke-opacity="0.5"/>
   <text x="737" y="164" text-anchor="middle" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="9" font-weight="700">WAVEGUIDES (Si₃N₄) + WDM</text>
   <text x="737" y="178" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Silicon Nitride · Low optical loss</text>
-  <text x="737" y="190" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">WDM: 80+ wavelengths simultaneously on one fiber</text>
+  <text x="737" y="190" text-anchor="middle" fill="#ccaa66" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">WDM: M wavelengths share one tuned mesh</text>
 
   <!-- WDM wavelength lines visual -->
   <line x1="620" y1="220" x2="860" y2="220" stroke="#ffb800" stroke-width="1" stroke-opacity="0.4" stroke-dasharray="2,4"/>
@@ -191,16 +191,16 @@
   <text x="605" y="246" fill="#cc9933" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">← WDM channels (each carries independent data stream)</text>
 
   <!-- Specs -->
-  <text x="605" y="268" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8" opacity="0.9">Role: AI · Matrix ops · Data analysis · Model training</text>
-  <text x="605" y="282" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Speed: Terahertz range (100–1000× electronic)</text>
-  <text x="605" y="296" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Material: InP processor + Si₃N₄ waveguides</text>
-  <text x="605" y="310" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Bandwidth: &gt;10 Tbps · No heat · No EMI</text>
-  <text x="605" y="324" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Intensity levels: 0–255 (256 total = 8 bits/symbol)</text>
-  <text x="605" y="338" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Photodetector: reads light → digital output</text>
+  <text x="605" y="268" fill="#ffb800" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8" opacity="0.9">Role: y = Wx for AI inference</text>
+  <text x="605" y="282" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Speed: ~10 GBd per λ · parallel N×N × M λ</text>
+  <text x="605" y="296" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Material: Si₃N₄ mesh · III-V lasers · Ge PDs</text>
+  <text x="605" y="310" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">~100–150 fJ/MAC best case (model) · not zero heat</text>
+  <text x="605" y="324" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Digit slicing: 4 passes per 8-bit operand</text>
+  <text x="605" y="338" fill="#aaaaaa" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="8">Ge photodetector → ~6-bit ADC → shift-and-add</text>
 
   <!-- Independent system note -->
   <rect x="605" y="344" width="265" height="7" rx="2" fill="#ffb800" fill-opacity="0.05"/>
-  <text x="737" y="352" text-anchor="middle" fill="#ffb800" font-family="Consolas, monospace" font-size="9" font-weight="700">Completely Independent · Own CPU + RAM + Storage</text>
+  <text x="737" y="352" text-anchor="middle" fill="#ffb800" font-family="Consolas, monospace" font-size="9" font-weight="700">Stateless per pass · all state in electronic SRAM</text>
 
 
   <!-- ===== ARROWS ===== -->
@@ -214,7 +214,7 @@
 
   <!-- Buffer → Photonic (optical read) -->
   <line x1="532" y1="190" x2="588" y2="190" stroke="#00ff88" stroke-width="2" marker-end="url(#arrowGold)" stroke-dasharray="5,3" opacity="0.8"/>
-  <text x="560" y="184" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">optical read</text>
+  <text x="560" y="184" text-anchor="middle" fill="#00ff88" font-family="Segoe UI, Helvetica Neue, Arial, sans-serif" font-size="7">PAM-4</text>
 
   <!-- Buffer ← Photonic (result) -->
   <line x1="588" y1="210" x2="532" y2="210" stroke="#ffb800" stroke-width="2" marker-end="url(#arrowGreen)" stroke-dasharray="5,3" opacity="0.8"/>

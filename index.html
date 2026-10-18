@@ -97,6 +97,7 @@ canvas{display:block;width:100%}
 .cmptbl tr:hover td{background:rgba(255,255,255,.02)}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700;white-space:nowrap}
 .badge.up{background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.22)}
+.badge.eq{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid rgba(255,255,255,.12)}
 .badge.dn{background:rgba(255,64,87,.1);color:var(--red);border:1px solid rgba(255,64,87,.22)}
 
 /* AI IMPACT */
@@ -203,13 +204,13 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
 <section id="hero">
   <canvas id="canvas-hero"></canvas>
   <div class="hero-inner">
-    <div class="hero-badge" data-en="CONCEPTUAL NEXT-GEN ARCHITECTURE" data-tr="KAVRAMSAL YENİ NESİL MİMARİ">CONCEPTUAL NEXT-GEN ARCHITECTURE</div>
+    <div class="hero-badge" data-en="CONCEPTUAL ARCHITECTURE · v1.1 REVISED" data-tr="KAVRAMSAL MİMARİ · v1.1 REVİZE">CONCEPTUAL ARCHITECTURE · v1.1 REVISED</div>
     <h1 class="hero-h1" data-en="Hybrid Photonic<br>Computer" data-tr="Hibrit Fotonik<br>Bilgisayar">Hybrid Photonic<br>Computer</h1>
-    <p class="hero-sub" data-en="Next-generation theoretical architecture combining Base-4 electrical storage with Base-256 photonic processing via an asynchronous priority queue. Designed to make AI computation 100–1000× faster while consuming 85–90% less energy and water." data-tr="Taban-4 elektrik depolama ile Taban-256 fotonik işlemeyi asenkron öncelikli kuyruk aracılığıyla birleştiren yeni nesil teorik mimari. Yapay zeka hesaplamalarını %85–90 daha az enerji ve su tüketerek 100–1000 kat hızlandırmak için tasarlanmıştır.">Next-generation theoretical architecture combining Base-4 electrical storage with Base-256 photonic processing via an asynchronous priority queue. Designed to make AI computation 100–1000× faster while consuming 85–90% less energy and water.</p>
+    <p class="hero-sub" data-en="A standard electronic host offloads matrix math to a photonic accelerator through asynchronous priority queues. Base-4 digit slicing lets every optical pass use proven PAM-4 signalling. Best-case estimate: ~5–7× less energy per operation than today's GPUs, with every assumption stated." data-tr="Standart bir elektronik ana sistem, matris hesaplarını asenkron öncelik kuyrukları üzerinden fotonik bir hızlandırıcıya devreder. Taban-4 basamak dilimleme sayesinde her optik geçiş kanıtlanmış PAM-4 sinyalleşmesini kullanır. En iyi durum tahmini: bugünün GPU'larına göre işlem başına ~5–7× daha az enerji. Tüm varsayımlar açıkça belirtilmiştir.">A standard electronic host offloads matrix math to a photonic accelerator through asynchronous priority queues. Base-4 digit slicing lets every optical pass use proven PAM-4 signalling. Best-case estimate: ~5–7× less energy per operation than today's GPUs, with every assumption stated.</p>
     <div class="hero-stats">
-      <div class="hstat"><span class="val">BASE-4</span><span class="lbl" data-en="Electric System" data-tr="Elektrik Sistemi">Electric System</span></div>
-      <div class="hstat"><span class="val">BASE-256</span><span class="lbl" data-en="Photonic System" data-tr="Fotonik Sistem">Photonic System</span></div>
-      <div class="hstat"><span class="val">ASYNC</span><span class="lbl" data-en="Priority Queue" data-tr="Öncelik Kuyruğu">Priority Queue</span></div>
+      <div class="hstat"><span class="val">HOST</span><span class="lbl" data-en="Binary CMOS" data-tr="İkili CMOS">Binary CMOS</span></div>
+      <div class="hstat"><span class="val">PAM-4</span><span class="lbl" data-en="Base-4 Digit Slicing" data-tr="Taban-4 Dilimleme">Base-4 Digit Slicing</span></div>
+      <div class="hstat"><span class="val">ASYNC</span><span class="lbl" data-en="Priority Queues" data-tr="Öncelik Kuyrukları">Priority Queues</span></div>
     </div>
   </div>
 </section>
@@ -219,7 +220,7 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
   <div class="sec-head fi">
     <div class="sec-tag" data-en="VISUALIZATION" data-tr="GÖRSELLEŞTİRME">VISUALIZATION</div>
     <h2 class="sec-title" data-en="3D Computer Concept" data-tr="3B Bilgisayar Konsepti">3D Computer Concept</h2>
-    <p class="sec-desc" data-en="Isometric visualization of the physical computer with all three modules and their interconnections. Move your mouse to rotate." data-tr="Üç modülü ve bağlantılarını gösteren fiziksel bilgisayarın izometrik görselleştirmesi. Döndürmek için farenizi hareket ettirin.">Isometric visualization of the physical computer with all three modules and their interconnections. Move your mouse to rotate.</p>
+    <p class="sec-desc" data-en="Isometric visualization of the three modules and their interconnections. Move your mouse to rotate." data-tr="Üç modülü ve bağlantılarını gösteren izometrik görselleştirme. Döndürmek için farenizi hareket ettirin.">Isometric visualization of the three modules and their interconnections. Move your mouse to rotate.</p>
   </div>
 </div>
 <div class="cpanel fi" style="margin:0 24px 80px;max-width:1152px;margin-left:auto;margin-right:auto">
@@ -235,13 +236,13 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
   <div class="sec-head fi">
     <div class="sec-tag" data-en="ARCHITECTURE" data-tr="MİMARİ">ARCHITECTURE</div>
     <h2 class="sec-title" data-en="System Architecture" data-tr="Sistem Mimarisi">System Architecture</h2>
-    <p class="sec-desc" data-en="Two independent computing systems connected through an async priority queue buffer using LiNbO₃ electro-optic crystal. Packets flow by priority level." data-tr="LiNbO₃ elektro-optik kristal kullanan asenkron tampon aracılığıyla bağlanan iki bağımsız hesaplama sistemi. Paketler öncelik seviyesine göre akar.">Two independent computing systems connected through an async priority queue buffer using LiNbO₃ electro-optic crystal. Packets flow by priority level.</p>
+    <p class="sec-desc" data-en="An electronic host and a photonic accelerator connected through SRAM priority queues on a control die. Thin-film LiNbO₃ modulators carry the data into the light path. Packets flow by priority level." data-tr="Bir elektronik ana sistem ve bir fotonik hızlandırıcı, kontrol yongası üzerindeki SRAM öncelik kuyruklarıyla bağlanır. İnce film LiNbO₃ modülatörler veriyi ışık yoluna taşır. Paketler öncelik seviyesine göre akar.">An electronic host and a photonic accelerator connected through SRAM priority queues on a control die. Thin-film LiNbO₃ modulators carry the data into the light path. Packets flow by priority level.</p>
   </div>
 </div>
 <div class="cpanel fi" style="margin:0 24px 80px;max-width:1152px;margin-left:auto;margin-right:auto">
   <div class="cpanel-bar">
     <div class="cpanel-title"><div class="ld n" style="width:8px;height:8px"></div><span data-en="Live Architecture Animation" data-tr="Canlı Mimari Animasyonu">Live Architecture Animation</span></div>
-    <div class="cpanel-hint" data-en="● P0 Critical &nbsp; ● P1 Normal &nbsp; ● P2 Background" data-tr="● P0 Kritik &nbsp; ● P1 Normal &nbsp; ● P2 Arka Plan">● P0 Critical &nbsp; ● P1 Normal &nbsp; ● P2 Background</div>
+    <div class="cpanel-hint" data-en="● P0 Urgent &nbsp; ● P1 Normal &nbsp; ● P2 Background" data-tr="● P0 Acil &nbsp; ● P1 Normal &nbsp; ● P2 Arka Plan">● P0 Urgent &nbsp; ● P1 Normal &nbsp; ● P2 Background</div>
   </div>
   <canvas id="canvas-arch"></canvas>
 </div>
@@ -251,35 +252,59 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
   <div class="sec-head fi">
     <div class="sec-tag" data-en="COMPONENTS" data-tr="BİLEŞENLER">COMPONENTS</div>
     <h2 class="sec-title" data-en="System Components" data-tr="Sistem Bileşenleri">System Components</h2>
-    <p class="sec-desc" data-en="Three specialized subsystems work independently, communicating only through the async buffer." data-tr="Üç özel alt sistem bağımsız olarak çalışır, yalnızca asenkron tampon üzerinden iletişim kurar.">Three specialized subsystems work independently, communicating only through the async buffer.</p>
+    <p class="sec-desc" data-en="Three subsystems with clear boundaries. All state lives in electronics, and the photonic core holds no state between passes." data-tr="Net sınırları olan üç alt sistem. Tüm durum elektronikte tutulur, fotonik çekirdek geçişler arasında durum saklamaz.">Three subsystems with clear boundaries. All state lives in electronics, and the photonic core holds no state between passes.</p>
   </div>
   <div class="cards3">
     <div class="ccard elec fi d1">
       <div class="ccard-icon">⚡</div>
-      <div class="ccard-name" data-en="Base-4 Electric" data-tr="Taban-4 Elektrik">Base-4 Electric</div>
-      <div class="ccard-role" data-en="Storage &amp; Everyday Computing" data-tr="Depolama &amp; Günlük Hesaplama">Storage &amp; Everyday Computing</div>
-      <div class="ccard-desc" data-en="Uses four voltage levels (0V, 1.1V, 2.2V, 3.3V) to store 2 bits per cell — double the density of binary. Based on proven MLC SSD technology with ~1.1V noise margin between each level." data-tr="Dört gerilim seviyesi (0V, 1.1V, 2.2V, 3.3V) kullanarak her hücreye 2 bit depolar — ikili sistemin iki katı yoğunluk. Kanıtlanmış MLC SSD teknolojisine dayalı, seviyeler arası ~1.1V gürültü marjı.">Uses four voltage levels (0V, 1.1V, 2.2V, 3.3V) to store 2 bits per cell — double the density of binary. Based on proven MLC SSD technology with ~1.1V noise margin between each level.</div>
+      <div class="ccard-name" data-en="Electronic Host" data-tr="Elektronik Ana Sistem">Electronic Host</div>
+      <div class="ccard-role" data-en="OS, Storage &amp; Everyday Computing" data-tr="İşletim Sistemi, Depolama &amp; Günlük Hesaplama">OS, Storage &amp; Everyday Computing</div>
+      <div class="ccard-desc" data-en="Standard binary CMOS at ~0.7–0.9 V. Four-level logic at 3.3 V would cost ~19× more dynamic power and give a worse noise margin. Multi-level encoding is used only where it already works: MLC/TLC NAND storage. Existing software runs unchanged." data-tr="~0.7–0.9 V'ta çalışan standart ikili CMOS. 3.3 V'luk dört seviyeli mantık ~19× daha fazla dinamik güç harcar ve gürültü marjı daha kötü olur. Çok seviyeli kodlama yalnızca zaten işe yaradığı yerde kullanılır: MLC/TLC NAND depolama. Mevcut yazılımlar değişmeden çalışır.">Standard binary CMOS at ~0.7–0.9 V. Four-level logic at 3.3 V would cost ~19× more dynamic power and give a worse noise margin. Multi-level encoding is used only where it already works: MLC/TLC NAND storage. Existing software runs unchanged.</div>
       <div class="tags">
-        <span class="tag">Silicon (Si)</span><span class="tag">2 bits/cell</span><span class="tag">~5 GHz</span><span class="tag">0V·1.1V·2.2V·3.3V</span><span class="tag">OS + I/O</span>
+        <span class="tag">Silicon (Si)</span><span class="tag">Binary CMOS</span><span class="tag">~5 GHz</span><span class="tag">MLC/TLC NAND</span><span class="tag">OS + I/O</span>
       </div>
     </div>
     <div class="ccard phot fi d2">
       <div class="ccard-icon">💡</div>
-      <div class="ccard-name" data-en="Base-256 Photonic" data-tr="Taban-256 Fotonik">Base-256 Photonic</div>
-      <div class="ccard-role" data-en="AI &amp; Heavy Processing" data-tr="Yapay Zeka &amp; Ağır İşleme">AI &amp; Heavy Processing</div>
-      <div class="ccard-desc" data-en="256 light intensity levels carry 8 bits per signal. Photons travel through Silicon Nitride waveguides at terahertz speeds with zero heat generation. WDM enables 80+ simultaneous wavelength channels on one fiber." data-tr="256 ışık yoğunluğu seviyesi sinyal başına 8 bit taşır. Fotonlar silikon nitrür dalga kılavuzlarında sıfır ısı üreterek terahertz hızlarında ilerler. WDM tek fiber üzerinde 80+ eş zamanlı dalga boyu kanalı sağlar.">256 light intensity levels carry 8 bits per signal. Photons travel through Silicon Nitride waveguides at terahertz speeds with zero heat generation. WDM enables 80+ simultaneous wavelength channels on one fiber.</div>
+      <div class="ccard-name" data-en="Photonic Accelerator" data-tr="Fotonik Hızlandırıcı">Photonic Accelerator</div>
+      <div class="ccard-role" data-en="Matrix Math for AI Inference" data-tr="AI Çıkarımı için Matris Hesabı">Matrix Math for AI Inference</div>
+      <div class="ccard-desc" data-en="An N×N weight mesh in Si₃N₄ computes y = Wx with light. Inputs arrive as PAM-4 symbols at ~10 GBd per wavelength, and WDM runs many wavelengths in parallel. Lasers, tuning and converters still produce heat: the gain is efficiency, not zero heat." data-tr="Si₃N₄'ten bir N×N ağırlık ağı y = Wx işlemini ışıkla hesaplar. Girişler dalga boyu başına ~10 GBd hızında PAM-4 sembolleri olarak gelir, WDM birçok dalga boyunu paralel çalıştırır. Lazerler, ayar elemanları ve dönüştürücüler yine de ısı üretir: kazanç sıfır ısı değil, verimliliktir.">An N×N weight mesh in Si₃N₄ computes y = Wx with light. Inputs arrive as PAM-4 symbols at ~10 GBd per wavelength, and WDM runs many wavelengths in parallel. Lasers, tuning and converters still produce heat: the gain is efficiency, not zero heat.</div>
       <div class="tags">
-        <span class="tag">InP + Si₃N₄</span><span class="tag">8 bits/signal</span><span class="tag">~THz</span><span class="tag">&gt;10 Tbps</span><span class="tag">WDM 80+</span><span class="tag">No Heat</span>
+        <span class="tag">Si₃N₄</span><span class="tag">PAM-4</span><span class="tag">~10 GBd</span><span class="tag">WDM</span><span class="tag">y = Wx</span><span class="tag">Inference</span>
       </div>
     </div>
     <div class="ccard buf fi d3">
       <div class="ccard-icon">🔄</div>
-      <div class="ccard-name" data-en="Async Buffer" data-tr="Asenkron Tampon">Async Buffer</div>
-      <div class="ccard-role" data-en="Electro-Optic Bridge" data-tr="Elektro-Optik Köprü">Electro-Optic Bridge</div>
-      <div class="ccard-desc" data-en="LiNbO₃ crystal changes optical properties when voltage is applied — bridging electric writes and photonic reads. Three ring buffers ensure critical tasks (P0) always preempt normal (P1) and background (P2) work." data-tr="LiNbO₃ kristali gerilim uygulandığında optik özelliklerini değiştirir. Üç halka tampon, kritik görevlerin (P0) her zaman normal (P1) ve arka plan (P2) işlerini geçmesini sağlar.">LiNbO₃ crystal changes optical properties when voltage is applied — bridging electric writes and photonic reads. Three ring buffers ensure critical tasks (P0) always preempt normal (P1) and background (P2) work.</div>
+      <div class="ccard-name" data-en="Async Queues + E/O Bridge" data-tr="Asenkron Kuyruk + E/O Köprü">Async Queues + E/O Bridge</div>
+      <div class="ccard-role" data-en="Control Die" data-tr="Kontrol Yongası">Control Die</div>
+      <div class="ccard-desc" data-en="SRAM ring buffers hold the P0/P1/P2 submission and completion queues. LiNbO₃ cannot store data, because the Pockels effect lasts only while voltage is applied, so it is used where it excels: as the high-speed modulator. Preemption happens between tiles, so no optical memory is needed." data-tr="SRAM halka tamponları P0/P1/P2 gönderim ve tamamlanma kuyruklarını tutar. Pockels etkisi yalnızca gerilim uygulandığı sürece devam ettiği için LiNbO₃ veri saklayamaz, bu yüzden en iyi olduğu yerde kullanılır: yüksek hızlı modülatör olarak. Kesme işlemi karolar arasında yapıldığı için optik belleğe gerek yoktur.">SRAM ring buffers hold the P0/P1/P2 submission and completion queues. LiNbO₃ cannot store data, because the Pockels effect lasts only while voltage is applied, so it is used where it excels: as the high-speed modulator. Preemption happens between tiles, so no optical memory is needed.</div>
       <div class="tags">
-        <span class="tag">LiNbO₃</span><span class="tag">P0·P1·P2</span><span class="tag">Non-blocking</span><span class="tag">~1–5ns</span><span class="tag">Interrupt</span>
+        <span class="tag">SRAM queues</span><span class="tag">P0·P1·P2</span><span class="tag">TFLN modulator</span><span class="tag">DAC/ADC</span><span class="tag">Tile preemption</span>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIGIT SLICING -->
+<div class="sec">
+  <div class="sec-head fi">
+    <div class="sec-tag" data-en="MATHEMATICS" data-tr="MATEMATİK">MATHEMATICS</div>
+    <h2 class="sec-title" data-en="4⁴ = 256, Reinterpreted: Base-4 Digit Slicing" data-tr="4⁴ = 256'nın Yeni Yorumu: Taban-4 Basamak Dilimleme">4⁴ = 256, Reinterpreted: Base-4 Digit Slicing</h2>
+    <p class="sec-desc" data-en="The identity is not an advantage on its own. It becomes one when it decides how many light levels each optical pass must resolve." data-tr="Bu eşitlik tek başına bir avantaj değildir. Her optik geçişin kaç ışık seviyesini ayırt etmesi gerektiğini belirlediğinde avantaja dönüşür.">The identity is not an advantage on its own. It becomes one when it decides how many light levels each optical pass must resolve.</p>
+  </div>
+  <div class="space-intro fi">
+    <div class="space-intro-text">
+      <p data-en="Every power-of-two base maps exactly onto 256 values (2⁸ = 16² = 256), and an ordinary byte already does. Base 4 is useful elsewhere. Write an 8-bit input as four base-4 digits, <strong>x = Σ 4ᵏ·xₖ</strong>. Because optics is linear, <strong>Wx = Σ 4ᵏ·(W xₖ)</strong>. Each pass then needs only 4 light levels instead of 256. That is PAM-4, already mass-produced for optical Ethernet. The control die recombines the four partial results by shift-and-add.<br><br><strong>Cost:</strong> four passes per operand. <strong>Open problem:</strong> the output ADC still needs more precision than today's fast, low-energy converters provide." data-tr="Her ikinin kuvveti taban 256 değere tam olarak eşlenir (2⁸ = 16² = 256), sıradan bir byte da zaten bunu yapar. Taban-4'ün işe yaradığı yer başka. 8 bitlik bir girişi dört taban-4 basamağı olarak yazalım: <strong>x = Σ 4ᵏ·xₖ</strong>. Optik doğrusal olduğu için <strong>Wx = Σ 4ᵏ·(W xₖ)</strong>. Böylece her geçiş 256 yerine yalnızca 4 ışık seviyesine ihtiyaç duyar. Bu PAM-4'tür ve optik Ethernet için zaten seri üretimdedir. Kontrol yongası dört kısmi sonucu kaydır-ve-topla ile birleştirir.<br><br><strong>Maliyet:</strong> işlenen başına dört geçiş. <strong>Açık sorun:</strong> çıkış ADC'si hâlâ bugünün hızlı ve düşük enerjili dönüştürücülerinin sağladığından daha fazla hassasiyet gerektirir.">Every power-of-two base maps exactly onto 256 values (2⁸ = 16² = 256), and an ordinary byte already does. Base 4 is useful elsewhere. Write an 8-bit input as four base-4 digits, <strong>x = Σ 4ᵏ·xₖ</strong>. Because optics is linear, <strong>Wx = Σ 4ᵏ·(W xₖ)</strong>. Each pass then needs only 4 light levels instead of 256. That is PAM-4, already mass-produced for optical Ethernet. The control die recombines the four partial results by shift-and-add.<br><br><strong>Cost:</strong> four passes per operand. <strong>Open problem:</strong> the output ADC still needs more precision than today's fast, low-energy converters provide.</p>
+    </div>
+    <div class="space-formula-box fi d1">
+      <div class="sf-title" data-en="Required SNR per Optical Symbol" data-tr="Optik Sembol Başına Gerekli SNR">Required SNR per Optical Symbol</div>
+      <div class="sf-item"><span class="sf-label" data-en="2 bits · PAM-4 (chosen)" data-tr="2 bit · PAM-4 (seçilen)">2 bits · PAM-4 (chosen)</span><span class="sf-val">13.8 dB</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="4 bits · PAM-16" data-tr="4 bit · PAM-16">4 bits · PAM-16</span><span class="sf-val">25.8 dB</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="6 bits · PAM-64" data-tr="6 bit · PAM-64">6 bits · PAM-64</span><span class="sf-val">37.9 dB</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="8 bits · PAM-256 (v1.0)" data-tr="8 bit · PAM-256 (v1.0)">8 bits · PAM-256 (v1.0)</span><span class="sf-val">49.9 dB</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Passes per 8-bit operand" data-tr="8 bitlik işlenen başına geçiş">Passes per 8-bit operand</span><span class="sf-val">4</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Exact 64-term accumulation needs" data-tr="64 terimli tam toplam için gereken">Exact 64-term accumulation needs</span><span class="sf-val">~11.5 bit</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Fast low-energy ADC provides" data-tr="Hızlı düşük enerjili ADC'nin sağladığı">Fast low-energy ADC provides</span><span class="sf-val">~6 bit</span></div>
     </div>
   </div>
 </div>
@@ -289,7 +314,7 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
   <div class="sec-head fi">
     <div class="sec-tag" data-en="PRODUCT DESIGN" data-tr="ÜRÜN TASARIMI">PRODUCT DESIGN</div>
     <h2 class="sec-title" data-en="What Would It Actually Look Like?" data-tr="Fiziksel Görünümü Nasıl Olur?">What Would It Actually Look Like?</h2>
-    <p class="sec-desc" data-en="A detailed product render of the HPC-X1 Hybrid Photonic Workstation. Three independent module zones are visible through the tempered glass panel — each with its own distinct glow signature." data-tr="HPC-X1 Hibrit Fotonik İş İstasyonunun ayrıntılı ürün renderi. Üç bağımsız modül bölgesi, temperli cam panel aracılığıyla görünürdür — her birinin kendine özgü parıltı imzası vardır.">A detailed product render of the HPC-X1 Hybrid Photonic Workstation. Three independent module zones are visible through the tempered glass panel — each with its own distinct glow signature.</p>
+    <p class="sec-desc" data-en="An artistic product render of the HPC-X1 workstation concept. Three module zones are visible through the glass panel, each with its own glow signature." data-tr="HPC-X1 iş istasyonu konseptinin sanatsal ürün renderi. Üç modül bölgesi cam panelden görünür, her birinin kendine özgü parıltı imzası vardır.">An artistic product render of the HPC-X1 workstation concept. Three module zones are visible through the glass panel, each with its own glow signature.</p>
   </div>
 </div>
 <div class="cpanel fi" style="margin:0 24px 80px;max-width:1152px;margin-left:auto;margin-right:auto">
@@ -304,91 +329,90 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
 <div class="sec">
   <div class="sec-head fi">
     <div class="sec-tag" data-en="COMPARISON" data-tr="KARŞILAŞTIRMA">COMPARISON</div>
-    <h2 class="sec-title" data-en="Today vs Hybrid Photonic" data-tr="Bugün vs Hibrit Fotonik">Today vs Hybrid Photonic</h2>
-    <p class="sec-desc" data-en="A detailed feature-by-feature comparison showing where the hybrid architecture wins and where current challenges remain." data-tr="Hibrit mimarinin kazandığı ve mevcut zorlukların kaldığı yerleri gösteren ayrıntılı özellik karşılaştırması.">A detailed feature-by-feature comparison showing where the hybrid architecture wins and where current challenges remain.</p>
+    <h2 class="sec-title" data-en="Today's GPU vs This Proposal" data-tr="Bugünün GPU'su vs Bu Öneri">Today's GPU vs This Proposal</h2>
+    <p class="sec-desc" data-en="Illustrative figures from the energy model below. Photonic numbers exclude memory traffic, so they favour photonics." data-tr="Aşağıdaki enerji modelinden örnek değerler. Fotonik rakamlar bellek trafiğini içermez, yani fotoniğin lehinedir.">Illustrative figures from the energy model below. Photonic numbers exclude memory traffic, so they favour photonics.</p>
   </div>
   <div class="tbl-wrap fi">
     <table class="cmptbl">
       <thead>
         <tr>
-          <th data-en="Feature" data-tr="Özellik">Feature</th>
-          <th data-en="Today (Binary)" data-tr="Bugün (İkili)">Today (Binary)</th>
-          <th data-en="Hybrid Photonic" data-tr="Hibrit Fotonik">Hybrid Photonic</th>
+          <th data-en="Aspect" data-tr="Konu">Aspect</th>
+          <th data-en="Today (GPU)" data-tr="Bugün (GPU)">Today (GPU)</th>
+          <th data-en="This Proposal" data-tr="Bu Öneri">This Proposal</th>
           <th data-en="Status" data-tr="Durum">Status</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td data-en="Number system" data-tr="Sayı sistemi">Number system</td><td>Base-2 (0, 1)</td><td>Base-4 + Base-256</td><td><span class="badge up">⬆ Better</span></td></tr>
-        <tr><td data-en="Bits per storage cell" data-tr="Depolama hücresi başına bit">Bits per storage cell</td><td>1 bit</td><td>2 bits</td><td><span class="badge up">⬆ 2×</span></td></tr>
-        <tr><td data-en="Bits per signal" data-tr="Sinyal başına bit">Bits per signal</td><td>1 bit</td><td>8 bits</td><td><span class="badge up">⬆ 8×</span></td></tr>
-        <tr><td data-en="Processing speed" data-tr="İşleme hızı">Processing speed</td><td>~5 GHz</td><td>~THz range</td><td><span class="badge up">⬆ 100–1000×</span></td></tr>
-        <tr><td data-en="Processing medium" data-tr="İşleme ortamı">Processing medium</td><td data-en="Electricity (copper)" data-tr="Elektrik (bakır)">Electricity (copper)</td><td data-en="Photons (light)" data-tr="Fotonlar (ışık)">Photons (light)</td><td><span class="badge up">⬆ Better</span></td></tr>
-        <tr><td data-en="Energy consumption" data-tr="Enerji tüketimi">Energy consumption</td><td data-en="High (heat problem)" data-tr="Yüksek (ısı sorunu)">High (heat problem)</td><td data-en="Very low (no heat)" data-tr="Çok düşük (ısı yok)">Very low (no heat)</td><td><span class="badge up">⬆ Better</span></td></tr>
-        <tr><td data-en="EMI resistance" data-tr="EMI direnci">EMI resistance</td><td data-en="Medium" data-tr="Orta">Medium</td><td data-en="Very high" data-tr="Çok yüksek">Very high</td><td><span class="badge up">⬆ Better</span></td></tr>
-        <tr><td data-en="Bandwidth" data-tr="Bant genişliği">Bandwidth</td><td>~100 Gbps</td><td>&gt;10 Tbps</td><td><span class="badge up">⬆ 100×</span></td></tr>
-        <tr><td data-en="Scalability" data-tr="Ölçeklenebilirlik">Scalability</td><td data-en="Near physical limits" data-tr="Fiziksel sınırlara yakın">Near physical limits</td><td data-en="Very high potential" data-tr="Çok yüksek potansiyel">Very high potential</td><td><span class="badge up">⬆ Better</span></td></tr>
-        <tr><td data-en="Water usage (AI)" data-tr="Su kullanımı (AI)">Water usage (AI)</td><td>~500ml / 100 queries</td><td>~50ml / 100 queries</td><td><span class="badge up">⬆ 90% less</span></td></tr>
-        <tr><td data-en="Manufacturing" data-tr="Üretim">Manufacturing</td><td data-en="Mature (70+ years)" data-tr="Olgunlaşmış (70+ yıl)">Mature (70+ years)</td><td data-en="Very difficult" data-tr="Çok zor">Very difficult</td><td><span class="badge dn">⬇ Harder</span></td></tr>
-        <tr><td data-en="Software compatibility" data-tr="Yazılım uyumluluğu">Software compatibility</td><td data-en="All existing software" data-tr="Tüm mevcut yazılım">All existing software</td><td data-en="New compilers needed" data-tr="Yeni derleyiciler gerekli">New compilers needed</td><td><span class="badge dn">⬇ New ecosystem</span></td></tr>
-        <tr><td data-en="Cost" data-tr="Maliyet">Cost</td><td data-en="Low (mass production)" data-tr="Düşük (kitlesel üretim)">Low (mass production)</td><td data-en="Very high (initially)" data-tr="Çok yüksek (başlangıçta)">Very high (initially)</td><td><span class="badge dn">⬇ Expensive</span></td></tr>
-        <tr><td data-en="Talent pool" data-tr="Yetenek havuzu">Talent pool</td><td data-en="Abundant" data-tr="Bol">Abundant</td><td data-en="Very niche" data-tr="Çok niş">Very niche</td><td><span class="badge dn">⬇ Scarce</span></td></tr>
+        <tr><td data-en="Host logic" data-tr="Ana sistem mantığı">Host logic</td><td>Binary CMOS</td><td>Binary CMOS</td><td><span class="badge eq" data-en="= Same" data-tr="= Aynı">= Same</span></td></tr>
+        <tr><td data-en="Storage" data-tr="Depolama">Storage</td><td>MLC/TLC NAND</td><td>MLC/TLC NAND</td><td><span class="badge eq" data-en="= Same" data-tr="= Aynı">= Same</span></td></tr>
+        <tr><td data-en="Optical symbol" data-tr="Optik sembol">Optical symbol</td><td>—</td><td data-en="PAM-4 × 4 passes" data-tr="PAM-4 × 4 geçiş">PAM-4 × 4 passes</td><td><span class="badge up" data-en="⬆ Mature format" data-tr="⬆ Olgun format">⬆ Mature format</span></td></tr>
+        <tr><td data-en="Energy per MAC (core)" data-tr="MAC başına enerji (çekirdek)">Energy per MAC (core)</td><td>~700 fJ</td><td data-en="~100–150 fJ (best cases)" data-tr="~100–150 fJ (en iyi durumlar)">~100–150 fJ (best cases)</td><td><span class="badge up">⬆ ~5–7×</span></td></tr>
+        <tr><td data-en="Throughput" data-tr="İşlem hacmi">Throughput</td><td data-en="~990 TMAC/s per GPU" data-tr="GPU başına ~990 TMAC/s">~990 TMAC/s per GPU</td><td data-en="10–164 TMAC/s per core" data-tr="Çekirdek başına 10–164 TMAC/s">10–164 TMAC/s per core</td><td><span class="badge dn" data-en="⬇ Many cores needed" data-tr="⬇ Çok çekirdek gerekir">⬇ Many cores needed</span></td></tr>
+        <tr><td data-en="Memory bandwidth" data-tr="Bellek bant genişliği">Memory bandwidth</td><td>3.35 TB/s (HBM3)</td><td data-en="Set by host memory" data-tr="Ana sistem belleğine bağlı">Set by host memory</td><td><span class="badge dn" data-en="⬇ Memory wall remains" data-tr="⬇ Bellek duvarı sürüyor">⬇ Memory wall remains</span></td></tr>
+        <tr><td data-en="Accumulation precision" data-tr="Toplama hassasiyeti">Accumulation precision</td><td>FP8–FP32</td><td>~6-bit ADC</td><td><span class="badge dn" data-en="⬇ Inference only" data-tr="⬇ Yalnızca çıkarım">⬇ Inference only</span></td></tr>
+        <tr><td data-en="Facility energy" data-tr="Tesis enerjisi">Facility energy</td><td data-en="Baseline" data-tr="Referans">Baseline</td><td data-en="≤ ~40% lower" data-tr="≤ ~%40 daha az">≤ ~40% lower</td><td><span class="badge up" data-en="⬆ Amdahl-bounded" data-tr="⬆ Amdahl sınırlı">⬆ Amdahl-bounded</span></td></tr>
+        <tr><td data-en="Heat" data-tr="Isı">Heat</td><td data-en="High" data-tr="Yüksek">High</td><td data-en="Lower, not zero" data-tr="Daha az, sıfır değil">Lower, not zero</td><td><span class="badge up" data-en="⬆ Better" data-tr="⬆ Daha iyi">⬆ Better</span></td></tr>
+        <tr><td data-en="Software" data-tr="Yazılım">Software</td><td data-en="All existing" data-tr="Tüm mevcut yazılım">All existing</td><td data-en="Existing + accelerator runtime" data-tr="Mevcut + hızlandırıcı çalışma ortamı">Existing + accelerator runtime</td><td><span class="badge up" data-en="⬆ No new OS" data-tr="⬆ Yeni OS yok">⬆ No new OS</span></td></tr>
+        <tr><td data-en="Manufacturing" data-tr="Üretim">Manufacturing</td><td data-en="Mature (70+ years)" data-tr="Olgunlaşmış (70+ yıl)">Mature (70+ years)</td><td data-en="Co-packaging is hard" data-tr="Ortak paketleme zor">Co-packaging is hard</td><td><span class="badge dn" data-en="⬇ Harder" data-tr="⬇ Daha zor">⬇ Harder</span></td></tr>
+        <tr><td data-en="Cost" data-tr="Maliyet">Cost</td><td data-en="Low (mass production)" data-tr="Düşük (kitlesel üretim)">Low (mass production)</td><td data-en="Very high (initially)" data-tr="Çok yüksek (başlangıçta)">Very high (initially)</td><td><span class="badge dn" data-en="⬇ Expensive" data-tr="⬇ Pahalı">⬇ Expensive</span></td></tr>
+        <tr><td data-en="Talent pool" data-tr="Yetenek havuzu">Talent pool</td><td data-en="Abundant" data-tr="Bol">Abundant</td><td data-en="Very niche" data-tr="Çok niş">Very niche</td><td><span class="badge dn" data-en="⬇ Scarce" data-tr="⬇ Kıt">⬇ Scarce</span></td></tr>
       </tbody>
     </table>
   </div>
 </div>
 
-<!-- AI IMPACT -->
+<!-- ENERGY MODEL -->
 <div class="sec">
   <div class="sec-head fi">
-    <div class="sec-tag" data-en="AI IMPACT" data-tr="YAPAY ZEKA ETKİSİ">AI IMPACT</div>
-    <h2 class="sec-title" data-en="Revolutionizing AI Operations" data-tr="Yapay Zeka Operasyonlarında Devrim">Revolutionizing AI Operations</h2>
-    <p class="sec-desc" data-en="Photonic computing could fundamentally transform AI infrastructure economics, sustainability, and performance." data-tr="Fotonik hesaplama, yapay zeka altyapı ekonomisini, sürdürülebilirliğini ve performansını temelden dönüştürebilir.">Photonic computing could fundamentally transform AI infrastructure economics, sustainability, and performance.</p>
+    <div class="sec-tag" data-en="ENERGY MODEL" data-tr="ENERJİ MODELİ">ENERGY MODEL</div>
+    <h2 class="sec-title" data-en="Where the Gains Really Come From" data-tr="Kazanç Gerçekte Nereden Geliyor">Where the Gains Really Come From</h2>
+    <p class="sec-desc" data-en="E<sub>MAC</sub> = D·[(E<sub>DAC</sub>+E<sub>ADC</sub>)/N + P<sub>L</sub>/(f·N²) + P<sub>T</sub>/(f·M·N²)], with N = 64, f = 10 GBd and D = 4 passes. Every value is an illustrative placeholder to be replaced with device data." data-tr="E<sub>MAC</sub> = D·[(E<sub>DAC</sub>+E<sub>ADC</sub>)/N + P<sub>L</sub>/(f·N²) + P<sub>T</sub>/(f·M·N²)], burada N = 64, f = 10 GBd ve D = 4 geçiş. Tüm değerler, cihaz verileriyle değiştirilmesi gereken örnek yer tutuculardır.">E<sub>MAC</sub> = D·[(E<sub>DAC</sub>+E<sub>ADC</sub>)/N + P<sub>L</sub>/(f·N²) + P<sub>T</sub>/(f·M·N²)], with N = 64, f = 10 GBd and D = 4 passes. Every value is an illustrative placeholder to be replaced with device data.</p>
   </div>
   <div class="impact6">
     <div class="icard fi d1">
-      <span class="icard-icon">💧</span>
-      <div class="icard-title" data-en="Water Usage" data-tr="Su Kullanımı">Water Usage</div>
-      <div class="icard-desc" data-en="Data centers consume millions of liters daily for cooling. Photonics produce no heat, eliminating cooling infrastructure almost entirely." data-tr="Veri merkezleri soğutma için günlük milyonlarca litre tüketir. Fotonlar ısı üretmez, soğutma altyapısını neredeyse tamamen ortadan kaldırır.">Data centers consume millions of liters daily for cooling. Photonics produce no heat, eliminating cooling infrastructure almost entirely.</div>
-      <div class="icard-stat"><span class="istat-today">~500ml/100 queries</span><span class="istat-arrow">→</span><span class="istat-hybrid">~50ml/100 queries</span><span class="istat-pct">90% less</span></div>
+      <span class="icard-icon">🔥</span>
+      <div class="icard-title" data-en="Tuning Decides Everything" data-tr="Her Şeyi Ayar Belirliyor">Tuning Decides Everything</div>
+      <div class="icard-desc" data-en="Thermo-optic weights on a single wavelength spend ~781 fJ per MAC on heater power alone. The photonic core ends up worse than a GPU." data-tr="Tek dalga boyunda termo-optik ağırlıklar yalnızca ısıtıcı gücüne MAC başına ~781 fJ harcar. Fotonik çekirdek GPU'dan daha kötü sonuç verir.">Thermo-optic weights on a single wavelength spend ~781 fJ per MAC on heater power alone. The photonic core ends up worse than a GPU.</div>
+      <div class="icard-stat"><span class="istat-today">GPU ~707 fJ</span><span class="istat-arrow">→</span><span class="istat-hybrid">879 fJ</span><span class="istat-pct" data-en="0.8× (worse)" data-tr="0.8× (kötü)">0.8× (worse)</span></div>
     </div>
     <div class="icard fi d2">
-      <span class="icard-icon">⚡</span>
-      <div class="icard-title" data-en="Energy per Query" data-tr="Sorgu Başına Enerji">Energy per Query</div>
-      <div class="icard-desc" data-en="A ChatGPT query consumes ~10× the energy of a Google search. Photonic matrix multiplication is ~100× more energy efficient." data-tr="Bir ChatGPT sorgusu, Google aramasının ~10 katı enerji tüketir. Fotonik matris çarpımı ~100 kat daha enerji verimlidir.">A ChatGPT query consumes ~10× the energy of a Google search. Photonic matrix multiplication is ~100× more energy efficient.</div>
-      <div class="icard-stat"><span class="istat-today">~10× Google search</span><span class="istat-arrow">→</span><span class="istat-hybrid">~0.5× Google search</span><span class="istat-pct">95% less</span></div>
+      <span class="icard-icon">🌈</span>
+      <div class="icard-title" data-en="WDM Amortises Tuning" data-tr="WDM Ayar Maliyetini Böler">WDM Amortises Tuning</div>
+      <div class="icard-desc" data-en="Sixteen wavelengths share the same tuned mesh. That cuts the tuning cost 16× and raises throughput to ~164 TMAC/s per core." data-tr="On altı dalga boyu aynı ayarlı ağı paylaşır. Bu, ayar maliyetini 16× düşürür ve çekirdek başına işlem hacmini ~164 TMAC/s'ye çıkarır.">Sixteen wavelengths share the same tuned mesh. That cuts the tuning cost 16× and raises throughput to ~164 TMAC/s per core.</div>
+      <div class="icard-stat"><span class="istat-today">879 fJ</span><span class="istat-arrow">→</span><span class="istat-hybrid">147 fJ</span><span class="istat-pct" data-en="4.8× vs GPU" data-tr="GPU'ya göre 4.8×">4.8× vs GPU</span></div>
     </div>
     <div class="icard fi d3">
-      <span class="icard-icon">🚀</span>
-      <div class="icard-title" data-en="Training Speed" data-tr="Eğitim Hızı">Training Speed</div>
-      <div class="icard-desc" data-en="GPT-4 training took months with thousands of GPUs. Photonic parallel processing plus WDM wavelength multiplexing could compress that to days." data-tr="GPT-4 eğitimi binlerce GPU ile aylarca sürdü. Fotonik paralel işleme ve WDM dalga boyu çoğullama bunu günlere indirebilir.">GPT-4 training took months with thousands of GPUs. Photonic parallel processing plus WDM wavelength multiplexing could compress that to days.</div>
-      <div class="icard-stat"><span class="istat-today">3–4 months</span><span class="istat-arrow">→</span><span class="istat-hybrid">3–7 days</span><span class="istat-pct">15–30× faster</span></div>
+      <span class="icard-icon">⚡</span>
+      <div class="icard-title" data-en="Electro-Optic Weights" data-tr="Elektro-Optik Ağırlıklar">Electro-Optic Weights</div>
+      <div class="icard-desc" data-en="Thin-film LiNbO₃ or non-volatile phase-change weights hold their state with almost no power. Conversion (DAC + ADC) then dominates." data-tr="İnce film LiNbO₃ veya kalıcı faz değişimli ağırlıklar durumlarını neredeyse hiç güç harcamadan korur. Bu durumda baskın maliyet dönüşümdür (DAC + ADC).">Thin-film LiNbO₃ or non-volatile phase-change weights hold their state with almost no power. Conversion (DAC + ADC) then dominates.</div>
+      <div class="icard-stat"><span class="istat-today">GPU ~707 fJ</span><span class="istat-arrow">→</span><span class="istat-hybrid">~98–103 fJ</span><span class="istat-pct" data-en="~7× less" data-tr="~7× daha az">~7× less</span></div>
     </div>
     <div class="icard fi d1">
-      <span class="icard-icon">⏱</span>
-      <div class="icard-title" data-en="Inference Latency" data-tr="Çıkarım Gecikmesi">Inference Latency</div>
-      <div class="icard-desc" data-en="Current LLM response times of 1–5 seconds become sub-10ms with photonic matrix multiplication running at the speed of light." data-tr="Mevcut 1–5 saniyelik LLM yanıt süreleri, ışık hızında çalışan fotonik matris çarpımı ile 10ms altına düşer.">Current LLM response times of 1–5 seconds become sub-10ms with photonic matrix multiplication running at the speed of light.</div>
-      <div class="icard-stat"><span class="istat-today">1–5 seconds</span><span class="istat-arrow">→</span><span class="istat-hybrid">&lt;10 milliseconds</span><span class="istat-pct">98% faster</span></div>
+      <span class="icard-icon">🏭</span>
+      <div class="icard-title" data-en="Facility-Level Bound" data-tr="Tesis Düzeyi Sınırı">Facility-Level Bound</div>
+      <div class="icard-desc" data-en="Only the matrix-math share of facility energy (assumed 50%) gets cheaper. Amdahl's law caps the total saving." data-tr="Tesis enerjisinin yalnızca matris hesabı payı (%50 varsayıldı) ucuzlar. Amdahl yasası toplam tasarrufu sınırlar.">Only the matrix-math share of facility energy (assumed 50%) gets cheaper. Amdahl's law caps the total saving.</div>
+      <div class="icard-stat"><span class="istat-today">100%</span><span class="istat-arrow">→</span><span class="istat-hybrid">~57%</span><span class="istat-pct" data-en="≤ ~43% less" data-tr="≤ ~%43 daha az">≤ ~43% less</span></div>
     </div>
     <div class="icard fi d2">
-      <span class="icard-icon">💰</span>
-      <div class="icard-title" data-en="Operating Cost" data-tr="İşletme Maliyeti">Operating Cost</div>
-      <div class="icard-desc" data-en="Large AI clusters cost $50–100K per day in electricity alone. Eliminating cooling and reducing power draw cuts operational expenses by ~85%." data-tr="Büyük AI kümeleri yalnızca elektrik için günlük 50–100K $ tutar. Soğutmanın ortadan kaldırılması ve güç tüketiminin azaltılması operasyonel giderleri ~%85 düşürür.">Large AI clusters cost $50–100K per day in electricity alone. Eliminating cooling and reducing power draw cuts operational expenses by ~85%.</div>
-      <div class="icard-stat"><span class="istat-today">$50–100K/day</span><span class="istat-arrow">→</span><span class="istat-hybrid">$7–15K/day</span><span class="istat-pct">85% less</span></div>
+      <span class="icard-icon">💧</span>
+      <div class="icard-title" data-en="Cooling Water" data-tr="Soğutma Suyu">Cooling Water</div>
+      <div class="icard-desc" data-en="Cooling water scales with the heat rejected, so it follows the same bound, not the 90% claimed in v1.0. Baseline: ~500 ml per ~10–50 responses for a GPT-3-class model (Li et al., 2023)." data-tr="Soğutma suyu atılan ısıyla orantılıdır, bu yüzden v1.0'daki %90 değil, aynı sınır geçerlidir. Referans: GPT-3 sınıfı bir model için ~10–50 yanıt başına ~500 ml (Li ve ark., 2023).">Cooling water scales with the heat rejected, so it follows the same bound, not the 90% claimed in v1.0. Baseline: ~500 ml per ~10–50 responses for a GPT-3-class model (Li et al., 2023).</div>
+      <div class="icard-stat"><span class="istat-today">100%</span><span class="istat-arrow">→</span><span class="istat-hybrid">≥ ~57%</span><span class="istat-pct" data-en="≤ ~40% less" data-tr="≤ ~%40 daha az">≤ ~40% less</span></div>
     </div>
     <div class="icard fi d3">
-      <span class="icard-icon">🌍</span>
-      <div class="icard-title" data-en="Carbon Footprint" data-tr="Karbon Ayak İzi">Carbon Footprint</div>
-      <div class="icard-desc" data-en="The AI sector accounts for 3–4% of global carbon emissions, exceeding aviation. Photonic computing could reduce this to below 0.5% of global emissions." data-tr="AI sektörü, havacılığı geride bırakarak küresel karbon emisyonlarının %3–4'ünü oluşturur. Fotonik hesaplama bunu küresel emisyonların %0,5'inin altına indirebilir.">The AI sector accounts for 3–4% of global carbon emissions, exceeding aviation. Photonic computing could reduce this to below 0.5% of global emissions.</div>
-      <div class="icard-stat"><span class="istat-today">3–4% global emissions</span><span class="istat-arrow">→</span><span class="istat-hybrid">&lt;0.5% global</span><span class="istat-pct">85% less</span></div>
+      <span class="icard-icon">🧠</span>
+      <div class="icard-title" data-en="What Is Not Claimed" data-tr="Neler İddia Edilmiyor">What Is Not Claimed</div>
+      <div class="icard-desc" data-en="No training speed-up, because precision is too low. No latency miracle, because memory traffic and token-by-token decoding remain. No THz clock: the symbol rate is ~10 GBd." data-tr="Eğitim hızlanması yok, çünkü hassasiyet çok düşük. Gecikme mucizesi yok, çünkü bellek trafiği ve token token çözümleme sürüyor. THz saat yok: sembol hızı ~10 GBd.">No training speed-up, because precision is too low. No latency miracle, because memory traffic and token-by-token decoding remain. No THz clock: the symbol rate is ~10 GBd.</div>
+      <div class="icard-stat"><span class="istat-today" data-en="v1.0 claims" data-tr="v1.0 iddiaları">v1.0 claims</span><span class="istat-arrow">→</span><span class="istat-hybrid" data-en="withdrawn" data-tr="geri çekildi">withdrawn</span><span class="istat-pct" data-en="Appendix A" data-tr="Ek A">Appendix A</span></div>
     </div>
   </div>
 
   <!-- Bar Chart -->
   <div class="bars-sec-head fi">
-    <div class="bars-sec-title" data-en="Performance Comparison Chart" data-tr="Performans Karşılaştırma Grafiği">Performance Comparison Chart</div>
+    <div class="bars-sec-title" data-en="Energy per MAC by Configuration (lower is better)" data-tr="Yapılandırmaya Göre MAC Başına Enerji (düşük olan iyi)">Energy per MAC by Configuration (lower is better)</div>
     <div class="bars-legend">
-      <span><span class="legend-dot" style="background:#555;border-radius:2px"></span><span data-en="Today (Binary)" data-tr="Bugün (İkili)">Today (Binary)</span></span>
-      <span><span class="legend-dot" style="background:linear-gradient(90deg,#00d4ff,#ffb800)"></span><span data-en="Hybrid Photonic" data-tr="Hibrit Fotonik">Hybrid Photonic</span></span>
+      <span><span class="legend-dot" style="background:#555;border-radius:2px"></span><span data-en="Today (GPU)" data-tr="Bugün (GPU)">Today (GPU)</span></span>
+      <span><span class="legend-dot" style="background:linear-gradient(90deg,#00d4ff,#ffb800)"></span><span data-en="Hybrid Photonic (model)" data-tr="Hibrit Fotonik (model)">Hybrid Photonic (model)</span></span>
     </div>
   </div>
   <div class="cpanel fi">
@@ -401,28 +425,26 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
   <div class="sec-head fi">
     <div class="sec-tag" data-en="TRADE-OFFS" data-tr="ÖDÜNLEŞMELER">TRADE-OFFS</div>
     <h2 class="sec-title" data-en="Advantages &amp; Disadvantages" data-tr="Avantajlar &amp; Dezavantajlar">Advantages &amp; Disadvantages</h2>
-    <p class="sec-desc" data-en="An honest assessment of what this architecture gets right and where the hard engineering problems remain." data-tr="Bu mimarinin neyi doğru yaptığı ve zor mühendislik sorunlarının nerede kaldığının dürüst bir değerlendirmesi.">An honest assessment of what this architecture gets right and where the hard engineering problems remain.</p>
+    <p class="sec-desc" data-en="What this architecture gets right, and where the hard engineering problems remain." data-tr="Bu mimarinin neyi doğru yaptığı ve zor mühendislik sorunlarının nerede kaldığı.">What this architecture gets right, and where the hard engineering problems remain.</p>
   </div>
   <div class="pc-grid">
     <div class="pc-col pros fi">
       <div class="pc-head">✓ <span data-en="Advantages" data-tr="Avantajlar">Advantages</span></div>
-      <div class="pc-item"><div class="pc-ico">⚡</div><div><div class="pc-name" data-en="100–1000× Faster Processing" data-tr="100–1000× Hızlı İşleme">100–1000× Faster Processing</div><div class="pc-body" data-en="Photonic signals travel at the speed of light through Si₃N₄ waveguides, enabling terahertz-range computation for AI workloads." data-tr="Fotonik sinyaller Si₃N₄ dalga kılavuzlarında ışık hızında ilerleyerek AI iş yükleri için terahertz aralığında hesaplama sağlar.">Photonic signals travel at the speed of light through Si₃N₄ waveguides, enabling terahertz-range computation for AI workloads.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">💧</div><div><div class="pc-name" data-en="90% Less Water Consumption" data-tr="90% Daha Az Su Tüketimi">90% Less Water Consumption</div><div class="pc-body" data-en="No heat generation means no cooling infrastructure. Data center water usage drops from ~500ml to ~50ml per 100 AI queries." data-tr="Isı üretimi olmadığı için soğutma altyapısı gerekmez. Veri merkezi su kullanımı 100 AI sorgusu başına ~500ml'den ~50ml'ye düşer.">No heat generation means no cooling infrastructure. Data center water usage drops from ~500ml to ~50ml per 100 AI queries.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">🔋</div><div><div class="pc-name" data-en="85% Energy Savings" data-tr="85% Enerji Tasarrufu">85% Energy Savings</div><div class="pc-body" data-en="Light produces no resistive heat loss. Operating costs drop from $50–100K/day to $7–15K/day for large AI infrastructure." data-tr="Işık, dirençsel ısı kaybı üretmez. İşletme maliyetleri büyük AI altyapısı için günlük 50–100K $'dan 7–15K $'a düşer.">Light produces no resistive heat loss. Operating costs drop from $50–100K/day to $7–15K/day for large AI infrastructure.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">🔀</div><div><div class="pc-name" data-en="Independent Scaling" data-tr="Bağımsız Ölçekleme">Independent Scaling</div><div class="pc-body" data-en="Async architecture lets each system scale independently. Add more photonic processors without touching the electric system." data-tr="Asenkron mimari, her sistemin bağımsız olarak ölçeklenmesine izin verir. Elektrik sistemine dokunmadan daha fazla fotonik işlemci ekleyin.">Async architecture lets each system scale independently. Add more photonic processors without touching the electric system.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">🚀</div><div><div class="pc-name" data-en="15–30× Faster AI Training" data-tr="15–30× Hızlı AI Eğitimi">15–30× Faster AI Training</div><div class="pc-body" data-en="WDM enables 80+ parallel data streams on one waveguide. GPT-4-scale training could shrink from months to 3–7 days." data-tr="WDM tek dalga kılavuzunda 80+ paralel veri akışı sağlar. GPT-4 ölçeğinde eğitim aylardan 3–7 güne inebilir.">WDM enables 80+ parallel data streams on one waveguide. GPT-4-scale training could shrink from months to 3–7 days.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">🛡</div><div><div class="pc-name" data-en="Fault Isolation" data-tr="Hata İzolasyonu">Fault Isolation</div><div class="pc-body" data-en="If the photonic system crashes, the electric system continues operating. Neither system can hang waiting for the other." data-tr="Fotonik sistem çökerse, elektrik sistemi çalışmaya devam eder. Hiçbir sistem diğerini bekleyerek askıda kalamaz.">If the photonic system crashes, the electric system continues operating. Neither system can hang waiting for the other.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">📡</div><div><div class="pc-name" data-en="EMI Immunity" data-tr="EMI Bağışıklığı">EMI Immunity</div><div class="pc-body" data-en="Photons are completely unaffected by electromagnetic interference, making photonic processors ideal for harsh environments." data-tr="Fotonlar elektromanyetik girişimden tamamen etkilenmez, bu da fotonik işlemcileri zorlu ortamlar için ideal kılar.">Photons are completely unaffected by electromagnetic interference, making photonic processors ideal for harsh environments.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">∞</div><div><div class="pc-name" data-en="Mathematical Harmony — 4⁴ = 256" data-tr="Matematiksel Uyum — 4⁴ = 256">Mathematical Harmony — 4⁴ = 256</div><div class="pc-body" data-en="Four Base-4 digits map perfectly to one Base-256 photonic symbol with zero conversion overhead. The bridge is lossless by design." data-tr="Dört Taban-4 rakamı, sıfır dönüşüm yüküyle tek bir Taban-256 fotonik sembolüyle mükemmel şekilde eşleşir. Köprü tasarım gereği kayıpsızdır.">Four Base-4 digits map perfectly to one Base-256 photonic symbol with zero conversion overhead. The bridge is lossless by design.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">⚡</div><div><div class="pc-name" data-en="~5–7× Lower Energy per MAC (Best Case)" data-tr="MAC Başına ~5–7× Daha Az Enerji (En İyi Durum)">~5–7× Lower Energy per MAC (Best Case)</div><div class="pc-body" data-en="With electro-optic or non-volatile weights, or with WDM, the photonic core reaches ~100–150 fJ per 8-bit MAC, against ~700 fJ on a current GPU." data-tr="Elektro-optik veya kalıcı ağırlıklarla ya da WDM ile fotonik çekirdek 8 bitlik MAC başına ~100–150 fJ'ye ulaşır. Güncel bir GPU'da bu değer ~700 fJ'dür.">With electro-optic or non-volatile weights, or with WDM, the photonic core reaches ~100–150 fJ per 8-bit MAC, against ~700 fJ on a current GPU.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">📶</div><div><div class="pc-name" data-en="Proven Optical Format" data-tr="Kanıtlanmış Optik Format">Proven Optical Format</div><div class="pc-body" data-en="Base-4 digit slicing needs only PAM-4, already mass-produced for 400G/800G optical links, instead of an impractical 256-level signal." data-tr="Taban-4 basamak dilimleme, pratik olmayan 256 seviyeli bir sinyal yerine yalnızca PAM-4 gerektirir. PAM-4, 400G/800G optik bağlantılar için zaten seri üretimdedir.">Base-4 digit slicing needs only PAM-4, already mass-produced for 400G/800G optical links, instead of an impractical 256-level signal.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">⏸</div><div><div class="pc-name" data-en="Preemption Without Optical Memory" data-tr="Optik Bellek Olmadan Kesme">Preemption Without Optical Memory</div><div class="pc-body" data-en="Each optical pass is stateless and all state stays in electronic SRAM, so urgent P0 jobs preempt at the next tile boundary." data-tr="Her optik geçiş durumsuzdur ve tüm durum elektronik SRAM'de kalır. Böylece acil P0 işleri bir sonraki karo sınırında araya girebilir.">Each optical pass is stateless and all state stays in electronic SRAM, so urgent P0 jobs preempt at the next tile boundary.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🔀</div><div><div class="pc-name" data-en="Independent Scaling" data-tr="Bağımsız Ölçekleme">Independent Scaling</div><div class="pc-body" data-en="Async queues let accelerator cores be added without changing the host software." data-tr="Asenkron kuyruklar, ana sistem yazılımını değiştirmeden hızlandırıcı çekirdekleri eklemeye izin verir.">Async queues let accelerator cores be added without changing the host software.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">💻</div><div><div class="pc-name" data-en="Existing Software Runs As-Is" data-tr="Mevcut Yazılım Olduğu Gibi Çalışır">Existing Software Runs As-Is</div><div class="pc-body" data-en="The host is ordinary binary CMOS. Only a driver, a runtime and a compiler back-end are new, just as for any GPU or NPU." data-tr="Ana sistem sıradan ikili CMOS'tur. Herhangi bir GPU veya NPU'da olduğu gibi yalnızca bir sürücü, bir çalışma ortamı ve bir derleyici arka ucu yenidir.">The host is ordinary binary CMOS. Only a driver, a runtime and a compiler back-end are new, just as for any GPU or NPU.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🛡</div><div><div class="pc-name" data-en="Fault Isolation" data-tr="Hata İzolasyonu">Fault Isolation</div><div class="pc-body" data-en="If the accelerator fails, the host keeps running and jobs can fall back to electronic execution." data-tr="Hızlandırıcı arızalanırsa ana sistem çalışmaya devam eder ve işler elektronik yürütmeye geri dönebilir.">If the accelerator fails, the host keeps running and jobs can fall back to electronic execution.</div></div></div>
     </div>
     <div class="pc-col cons fi">
       <div class="pc-head">✗ <span data-en="Disadvantages" data-tr="Dezavantajlar">Disadvantages</span></div>
-      <div class="pc-item"><div class="pc-ico">🔧</div><div><div class="pc-name" data-en="Manufacturing Complexity" data-tr="Üretim Karmaşıklığı">Manufacturing Complexity</div><div class="pc-body" data-en="Two entirely different fabrication technologies — silicon CMOS and InP photonics — must be integrated at the chip level. This is a major unsolved engineering challenge." data-tr="İki tamamen farklı üretim teknolojisi — silikon CMOS ve InP fotonikleri — çip düzeyinde entegre edilmelidir. Bu büyük bir çözülmemiş mühendislik sorunudur.">Two entirely different fabrication technologies — silicon CMOS and InP photonics — must be integrated at the chip level. This is a major unsolved engineering challenge.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">💸</div><div><div class="pc-name" data-en="Very High Initial Cost" data-tr="Çok Yüksek Başlangıç Maliyeti">Very High Initial Cost</div><div class="pc-body" data-en="Photonic components are not yet mass-produced. A single InP photonic chip costs orders of magnitude more than an equivalent silicon chip today." data-tr="Fotonik bileşenler henüz kitlesel olarak üretilmemektedir. Tek bir InP fotonik çip bugün eşdeğer bir silikon çipten kat kat daha pahalıdır.">Photonic components are not yet mass-produced. A single InP photonic chip costs orders of magnitude more than an equivalent silicon chip today.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">💻</div><div><div class="pc-name" data-en="New Software Ecosystem Needed" data-tr="Yeni Yazılım Ekosistemi Gerekli">New Software Ecosystem Needed</div><div class="pc-body" data-en="New compilers, operating systems, device drivers, and programming languages would need to be built from scratch for Base-4 and Base-256 architectures." data-tr="Taban-4 ve Taban-256 mimarileri için yeni derleyiciler, işletim sistemleri, aygıt sürücüleri ve programlama dilleri sıfırdan oluşturulması gerekir.">New compilers, operating systems, device drivers, and programming languages would need to be built from scratch for Base-4 and Base-256 architectures.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">💾</div><div><div class="pc-name" data-en="Optical Memory Limitation" data-tr="Optik Bellek Sınırlaması">Optical Memory Limitation</div><div class="pc-body" data-en="Photons cannot be stopped — persistent optical storage is an unsolved problem. The photonic system requires electric-side memory for data persistence." data-tr="Fotonlar durdurulamaz — kalıcı optik depolama çözülmemiş bir sorundur. Fotonik sistem, veri kalıcılığı için elektrik tarafı belleği gerektirir.">Photons cannot be stopped — persistent optical storage is an unsolved problem. The photonic system requires electric-side memory for data persistence.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">⏱</div><div><div class="pc-name" data-en="Buffer Conversion Latency" data-tr="Tampon Dönüşüm Gecikmesi">Buffer Conversion Latency</div><div class="pc-body" data-en="The electro-optic conversion at the LiNbO₃ buffer introduces ~1–5ns overhead per crossing. For ultra-low-latency workloads this may be significant." data-tr="LiNbO₃ tamponundaki elektro-optik dönüşüm her geçişte ~1–5ns ek yük getirir. Ultra düşük gecikmeli iş yükleri için bu önemli olabilir.">The electro-optic conversion at the LiNbO₃ buffer introduces ~1–5ns overhead per crossing. For ultra-low-latency workloads this may be significant.</div></div></div>
-      <div class="pc-item"><div class="pc-ico">👥</div><div><div class="pc-name" data-en="Talent Shortage" data-tr="Yetenek Açığı">Talent Shortage</div><div class="pc-body" data-en="Photonic engineering is an extremely niche discipline. There are far fewer photonic engineers than software engineers, creating a severe bottleneck for development." data-tr="Fotonik mühendisliği son derece niş bir disiplindir. Yazılım mühendislerinden çok daha az fotonik mühendisi vardır ve bu durum geliştirme için ciddi bir darboğaz oluşturur.">Photonic engineering is an extremely niche discipline. There are far fewer photonic engineers than software engineers, creating a severe bottleneck for development.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🎯</div><div><div class="pc-name" data-en="Output Precision" data-tr="Çıkış Hassasiyeti">Output Precision</div><div class="pc-body" data-en="Accumulating 64 products exactly needs ~11.5 bits, but fast low-energy ADCs give ~6. This is the central open problem." data-tr="64 çarpımı tam olarak toplamak ~11.5 bit gerektirir, ama hızlı düşük enerjili ADC'ler ~6 bit verir. Bu, tasarımın merkezi açık sorunudur.">Accumulating 64 products exactly needs ~11.5 bits, but fast low-energy ADCs give ~6. This is the central open problem.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🔥</div><div><div class="pc-name" data-en="Tuning Power &amp; Reprogramming" data-tr="Ayar Gücü &amp; Yeniden Programlama">Tuning Power &amp; Reprogramming</div><div class="pc-body" data-en="Thermo-optic weights waste power and change slowly, electro-optic weights take up a lot of area, and phase-change weights wear out." data-tr="Termo-optik ağırlıklar güç israf eder ve yavaş değişir, elektro-optik ağırlıklar çok yer kaplar, faz değişimli ağırlıklar ise aşınır.">Thermo-optic weights waste power and change slowly, electro-optic weights take up a lot of area, and phase-change weights wear out.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🧱</div><div><div class="pc-name" data-en="Memory Wall Unchanged" data-tr="Bellek Duvarı Değişmiyor">Memory Wall Unchanged</div><div class="pc-body" data-en="Weights and activations still come from host memory, which dominates many inference workloads." data-tr="Ağırlıklar ve aktivasyonlar hâlâ ana sistem belleğinden gelir ve birçok çıkarım iş yükünde baskın maliyet budur.">Weights and activations still come from host memory, which dominates many inference workloads.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">🔧</div><div><div class="pc-name" data-en="Integration &amp; Packaging" data-tr="Entegrasyon &amp; Paketleme">Integration &amp; Packaging</div><div class="pc-body" data-en="The photonic core, control die and lasers must be co-packaged with dense optical and electrical I/O." data-tr="Fotonik çekirdek, kontrol yongası ve lazerler yoğun optik ve elektriksel G/Ç ile birlikte paketlenmelidir.">The photonic core, control die and lasers must be co-packaged with dense optical and electrical I/O.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">📉</div><div><div class="pc-name" data-en="Modest Throughput per Core" data-tr="Çekirdek Başına Sınırlı İşlem Hacmi">Modest Throughput per Core</div><div class="pc-body" data-en="10–164 TMAC/s per core, against ~990 TMAC/s for a GPU, means many cores per package." data-tr="Çekirdek başına 10–164 TMAC/s, bir GPU'nun ~990 TMAC/s değerine karşı, paket başına çok sayıda çekirdek demektir.">10–164 TMAC/s per core, against ~990 TMAC/s for a GPU, means many cores per package.</div></div></div>
+      <div class="pc-item"><div class="pc-ico">💸</div><div><div class="pc-name" data-en="High Cost &amp; Niche Talent" data-tr="Yüksek Maliyet &amp; Niş Uzmanlık">High Cost &amp; Niche Talent</div><div class="pc-body" data-en="Photonic components are not mass-produced at this scale, and photonic engineers are scarce." data-tr="Fotonik bileşenler bu ölçekte seri üretilmiyor ve fotonik mühendisleri az.">Photonic components are not mass-produced at this scale, and photonic engineers are scarce.</div></div></div>
     </div>
   </div>
 </div>
@@ -430,103 +452,50 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
 <!-- SPACE APPLICATIONS -->
 <div class="sec">
   <div class="sec-head fi">
-    <div class="sec-tag" data-en="SPACE APPLICATIONS" data-tr="UZAY UYGULAMALARI">SPACE APPLICATIONS</div>
-    <h2 class="sec-title" data-en="Advantages in Space Exploration" data-tr="Uzay Araştırmalarındaki Avantajlar">Advantages in Space Exploration</h2>
-    <p class="sec-desc" data-en="Space is the harshest environment computers must survive. The hybrid photonic architecture addresses every critical constraint: radiation, vacuum heat, limited power, and the need for autonomous AI far from Earth." data-tr="Uzay, bilgisayarların hayatta kalması gereken en zorlu ortamdır. Hibrit fotonik mimari her kritik kısıtlamayı ele alır: radyasyon, vakum ısısı, sınırlı güç ve Dünya'dan uzakta özerk AI ihtiyacı.">Space is the harshest environment computers must survive. The hybrid photonic architecture addresses every critical constraint: radiation, vacuum heat, limited power, and the need for autonomous AI far from Earth.</p>
+    <div class="sec-tag" data-en="SPACE · SPECULATIVE" data-tr="UZAY · SPEKÜLATİF">SPACE · SPECULATIVE</div>
+    <h2 class="sec-title" data-en="Possible Space Advantages, With Caveats" data-tr="Olası Uzay Avantajları, Çekincelerle">Possible Space Advantages, With Caveats</h2>
+    <p class="sec-desc" data-en="Version 1.0 claimed immunity to radiation and solar storms. That was wrong: the detectors, lasers, converters and host are still electronics. What remains are partial advantages that would need radiation testing." data-tr="Sürüm 1.0 radyasyona ve güneş fırtınalarına bağışıklık iddia ediyordu. Bu yanlıştı: dedektörler, lazerler, dönüştürücüler ve ana sistem hâlâ elektroniktir. Geriye radyasyon testiyle doğrulanması gereken kısmi avantajlar kalıyor.">Version 1.0 claimed immunity to radiation and solar storms. That was wrong: the detectors, lasers, converters and host are still electronics. What remains are partial advantages that would need radiation testing.</p>
   </div>
 
-  <!-- Intro: text + key numbers -->
   <div class="space-intro fi">
     <div class="space-intro-text">
-      <p data-en="Modern spacecraft computers (like those on Mars rovers) run at ~200 MHz — the speed of a 1990s PC — not because engineers lack ambition, but because <strong>radiation, heat, and power</strong> impose brutal constraints on electronics in space.<br><br>The hybrid photonic architecture was not designed for space, but it happens to solve the three biggest problems of space computing simultaneously. This is a consequence of its fundamental physics, not an engineering compromise." data-tr="Modern uzay aracı bilgisayarları (Mars gezginlerindekiler gibi) ~200 MHz'de çalışır — 1990'ların PC'si hızında — mühendislerin hırssızlığından değil, <strong>radyasyon, ısı ve güç</strong> uzaydaki elektroniğe acımasız kısıtlamalar dayattığı için.<br><br>Hibrit fotonik mimari uzay için tasarlanmadı, ancak tesadüfen uzay hesaplamalarının üç en büyük sorununu aynı anda çözüyor. Bu, temel fiziğinin bir sonucudur, bir mühendislik uzlaşması değil.">Modern spacecraft computers (like those on Mars rovers) run at ~200 MHz — the speed of a 1990s PC — not because engineers lack ambition, but because <strong>radiation, heat, and power</strong> impose brutal constraints on electronics in space.<br><br>The hybrid photonic architecture was not designed for space, but it happens to solve the three biggest problems of space computing simultaneously. This is a consequence of its fundamental physics, not an engineering compromise.</p>
+      <p data-en="Radiation-hardened spacecraft processors, like the RAD750 on Mars rovers, run at ~200 MHz because protecting transistors against particle strikes costs speed and density.<br><br>A photonic accelerator could help in two limited ways. The waveguides themselves do not suffer charge-deposition bit flips, and cheaper matrix math stretches tight power budgets. Everything around the light path still needs hardening: <strong>photodetectors, lasers, ADCs, the control die and the host</strong>. Optical materials also darken under radiation." data-tr="Mars gezginlerindeki RAD750 gibi radyasyona dayanıklı uzay aracı işlemcileri ~200 MHz'de çalışır, çünkü transistörleri parçacık çarpmalarına karşı korumak hız ve yoğunluktan ödün vermeyi gerektirir.<br><br>Fotonik bir hızlandırıcı iki sınırlı şekilde yardımcı olabilir. Dalga kılavuzlarının kendisi yük birikimiyle bit çevrilmesine uğramaz, daha ucuz matris hesabı da dar güç bütçelerini rahatlatır. Işık yolunun etrafındaki her şey yine sertleştirme ister: <strong>fotodedektörler, lazerler, ADC'ler, kontrol yongası ve ana sistem</strong>. Optik malzemeler de radyasyon altında kararır.">Radiation-hardened spacecraft processors, like the RAD750 on Mars rovers, run at ~200 MHz because protecting transistors against particle strikes costs speed and density.<br><br>A photonic accelerator could help in two limited ways. The waveguides themselves do not suffer charge-deposition bit flips, and cheaper matrix math stretches tight power budgets. Everything around the light path still needs hardening: <strong>photodetectors, lasers, ADCs, the control die and the host</strong>. Optical materials also darken under radiation.</p>
     </div>
     <div class="space-formula-box fi d1">
       <div class="sf-title" data-en="Key Space Numbers" data-tr="Temel Uzay Rakamları">Key Space Numbers</div>
       <div class="sf-item"><span class="sf-label" data-en="Mars signal delay (one-way)" data-tr="Mars sinyal gecikmesi (tek yön)">Mars signal delay (one-way)</span><span class="sf-val">3–22 min</span></div>
-      <div class="sf-item"><span class="sf-label" data-en="Cost to orbit per kilogram" data-tr="Yörüngeye kg başına maliyet">Cost to orbit per kilogram</span><span class="sf-val">$2,200–22,000</span></div>
-      <div class="sf-item"><span class="sf-label" data-en="Cosmic ray SEU rate (current)" data-tr="Kozmik ışın SEU hızı (mevcut)">Cosmic ray SEU rate (current)</span><span class="sf-val">~1 / day / GB</span></div>
-      <div class="sf-item"><span class="sf-label" data-en="Mars rover CPU speed" data-tr="Mars gezgini CPU hızı">Mars rover CPU speed</span><span class="sf-val">~200 MHz</span></div>
-      <div class="sf-item"><span class="sf-label" data-en="Deep space data rate (today)" data-tr="Derin uzay veri hızı (bugün)">Deep space data rate (today)</span><span class="sf-val">~4–150 Mbps</span></div>
-      <div class="sf-item"><span class="sf-label" data-en="Photonic data rate (potential)" data-tr="Fotonik veri hızı (potansiyel)">Photonic data rate (potential)</span><span class="sf-val">&gt;10 Tbps</span></div>
-      <div class="sf-item"><span class="sf-label" data-en="Cooling mass / total computer" data-tr="Soğutma kütlesi / toplam bilgisayar">Cooling mass / total computer</span><span class="sf-val">~20–35%</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Mars rover CPU (RAD750)" data-tr="Mars gezgini CPU (RAD750)">Mars rover CPU (RAD750)</span><span class="sf-val">~200 MHz</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="RTG power (outer planets)" data-tr="RTG gücü (dış gezegenler)">RTG power (outer planets)</span><span class="sf-val">~100–300 W</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Core energy gain (model)" data-tr="Çekirdek enerji kazancı (model)">Core energy gain (model)</span><span class="sf-val">~5–7×</span></div>
+      <div class="sf-item"><span class="sf-label" data-en="Radiation immunity" data-tr="Radyasyon bağışıklığı">Radiation immunity</span><span class="sf-val" data-en="not claimed" data-tr="iddia edilmiyor">not claimed</span></div>
     </div>
   </div>
 
-  <!-- 8 space advantage cards -->
   <div class="space-grid">
     <div class="scard fi d1">
       <span class="scard-ico">☄️</span>
-      <div class="scard-name" data-en="Cosmic Ray Immunity" data-tr="Kozmik Işın Bağışıklığı">Cosmic Ray Immunity</div>
-      <div class="scard-body" data-en="High-energy particles from deep space cause 'single-event upsets' (SEUs) — random bit flips that corrupt data or crash processors. This is why Mars rover CPUs run so slowly: radiation-hardened chips are primitive by design. Photons are electrically neutral and completely unaffected by ionizing radiation." data-tr="Derin uzaydan gelen yüksek enerjili parçacıklar 'tekil olay bozunmaları' (SEU) yaratır — veriyi bozan veya işlemciyi çökerten rastgele bit çevrilmeleri. Mars gezgini CPU'larının bu kadar yavaş çalışmasının nedeni budur: radyasyona dayanıklı çipler tasarım gereği ilkeldir. Fotonlar elektrik nötrüdür ve iyonlaştırıcı radyasyondan tamamen etkilenmez.">High-energy particles from deep space cause 'single-event upsets' (SEUs) — random bit flips that corrupt data or crash processors. This is why Mars rover CPUs run so slowly: radiation-hardened chips are primitive by design. Photons are electrically neutral and completely unaffected by ionizing radiation.</div>
-      <div class="scard-metric" data-en="SEU failure rate: near-zero vs ~1/day/GB today" data-tr="SEU hata hızı: günümüzdeki ~1/gün/GB'ye karşı sıfıra yakın">SEU failure rate: near-zero vs ~1/day/GB today</div>
+      <div class="scard-name" data-en="Fewer Upsets in the Optical Path" data-tr="Optik Yolda Daha Az Bozulma">Fewer Upsets in the Optical Path</div>
+      <div class="scard-body" data-en="Photons carry no charge, so the waveguide mesh itself does not suffer single-event upsets. Photodetectors, lasers and converters still do, and radiation-induced attenuation degrades optical materials over time." data-tr="Fotonlar yük taşımaz, bu yüzden dalga kılavuzu ağı tekil olay bozulmalarına uğramaz. Fotodedektörler, lazerler ve dönüştürücüler ise uğrar, radyasyon kaynaklı zayıflama da zamanla optik malzemeleri bozar.">Photons carry no charge, so the waveguide mesh itself does not suffer single-event upsets. Photodetectors, lasers and converters still do, and radiation-induced attenuation degrades optical materials over time.</div>
+      <div class="scard-metric" data-en="Partial advantage · requires radiation testing" data-tr="Kısmi avantaj · radyasyon testi gerekir">Partial advantage · requires radiation testing</div>
     </div>
     <div class="scard fi d2">
-      <span class="scard-ico">🌡️</span>
-      <div class="scard-name" data-en="Vacuum Heat Problem — Solved" data-tr="Vakum Isı Sorunu — Çözüldü">Vacuum Heat Problem — Solved</div>
-      <div class="scard-body" data-en="In vacuum there is no convection — heat can only leave via radiation from panels. Spacecraft carry enormous radiator panels that add mass and complexity. Photonic processors generate near-zero heat: the thermal management problem is eliminated at the source, not patched with hardware." data-tr="Vakumda konveksiyon yoktur — ısı yalnızca panellerden radyasyon yoluyla gidebilir. Uzay araçları kütleye ve karmaşıklığa ekleme yapan devasa radyatör panelleri taşır. Fotonik işlemciler sıfıra yakın ısı üretir: termal yönetim sorunu kaynakta ortadan kalkar, donanımla yamamaz.">In vacuum there is no convection — heat can only leave via radiation from panels. Spacecraft carry enormous radiator panels that add mass and complexity. Photonic processors generate near-zero heat: the thermal management problem is eliminated at the source, not patched with hardware.</div>
-      <div class="scard-metric" data-en="Radiator panel mass reduction: ~70% · No thermal cycling stress" data-tr="Radyatör panel kütlesi azalması: ~70% · Termal döngü stresi yok">Radiator panel mass reduction: ~70% · No thermal cycling stress</div>
+      <span class="scard-ico">⚡</span>
+      <div class="scard-name" data-en="Stretching Power Budgets" data-tr="Güç Bütçesini Genişletmek">Stretching Power Budgets</div>
+      <div class="scard-body" data-en="Outer-planet probes run on RTGs producing ~100–300 W. A core that does matrix math ~5–7× more cheaply could allow more on-board inference within the same budget." data-tr="Dış gezegen sondaları ~100–300 W üreten RTG'lerle çalışır. Matris hesabını ~5–7× daha ucuza yapan bir çekirdek, aynı bütçeyle daha fazla araç üstü çıkarım sağlayabilir.">Outer-planet probes run on RTGs producing ~100–300 W. A core that does matrix math ~5–7× more cheaply could allow more on-board inference within the same budget.</div>
+      <div class="scard-metric" data-en="Benefit limited to the matrix-math share of compute" data-tr="Fayda hesaplamanın matris payıyla sınırlı">Benefit limited to the matrix-math share of compute</div>
     </div>
     <div class="scard fi d3">
-      <span class="scard-ico">⚡</span>
-      <div class="scard-name" data-en="Power-Limited Missions Unlocked" data-tr="Güç Sınırlı Görevler Açıldı">Power-Limited Missions Unlocked</div>
-      <div class="scard-body" data-en="Beyond Mars, solar panels produce only ~3–4% of Earth-level power. Outer solar system and interstellar probes rely on RTGs (plutonium generators) producing just 100–300W. A 95% reduction in compute power consumption makes supercomputer-class AI possible on probes to Jupiter, Saturn, and beyond." data-tr="Mars'ın ötesinde güneş panelleri Dünya seviyesi gücün yalnızca ~%3–4'ünü üretir. Dış güneş sistemi ve yıldızlararası sondalar yalnızca 100–300W üreten RTG'lere (plütonyum jeneratörler) dayanır. Hesaplama gücü tüketimindeki %95 azalma, Jüpiter, Satürn ve ötesine giden sondalar için süperbilgisayar sınıfı AI'yı mümkün kılar.">Beyond Mars, solar panels produce only ~3–4% of Earth-level power. Outer solar system and interstellar probes rely on RTGs (plutonium generators) producing just 100–300W. A 95% reduction in compute power consumption makes supercomputer-class AI possible on probes to Jupiter, Saturn, and beyond.</div>
-      <div class="scard-metric" data-en="Enables AI on RTG-powered probes (Voyager, New Horizons class)" data-tr="RTG ile güçlendirilen sondalar için AI sağlar (Voyager, New Horizons sınıfı)">Enables AI on RTG-powered probes (Voyager, New Horizons class)</div>
+      <span class="scard-ico">🌡️</span>
+      <div class="scard-name" data-en="Less Heat, Not Zero Heat" data-tr="Daha Az Isı, Sıfır Değil">Less Heat, Not Zero Heat</div>
+      <div class="scard-body" data-en="In vacuum, heat leaves only by radiation. Lasers (~10–30% efficient), tuning and converters still dissipate power, so radiators shrink in proportion to the energy saved. They do not disappear." data-tr="Vakumda ısı yalnızca ışınımla atılır. Lazerler (~%10–30 verimli), ayar elemanları ve dönüştürücüler yine güç harcar, bu yüzden radyatörler tasarruf edilen enerjiyle orantılı olarak küçülür. Tamamen ortadan kalkmazlar.">In vacuum, heat leaves only by radiation. Lasers (~10–30% efficient), tuning and converters still dissipate power, so radiators shrink in proportion to the energy saved. They do not disappear.</div>
+      <div class="scard-metric" data-en="Radiator savings scale with energy saved" data-tr="Radyatör tasarrufu enerji tasarrufuyla orantılı">Radiator savings scale with energy saved</div>
     </div>
     <div class="scard fi d1">
       <span class="scard-ico">🤖</span>
-      <div class="scard-name" data-en="Autonomous AI for Signal Delay" data-tr="Sinyal Gecikmesi için Özerk AI">Autonomous AI for Signal Delay</div>
-      <div class="scard-body" data-en="Mars has a 3–22 minute one-way signal delay — a Mars rover cannot ask Earth for help and get an answer in under 6–44 minutes. Spacecraft must make autonomous decisions in real time. Photonic AI running at terahertz speeds could perform complex terrain analysis, hazard avoidance, and scientific decision-making in milliseconds, completely independently." data-tr="Mars'ın tek yönlü sinyal gecikmesi 3–22 dakikadır — bir Mars gezgini Dünya'dan yardım isteyip 6–44 dakikadan kısa sürede cevap alamaz. Uzay araçları gerçek zamanlı özerk kararlar almalıdır. Terahertz hızlarında çalışan fotonik AI, milisaniyeler içinde karmaşık arazi analizi, tehlike kaçınma ve bilimsel karar verme işlemlerini tamamen bağımsız olarak gerçekleştirebilir.">Mars has a 3–22 minute one-way signal delay — a Mars rover cannot ask Earth for help and get an answer in under 6–44 minutes. Spacecraft must make autonomous decisions in real time. Photonic AI running at terahertz speeds could perform complex terrain analysis, hazard avoidance, and scientific decision-making in milliseconds, completely independently.</div>
-      <div class="scard-metric" data-en="Real-time autonomy: THz AI vs ~200 MHz today — 5,000× more capable" data-tr="Gerçek zamanlı özerklik: THz AI'ya karşı bugün ~200 MHz — 5.000× daha yetenekli">Real-time autonomy: THz AI vs ~200 MHz today — 5,000× more capable</div>
+      <div class="scard-name" data-en="On-Board Autonomy" data-tr="Araç Üstü Özerklik">On-Board Autonomy</div>
+      <div class="scard-body" data-en="With a 3–22 minute signal delay to Mars, rovers must decide locally. More efficient inference helps, but the gain is a few times, not the 5,000× claimed in v1.0." data-tr="Mars'a 3–22 dakikalık sinyal gecikmesiyle gezginler yerel karar vermek zorundadır. Daha verimli çıkarım yardımcı olur, ama kazanç v1.0'daki 5.000× değil, birkaç kattır.">With a 3–22 minute signal delay to Mars, rovers must decide locally. More efficient inference helps, but the gain is a few times, not the 5,000× claimed in v1.0.</div>
+      <div class="scard-metric" data-en="A few × more inference per watt (estimate)" data-tr="Watt başına birkaç kat daha fazla çıkarım (tahmin)">A few × more inference per watt (estimate)</div>
     </div>
-    <div class="scard fi d2">
-      <span class="scard-ico">🚀</span>
-      <div class="scard-name" data-en="Launch Mass Savings" data-tr="Fırlatma Kütlesi Tasarrufu">Launch Mass Savings</div>
-      <div class="scard-body" data-en="Getting mass to orbit costs $2,200–$22,000 per kilogram (depending on rocket). Cooling systems, large power supplies, and radiation shielding represent 30–50% of a spacecraft computer's total mass. Photonic architecture nearly eliminates all three, potentially saving hundreds of kilograms on large missions — worth tens of millions of dollars per launch." data-tr="Kütleyi yörüngeye taşımak kilogram başına 2.200–22.000 $ maliyetlidir (rokete bağlı). Soğutma sistemleri, büyük güç kaynakları ve radyasyon kalkanları bir uzay aracı bilgisayarının toplam kütlesinin %30–50'sini oluşturur. Fotonik mimari üçünü de neredeyse ortadan kaldırır ve büyük görevlerde potansiyel olarak yüzlerce kilogram tasarruf sağlar — fırlatma başına on milyonlarca dolar değerinde.">Getting mass to orbit costs $2,200–$22,000 per kilogram (depending on rocket). Cooling systems, large power supplies, and radiation shielding represent 30–50% of a spacecraft computer's total mass. Photonic architecture nearly eliminates all three, potentially saving hundreds of kilograms on large missions — worth tens of millions of dollars per launch.</div>
-      <div class="scard-metric" data-en="$10,000–22,000 saved per kg eliminated · Enables smaller/cheaper launches" data-tr="Yok edilen her kg başına 10.000–22.000 $ tasarruf · Daha küçük/ucuz fırlatmaları mümkün kılar">$10,000–22,000 saved per kg eliminated · Enables smaller/cheaper launches</div>
-    </div>
-    <div class="scard fi d3">
-      <span class="scard-ico">📡</span>
-      <div class="scard-name" data-en="WDM Deep Space Communications" data-tr="WDM Derin Uzay İletişimi">WDM Deep Space Communications</div>
-      <div class="scard-body" data-en="Current deep space communication uses radio waves (DSN) at 4–150 Mbps. NASA's LLCD experiment demonstrated 622 Mbps laser comm from the Moon in 2013. Applying WDM (80+ wavelengths on one beam) to optical deep space links could push data rates to the terabit range — enabling live HD video from Mars and massive science data volumes from outer planets." data-tr="Mevcut derin uzay iletişimi 4–150 Mbps'de radyo dalgaları (DSN) kullanır. NASA'nın LLCD deneyi 2013'te Ay'dan 622 Mbps lazer iletişimi gösterdi. WDM'yi (tek ışında 80+ dalga boyu) optik derin uzay bağlantılarına uygulamak veri hızlarını terabit aralığına taşıyabilir — Mars'tan canlı HD video ve dış gezegenlerden büyük bilim veri hacimleri mümkün olur.">Current deep space communication uses radio waves (DSN) at 4–150 Mbps. NASA's LLCD experiment demonstrated 622 Mbps laser comm from the Moon in 2013. Applying WDM (80+ wavelengths on one beam) to optical deep space links could push data rates to the terabit range — enabling live HD video from Mars and massive science data volumes from outer planets.</div>
-      <div class="scard-metric" data-en=">10 Tbps potential vs ~150 Mbps today — 66,000× improvement" data-tr=">10 Tbps potansiyeline karşı bugün ~150 Mbps — 66.000× iyileşme">&gt;10 Tbps potential vs ~150 Mbps today — 66,000× improvement</div>
-    </div>
-    <div class="scard fi d1">
-      <span class="scard-ico">🌞</span>
-      <div class="scard-name" data-en="Solar Storm Immunity" data-tr="Güneş Fırtınası Bağışıklığı">Solar Storm Immunity</div>
-      <div class="scard-body" data-en="Solar flares and coronal mass ejections (CMEs) produce massive electromagnetic pulses that can destroy satellite electronics. The 1989 Quebec blackout and 2003 Halloween storms damaged or destroyed dozens of satellites. Photonic circuits are inherently immune: photons are not deflected by electric or magnetic fields." data-tr="Güneş patlamaları ve koronal kütle fırlatmaları (KMF), uydu elektroniğini tahrip edebilecek büyük elektromanyetik atımlar üretir. 1989 Quebec karartması ve 2003 Cadılar Bayramı fırtınaları onlarca uyduya zarar verdi veya tahrip etti. Fotonik devreler inherent olarak bağışıktır: fotonlar elektrik veya manyetik alanlarla saptırılmaz.">Solar flares and coronal mass ejections (CMEs) produce massive electromagnetic pulses that can destroy satellite electronics. The 1989 Quebec blackout and 2003 Halloween storms damaged or destroyed dozens of satellites. Photonic circuits are inherently immune: photons are not deflected by electric or magnetic fields.</div>
-      <div class="scard-metric" data-en="No Faraday cage needed · No radiation shielding · Operates through CMEs" data-tr="Faraday kafesi gerekmez · Radyasyon kalkanı yok · KMF'ler boyunca çalışır">No Faraday cage needed · No radiation shielding · Operates through CMEs</div>
-    </div>
-    <div class="scard fi d2">
-      <span class="scard-ico">🛰️</span>
-      <div class="scard-name" data-en="CubeSat Revolution" data-tr="CubeSat Devrimi">CubeSat Revolution</div>
-      <div class="scard-body" data-en="CubeSats (1–10 kg nanosatellites) currently carry bare-minimum computing due to power and thermal limits. A 1U CubeSat has ~1–3W power budget. With photonic efficiency, this budget could run what today requires a large satellite's full computer system — democratizing access to serious space science." data-tr="CubeSat'lar (1–10 kg nanosatellitler) şu anda güç ve termal limitler nedeniyle minimum hesaplama kapasitesi taşır. 1U CubeSat ~1–3W güç bütçesine sahiptir. Fotonik verimlilikle bu bütçe, bugün büyük bir uyduun tam bilgisayar sistemini gerektiren işleri çalıştırabilir — ciddi uzay bilimine erişimi demokratikleştirir.">CubeSats (1–10 kg nanosatellites) currently carry bare-minimum computing due to power and thermal limits. A 1U CubeSat has ~1–3W power budget. With photonic efficiency, this budget could run what today requires a large satellite's full computer system — democratizing access to serious space science.</div>
-      <div class="scard-metric" data-en="Supercomputer-class AI in 1U CubeSat (10cm × 10cm × 10cm)" data-tr="1U CubeSat'ta (10cm × 10cm × 10cm) süperbilgisayar sınıfı AI">Supercomputer-class AI in 1U CubeSat (10cm × 10cm × 10cm)</div>
-    </div>
-  </div>
-
-  <!-- Space comparison table -->
-  <div class="space-cmp-title fi" data-en="Space Challenge Comparison: Today vs Hybrid Photonic" data-tr="Uzay Meydan Okuması Karşılaştırması: Bugün vs Hibrit Fotonik">Space Challenge Comparison: Today vs Hybrid Photonic</div>
-  <div class="tbl-wrap fi">
-    <table class="cmptbl">
-      <thead>
-        <tr>
-          <th data-en="Space Challenge" data-tr="Uzay Meydan Okuması">Space Challenge</th>
-          <th data-en="Today's Computers" data-tr="Günümüz Bilgisayarları">Today's Computers</th>
-          <th data-en="Hybrid Photonic" data-tr="Hibrit Fotonik">Hybrid Photonic</th>
-          <th data-en="Impact" data-tr="Etki">Impact</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td data-en="Cosmic ray (SEU) protection" data-tr="Kozmik ışın (SEU) koruması">Cosmic ray (SEU) protection</td><td data-en="Heavy rad-hardened chips, slow clocks" data-tr="Ağır rad-sertleştirilmiş çipler, yavaş saatler">Heavy rad-hardened chips, slow clocks</td><td data-en="Photons electrically neutral — inherently immune" data-tr="Fotonlar elektrik nötrü — inherent bağışıklık">Photons electrically neutral — inherently immune</td><td><span class="badge up">⬆ Critical</span></td></tr>
-        <tr><td data-en="Heat dissipation in vacuum" data-tr="Vakumda ısı dağılımı">Heat dissipation in vacuum</td><td data-en="Large radiator panels, heat pipes, complex thermal design" data-tr="Büyük radyatör panelleri, ısı boruları, karmaşık termal tasarım">Large radiator panels, heat pipes, complex thermal design</td><td data-en="Near-zero heat → minimal thermal hardware needed" data-tr="Sıfıra yakın ısı → minimum termal donanım gerekli">Near-zero heat → minimal thermal hardware needed</td><td><span class="badge up">⬆ ~70% mass saved</span></td></tr>
-        <tr><td data-en="Power budget (outer solar system)" data-tr="Güç bütçesi (dış güneş sistemi)">Power budget (outer solar system)</td><td data-en="RTG ~100–300W limits all computation" data-tr="RTG ~100–300W tüm hesaplamayı sınırlar">RTG ~100–300W limits all computation</td><td data-en="95% less power → THz AI on 15W budget" data-tr="95% daha az güç → 15W bütçede THz AI">95% less power → THz AI on 15W budget</td><td><span class="badge up">⬆ Game-changer</span></td></tr>
-        <tr><td data-en="Autonomous decision-making" data-tr="Özerk karar verme">Autonomous decision-making</td><td data-en="~200 MHz rad-hard CPU — very limited AI" data-tr="~200 MHz rad-sert CPU — çok sınırlı AI">~200 MHz rad-hard CPU — very limited AI</td><td data-en="THz photonic AI — full real-time autonomy" data-tr="THz fotonik AI — tam gerçek zamanlı özerklik">THz photonic AI — full real-time autonomy</td><td><span class="badge up">⬆ ~5,000×</span></td></tr>
-        <tr><td data-en="Solar storm / CME vulnerability" data-tr="Güneş fırtınası / KMF açığı">Solar storm / CME vulnerability</td><td data-en="Can destroy electronics, requires shielding" data-tr="Elektroniği tahrip edebilir, kalkan gerektirir">Can destroy electronics, requires shielding</td><td data-en="Immune — photons unaffected by EM fields" data-tr="Bağışık — fotonlar EM alanlardan etkilenmez">Immune — photons unaffected by EM fields</td><td><span class="badge up">⬆ Full immunity</span></td></tr>
-        <tr><td data-en="Science data return (deep space)" data-tr="Bilim verisi dönüşü (derin uzay)">Science data return (deep space)</td><td data-en="~4–150 Mbps radio link (DSN)" data-tr="~4–150 Mbps radyo bağlantısı (DSN)">~4–150 Mbps radio link (DSN)</td><td data-en="&gt;10 Tbps via WDM optical laser comm" data-tr="WDM optik lazer iletişimi ile &gt;10 Tbps">&gt;10 Tbps via WDM optical laser comm</td><td><span class="badge up">⬆ 66,000×</span></td></tr>
-        <tr><td data-en="Launch mass (computer system)" data-tr="Fırlatma kütlesi (bilgisayar sistemi)">Launch mass (computer system)</td><td data-en="30–50% is cooling + shielding + large PSU" data-tr="%30–50'si soğutma + kalkan + büyük PSU">30–50% is cooling + shielding + large PSU</td><td data-en="Near-zero cooling, minimal shielding, tiny PSU" data-tr="Sıfıra yakın soğutma, minimum kalkan, küçük PSU">Near-zero cooling, minimal shielding, tiny PSU</td><td><span class="badge up">⬆ Millions $ saved</span></td></tr>
-        <tr><td data-en="Operational lifetime" data-tr="Operasyonel ömür">Operational lifetime</td><td data-en="Limited by radiation damage accumulation" data-tr="Radyasyon hasarı birikimiyle sınırlı">Limited by radiation damage accumulation</td><td data-en="Photonic components not degraded by radiation" data-tr="Fotonik bileşenler radyasyon tarafından bozulmaz">Photonic components not degraded by radiation</td><td><span class="badge up">⬆ Extended missions</span></td></tr>
-      </tbody>
-    </table>
   </div>
 </div>
 
@@ -535,13 +504,13 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
   <div class="sec-head fi">
     <div class="sec-tag" data-en="DATA FLOW" data-tr="VERİ AKIŞI">DATA FLOW</div>
     <h2 class="sec-title" data-en="Async Pipeline" data-tr="Asenkron Boru Hattı">Async Pipeline</h2>
-    <p class="sec-desc" data-en="The electric system writes to the buffer and continues immediately — the photonic system picks up jobs independently and returns results via interrupt." data-tr="Elektrik sistemi tampona yazar ve hemen devam eder — fotonik sistem işleri bağımsız olarak alır ve sonuçları kesme yoluyla döndürür.">The electric system writes to the buffer and continues immediately — the photonic system picks up jobs independently and returns results via interrupt.</p>
+    <p class="sec-desc" data-en="The host submits a job and continues. If the queue is full it gets BUSY (backpressure) instead of blocking. The control die schedules by priority, runs the optical passes, and posts the result with an interrupt." data-tr="Ana sistem bir işi gönderir ve devam eder. Kuyruk doluysa beklemek yerine BUSY yanıtı alır (geri basınç). Kontrol yongası önceliğe göre zamanlar, optik geçişleri çalıştırır ve sonucu bir kesmeyle bildirir.">The host submits a job and continues. If the queue is full it gets BUSY (backpressure) instead of blocking. The control die schedules by priority, runs the optical passes, and posts the result with an interrupt.</p>
   </div>
 </div>
 <div class="cpanel fi" style="margin:0 24px 80px;max-width:1152px;margin-left:auto;margin-right:auto">
   <div class="cpanel-bar">
-    <div class="cpanel-title"><div class="ld g" style="width:8px;height:8px"></div><span data-en="Async Data Flow — Base-4 → Queue → Photonic" data-tr="Asenkron Veri Akışı — Taban-4 → Kuyruk → Fotonik">Async Data Flow — Base-4 → Queue → Photonic</span></div>
-    <div class="cpanel-hint" data-en="Neither system blocks — callback + interrupt" data-tr="Hiçbir sistem bloklamaz — callback + kesme">Neither system blocks — callback + interrupt</div>
+    <div class="cpanel-title"><div class="ld g" style="width:8px;height:8px"></div><span data-en="Async Data Flow — Host → Queue → Photonic" data-tr="Asenkron Veri Akışı — Ana Sistem → Kuyruk → Fotonik">Async Data Flow — Host → Queue → Photonic</span></div>
+    <div class="cpanel-hint" data-en="Non-blocking submit · backpressure · completion interrupt" data-tr="Bloklamayan gönderim · geri basınç · tamamlanma kesmesi">Non-blocking submit · backpressure · completion interrupt</div>
   </div>
   <canvas id="canvas-flow"></canvas>
 </div>
@@ -549,9 +518,9 @@ footer{padding:44px 24px;text-align:center;border-top:1px solid var(--border);ma
 <!-- FOOTER -->
 <footer>
   <div class="ft-logo">HYBRID PHOTONIC COMPUTER</div>
-  <p class="ft-desc" data-en="A theoretical next-generation computer architecture designed to revolutionize AI computation through the mathematical harmony of 4⁴ = 256." data-tr="4⁴ = 256'nın matematiksel uyumu aracılığıyla yapay zeka hesaplamalarında devrim yaratmak için tasarlanmış teorik yeni nesil bilgisayar mimarisi.">A theoretical next-generation computer architecture designed to revolutionize AI computation through the mathematical harmony of 4⁴ = 256.</p>
-  <div class="ft-formula">4⁴ = 256 — The Mathematical Foundation</div>
-  <div class="ft-copy" data-en="Designed by Alp Eren Celebi · Conceptual Architecture · 2024" data-tr="Alp Eren Celebi tarafından tasarlandı · Kavramsal Mimari · 2024">Designed by Alp Eren Celebi · Conceptual Architecture · 2024</div>
+  <p class="ft-desc" data-en="A conceptual hybrid architecture: an electronic host, a photonic linear-algebra accelerator and asynchronous priority queues. Revised in v1.1 with a stated energy model. <a href=&quot;zenodo-submission.html&quot; style=&quot;color:inherit&quot;>Read the paper →</a>" data-tr="Kavramsal bir hibrit mimari: elektronik ana sistem, fotonik doğrusal cebir hızlandırıcısı ve asenkron öncelik kuyrukları. v1.1'de açıkça belirtilmiş bir enerji modeliyle revize edildi. <a href=&quot;zenodo-submission.html&quot; style=&quot;color:inherit&quot;>Makaleyi okuyun →</a>">A conceptual hybrid architecture: an electronic host, a photonic linear-algebra accelerator and asynchronous priority queues. Revised in v1.1 with a stated energy model. <a href="zenodo-submission.html" style="color:inherit">Read the paper →</a></p>
+  <div class="ft-formula">Wx = Σ 4ᵏ·(W xₖ) — Base-4 Digit Slicing</div>
+  <div class="ft-copy" data-en="Designed by Alp Eren Celebi · Conceptual Architecture · v1.1 · 2026" data-tr="Alp Eren Celebi tarafından tasarlandı · Kavramsal Mimari · v1.1 · 2026">Designed by Alp Eren Celebi · Conceptual Architecture · v1.1 · 2026</div>
 </footer>
 
 <script>
@@ -792,12 +761,12 @@ function animR3() {
   ctx.fillStyle = '#00d4ff'; ctx.font = 'bold ' + Math.round(10*sc) + 'px Inter,Segoe UI,sans-serif';
   ctx.textAlign = 'center';
   ctx.globalAlpha = 0.9;
-  ctx.fillText('BASE-4', eX+eW/2, eY-eH+16*sc);
-  ctx.fillText('ELECTRIC', eX+eW/2, eY-eH+28*sc);
+  ctx.fillText('ELECTRONIC', eX+eW/2, eY-eH+16*sc);
+  ctx.fillText('HOST', eX+eW/2, eY-eH+28*sc);
   ctx.globalAlpha = 0.5; ctx.fillStyle = '#aaccdd';
   ctx.font = Math.round(7*sc) + 'px Consolas,monospace';
   ctx.fillText('CPU · RAM · Storage', eX+eW/2, eY-eH+42*sc);
-  ctx.fillText('0V·1.1V·2.2V·3.3V', eX+eW/2, eY-eH+54*sc);
+  ctx.fillText('Binary CMOS', eX+eW/2, eY-eH+54*sc);
   ctx.globalAlpha = 1;
   // voltage dots on top face
   var vtopY = eY - eH - depY * 0.7;
@@ -815,10 +784,10 @@ function animR3() {
   ctx.fillStyle = '#00ff88'; ctx.font = 'bold ' + Math.round(9*sc) + 'px Inter,Segoe UI,sans-serif';
   ctx.textAlign = 'center'; ctx.globalAlpha = 0.9;
   ctx.fillText('ASYNC', bX+bW/2, bY-bH+16*sc);
-  ctx.fillText('BUFFER', bX+bW/2, bY-bH+28*sc);
+  ctx.fillText('QUEUES', bX+bW/2, bY-bH+28*sc);
   ctx.globalAlpha = 0.5; ctx.fillStyle = '#88ccaa';
   ctx.font = Math.round(7*sc) + 'px Consolas,monospace';
-  ctx.fillText('LiNbO₃', bX+bW/2, bY-bH+42*sc);
+  ctx.fillText('SRAM+TFLN', bX+bW/2, bY-bH+42*sc);
   // P0/P1/P2
   var pColors = ['#ff4057','#00d4ff','#888'];
   var pLabels = ['P0','P1','P2'];
@@ -834,13 +803,13 @@ function animR3() {
   drawBox(ctx, pX, pY, pW, pH, depX, depY, '#1e1200', '#281900', '#100a00', '#ffb800');
   ctx.fillStyle = '#ffb800'; ctx.font = 'bold ' + Math.round(9*sc) + 'px Inter,Segoe UI,sans-serif';
   ctx.textAlign = 'center'; ctx.globalAlpha = 0.9;
-  ctx.fillText('BASE-256', pX+pW/2, pY-pH+16*sc);
-  ctx.fillText('PHOTONIC', pX+pW/2, pY-pH+28*sc);
+  ctx.fillText('PHOTONIC', pX+pW/2, pY-pH+16*sc);
+  ctx.fillText('ACCEL.', pX+pW/2, pY-pH+28*sc);
   ctx.globalAlpha = 0.5; ctx.fillStyle = '#ccaa66';
   ctx.font = Math.round(7*sc) + 'px Consolas,monospace';
-  ctx.fillText('InP + Si₃N₄', pX+pW/2, pY-pH+42*sc);
+  ctx.fillText('Si₃N₄ mesh', pX+pW/2, pY-pH+42*sc);
   ctx.fillText('Laser · Mod · WG', pX+pW/2, pY-pH+54*sc);
-  ctx.fillText('256 intensity levels', pX+pW/2, pY-pH+66*sc);
+  ctx.fillText('PAM-4 · y = Wx', pX+pW/2, pY-pH+66*sc);
   // WDM lines
   for (var wl = 0; wl < 4; wl++) {
     ctx.strokeStyle = 'rgba(255,184,0,' + (0.3-wl*0.05) + ')';
@@ -909,8 +878,8 @@ function animR3() {
   ctx.textAlign = 'center'; ctx.fillStyle = 'rgba(255,255,255,0.3)';
   ctx.font = Math.round(8*sc) + 'px Inter,Segoe UI,sans-serif';
   ctx.fillText('Silicon (Si)', eX+eW/2, chY+12*sc);
-  ctx.fillText('LiNbO₃', bX+bW/2, chY+12*sc);
-  ctx.fillText('InP + Si₃N₄', pX+pW/2, chY+12*sc);
+  ctx.fillText('SRAM / TFLN', bX+bW/2, chY+12*sc);
+  ctx.fillText('Si₃N₄ + III-V', pX+pW/2, chY+12*sc);
 
   r3Raf = requestAnimationFrame(animR3);
 }
@@ -1013,19 +982,19 @@ function animArch() {
   }
 
   drawSysBox(boxes.e, '#00d4ff', 'rgba(0,20,40,0.85)',
-    'BASE-4 ELECTRIC',
-    ['CPU · RAM · Storage','Quaternary Logic','0V/1.1V/2.2V/3.3V','Role: OS + I/O'],
-    ['Silicon (Si)','~5 GHz','2 bits/cell']);
+    'ELECTRONIC HOST',
+    ['CPU · RAM · Storage','Binary CMOS','MLC/TLC NAND','Role: OS + I/O'],
+    ['Silicon (Si)','~5 GHz','~0.7–0.9 V']);
 
   drawSysBox(boxes.b, '#00ff88', 'rgba(0,25,15,0.85)',
-    'ASYNC BUFFER',
-    ['LiNbO₃ Crystal','Electro-Optic Bridge','Non-blocking','~1–5ns conversion'],
-    ['P0 Critical','P1 Normal','P2 Background']);
+    'ASYNC QUEUES',
+    ['SRAM ring buffers','TFLN modulators','Non-blocking submit','Tile preemption'],
+    ['P0 Urgent','P1 Normal','P2 Background']);
 
   drawSysBox(boxes.p, '#ffb800', 'rgba(30,18,0,0.85)',
-    'BASE-256 PHOTONIC',
-    ['Laser · Mod · WDM','256 intensity levels','Terahertz range','Role: AI + Matrix ops'],
-    ['InP + Si₃N₄','>10 Tbps','8 bits/signal']);
+    'PHOTONIC ACCEL.',
+    ['Laser · Mod · WDM','PAM-4 digit slices','~10 GBd / λ','Role: y = Wx'],
+    ['Si₃N₄ mesh','~100–150 fJ/MAC','Inference']);
 
   // Connection lines (channels)
   ctx.setLineDash([5,5]);
@@ -1043,7 +1012,7 @@ function animArch() {
   var midBP = (boxes.b.x+boxes.b.w + boxes.p.x)/2;
   ctx.fillText('write →', midEB, boxes.e.y + boxes.e.h/2 - 20);
   ctx.fillText('← interrupt', midEB, boxes.e.y + boxes.e.h/2 + 10);
-  ctx.fillText('optical read →', midBP, boxes.b.y + boxes.b.h/2 - 20);
+  ctx.fillText('PAM-4 →', midBP, boxes.b.y + boxes.b.h/2 - 20);
   ctx.fillText('← result', midBP, boxes.b.y + boxes.b.h/2 + 10);
 
   // Packets
@@ -1067,7 +1036,7 @@ function animArch() {
   // Priority legend at bottom
   ctx.textAlign = 'left'; ctx.font = '10px Inter,Segoe UI,sans-serif';
   var lx = 12, ly = aH - 14;
-  ctx.fillStyle = '#ff4057'; ctx.fillRect(lx, ly-8, 10, 8); ctx.fillStyle = '#667788'; ctx.fillText('P0 Critical', lx+14, ly);
+  ctx.fillStyle = '#ff4057'; ctx.fillRect(lx, ly-8, 10, 8); ctx.fillStyle = '#667788'; ctx.fillText('P0 Urgent', lx+14, ly);
   lx += 90;
   ctx.fillStyle = '#00d4ff'; ctx.fillRect(lx, ly-8, 10, 8); ctx.fillStyle = '#667788'; ctx.fillText('P1 Normal', lx+14, ly);
   lx += 85;
@@ -1094,12 +1063,12 @@ function roundRect(ctx, x, y, w, h, r) {
 var bCtx, bW, bH;
 var bProgress = 0, bStart = null, bDone = false;
 var BAR_DATA = [
-  { en:'Water Usage',        tr:'Su Kullanımı',         today:'~500ml / 100 queries', hybrid:'~50ml / 100 queries',   todayPct:1.0, hybridPct:0.10, label:'90% less' },
-  { en:'Energy per Query',   tr:'Sorgu Başına Enerji',  today:'~10× Google search',   hybrid:'~0.5× Google search',   todayPct:1.0, hybridPct:0.05, label:'95% less' },
-  { en:'Training Time',      tr:'Eğitim Süresi',        today:'3–4 months',           hybrid:'3–7 days',              todayPct:1.0, hybridPct:0.055,label:'15–30× faster' },
-  { en:'Inference Latency',  tr:'Çıkarım Gecikmesi',    today:'1–5 seconds',          hybrid:'<10 milliseconds',      todayPct:1.0, hybridPct:0.004,label:'98% faster' },
-  { en:'Operating Cost',     tr:'İşletme Maliyeti',     today:'$50–100K/day',         hybrid:'$7–15K/day',            todayPct:1.0, hybridPct:0.15, label:'85% less' },
-  { en:'Carbon Footprint',   tr:'Karbon Ayak İzi',      today:'3–4% global',          hybrid:'<0.5% global',          todayPct:1.0, hybridPct:0.125,label:'85% less' }
+  { en:'Thermo-optic · 1λ',  tr:'Termo-optik · 1λ',    today:'GPU ~707 fJ/MAC',      hybrid:'879 fJ/MAC',            todayPct:1.0, hybridPct:1.24, label:'0.8× (worse)' },
+  { en:'Thermo-optic · 16λ', tr:'Termo-optik · 16λ',   today:'GPU ~707 fJ/MAC',      hybrid:'147 fJ/MAC',            todayPct:1.0, hybridPct:0.208,label:'4.8× less' },
+  { en:'Electro-optic · 1λ', tr:'Elektro-optik · 1λ',  today:'GPU ~707 fJ/MAC',      hybrid:'103 fJ/MAC',            todayPct:1.0, hybridPct:0.146,label:'6.9× less' },
+  { en:'Electro-optic · 16λ',tr:'Elektro-optik · 16λ', today:'GPU ~707 fJ/MAC',      hybrid:'98 fJ/MAC',             todayPct:1.0, hybridPct:0.139,label:'7.2× less' },
+  { en:'Facility energy',    tr:'Tesis enerjisi',      today:'100% (baseline)',      hybrid:'~57% (φ = 0.5)',        todayPct:1.0, hybridPct:0.57, label:'≤ ~43% less' },
+  { en:'Cooling water',      tr:'Soğutma suyu',        today:'100% (baseline)',      hybrid:'≥ ~57% (∝ heat)',       todayPct:1.0, hybridPct:0.57, label:'≤ ~40% less' }
 ];
 
 function initBars() {
@@ -1156,7 +1125,7 @@ function drawBars(ease) {
     ctx.fillText(d.today, chartX + 4, y - gap/2 - barH/2 + 3);
 
     // Hybrid bar
-    var hW = Math.max(8, chartW * d.hybridPct * ease);
+    var hW = Math.max(8, chartW * Math.min(1, d.hybridPct) * ease);
     var grad = ctx.createLinearGradient(chartX, 0, chartX + chartW, 0);
     grad.addColorStop(0, '#00d4ff'); grad.addColorStop(1, '#ffb800');
     ctx.fillStyle = grad;
@@ -1169,11 +1138,12 @@ function drawBars(ease) {
 
     // Improvement badge
     var bx = chartX + chartW + 8;
-    ctx.fillStyle = 'rgba(0,255,136,0.1)';
+    var worse = d.hybridPct > 1;
+    ctx.fillStyle = worse ? 'rgba(255,64,87,0.1)' : 'rgba(0,255,136,0.1)';
     roundRect(ctx, bx, y - barH - gap/2, rightPad - 10, barH*2 + gap, 5); ctx.fill();
-    ctx.strokeStyle = 'rgba(0,255,136,0.25)'; ctx.lineWidth = 1;
+    ctx.strokeStyle = worse ? 'rgba(255,64,87,0.3)' : 'rgba(0,255,136,0.25)'; ctx.lineWidth = 1;
     ctx.stroke();
-    ctx.fillStyle = '#00ff88'; ctx.textAlign = 'center';
+    ctx.fillStyle = worse ? '#ff4057' : '#00ff88'; ctx.textAlign = 'center';
     ctx.font = 'bold 10px Inter,Segoe UI,sans-serif';
     ctx.fillText(d.label, bx + (rightPad-10)/2, y + 4);
   }
@@ -1228,7 +1198,7 @@ function animFlow() {
   ctx.fillStyle = '#0c1018'; ctx.fillRect(0, 0, fW, fH);
 
   var stages = [
-    { label: LANG==='tr' ? 'TABAN-4 GİRİŞ' : 'BASE-4 INPUT',    col: '#00d4ff', x: fW*0.12, w: fW*0.22 },
+    { label: LANG==='tr' ? 'ANA SİSTEM' : 'HOST SUBMIT',    col: '#00d4ff', x: fW*0.12, w: fW*0.22 },
     { label: LANG==='tr' ? 'ASENKRON KUYRUK' : 'ASYNC QUEUE',     col: '#00ff88', x: fW*0.39, w: fW*0.22 },
     { label: LANG==='tr' ? 'FOTONİK ÇIKIŞ' : 'PHOTONIC OUTPUT', col: '#ffb800', x: fW*0.66, w: fW*0.22 }
   ];
@@ -1278,7 +1248,7 @@ function animFlow() {
 
     // Stage sublabels
     ctx.fillStyle = 'rgba(255,255,255,0.25)'; ctx.font = '8px Consolas,monospace';
-    var lines = i===0?['Write & continue','Non-blocking']:i===1?['P0 first','1-5ns convert']:['Matrix ops','Return result'];
+    var lines = i===0?['Write & continue','Non-blocking']:i===1?['P0 first','Backpressure']:['Matrix ops','Return result'];
     for (var li=0;li<lines.length;li++) ctx.fillText(lines[li], s.x+s.w/2, stageY+stageH-14+li*11);
   }
 
@@ -1440,7 +1410,7 @@ function animDesign() {
   ctx.globalAlpha=1; ctx.shadowBlur=0;
   // Buffer label
   ctx.fillStyle='rgba(0,255,136,0.6)'; ctx.font='bold '+Math.round(6.5*sc)+'px Consolas,monospace';
-  ctx.textAlign='center'; ctx.fillText('LiNbO₃  ASYNC BUFFER', gwX+gwW/2, z2Y+z2H/2+2.5);
+  ctx.textAlign='center'; ctx.fillText('ASYNC QUEUES · TFLN E/O', gwX+gwW/2, z2Y+z2H/2+2.5);
 
   // ZONE 3: PHOTONIC (bottom ~52%)
   var z3Y=z2Y+z2H, z3H=gwH-z1H-z2H;
@@ -1559,29 +1529,29 @@ function animDesign() {
   ctx.strokeStyle='rgba(0,212,255,0.35)'; ctx.setLineDash([3,3]);
   ctx.beginPath(); ctx.moveTo(gwX+gwW,z1cy); ctx.lineTo(callX,z1cy); ctx.stroke(); ctx.setLineDash([]);
   ctx.fillStyle='#00d4ff'; ctx.font='bold '+Math.round(10*sc)+'px Inter,Segoe UI,sans-serif';
-  ctx.fillText(LANG==='tr'?'TABAN-4 ELEKTRİK SİSTEMİ':'BASE-4 ELECTRIC SYSTEM', callX+6, z1cy-7);
+  ctx.fillText(LANG==='tr'?'ELEKTRONİK ANA SİSTEM':'ELECTRONIC HOST', callX+6, z1cy-7);
   ctx.fillStyle='#556677'; ctx.font=Math.round(8.5*sc)+'px Inter,Segoe UI,sans-serif';
   ctx.fillText(LANG==='tr'?'CPU · RAM · Depolama · Silicon (Si)':'CPU · RAM · Storage · Silicon (Si)', callX+6, z1cy+5);
-  ctx.fillText('~5 GHz · 2 bits/cell · OS + I/O', callX+6, z1cy+16);
+  ctx.fillText('~5 GHz · Binary CMOS · MLC NAND', callX+6, z1cy+16);
 
   // Zone 2 callout
   var z2cy2=z2Y+z2H*0.5;
   ctx.strokeStyle='rgba(0,255,136,0.4)'; ctx.setLineDash([3,3]);
   ctx.beginPath(); ctx.moveTo(gwX+gwW,z2cy2); ctx.lineTo(callX,z2cy2); ctx.stroke(); ctx.setLineDash([]);
   ctx.fillStyle='#00ff88'; ctx.font='bold '+Math.round(10*sc)+'px Inter,Segoe UI,sans-serif';
-  ctx.fillText(LANG==='tr'?'ASENKRON TAMPON':'ASYNC BUFFER', callX+6, z2cy2-4);
+  ctx.fillText(LANG==='tr'?'ASENKRON KUYRUKLAR':'ASYNC QUEUES', callX+6, z2cy2-4);
   ctx.fillStyle='#556677'; ctx.font=Math.round(8.5*sc)+'px Inter,Segoe UI,sans-serif';
-  ctx.fillText('LiNbO₃ Crystal · P0/P1/P2 · ~1–5ns', callX+6, z2cy2+8);
+  ctx.fillText('SRAM rings · P0/P1/P2 · TFLN mod.', callX+6, z2cy2+8);
 
   // Zone 3 callout
   var z3cy=z3Y+z3H*0.48;
   ctx.strokeStyle='rgba(255,184,0,0.4)'; ctx.setLineDash([3,3]);
   ctx.beginPath(); ctx.moveTo(gwX+gwW,z3cy); ctx.lineTo(callX,z3cy); ctx.stroke(); ctx.setLineDash([]);
   ctx.fillStyle='#ffb800'; ctx.font='bold '+Math.round(10*sc)+'px Inter,Segoe UI,sans-serif';
-  ctx.fillText(LANG==='tr'?'TABAN-256 FOTONİK SİSTEM':'BASE-256 PHOTONIC SYSTEM', callX+6, z3cy-7);
+  ctx.fillText(LANG==='tr'?'FOTONİK HIZLANDIRICI':'PHOTONIC ACCELERATOR', callX+6, z3cy-7);
   ctx.fillStyle='#556677'; ctx.font=Math.round(8.5*sc)+'px Inter,Segoe UI,sans-serif';
-  ctx.fillText('InP + Si₃N₄ Waveguides · WDM 80+', callX+6, z3cy+5);
-  ctx.fillText('~THz · 256 levels · 8 bits/signal', callX+6, z3cy+16);
+  ctx.fillText('Si₃N₄ Mesh · III-V Lasers · WDM', callX+6, z3cy+5);
+  ctx.fillText('~10 GBd · PAM-4 · y = Wx', callX+6, z3cy+16);
 
   // Bottom: model + optical port labels
   ctx.fillStyle='rgba(255,255,255,0.15)'; ctx.font=Math.round(8*sc)+'px Consolas,monospace'; ctx.textAlign='left';
@@ -1650,14 +1620,14 @@ function drawDesignInset(ctx, ix, iy, iw, ih, sc) {
   ctx.fillStyle='rgba(0,22,14,0.9)'; ctx.strokeStyle='#00ff88'; ctx.lineWidth=1;
   roundRect(ctx,ix+pad,z2y2,iw-pad*2,z2h2,3); ctx.fill(); ctx.stroke();
   ctx.fillStyle='rgba(0,255,136,0.55)'; ctx.font='bold '+Math.round(6*sc)+'px Consolas,monospace';
-  ctx.fillText('ASYNC BUFFER  (LiNbO₃)', ix+iw/2, z2y2+z2h2/2+3);
+  ctx.fillText('ASYNC QUEUES + TFLN E/O', ix+iw/2, z2y2+z2h2/2+3);
   // Photonic
   ctx.fillStyle='rgba(20,10,0,0.85)'; ctx.strokeStyle='#ffb800'; ctx.lineWidth=1;
   roundRect(ctx,ix+pad,z3y2,iw-pad*2,z3h2,4); ctx.fill(); ctx.stroke();
   ctx.fillStyle='#ffb800'; ctx.font='bold '+Math.round(7.5*sc)+'px Inter,Segoe UI,sans-serif';
   ctx.fillText(LANG==='tr'?'FOTONİK MODÜL':'PHOTONIC MODULE', ix+iw/2, z3y2+12);
   ctx.fillStyle='#554422'; ctx.font=Math.round(6.5*sc)+'px Consolas,monospace';
-  ctx.fillText('InP + Si₃N₄ · WDM · Laser', ix+iw/2, z3y2+22);
+  ctx.fillText('Si₃N₄ · WDM · Laser', ix+iw/2, z3y2+22);
   for(var wl3=0;wl3<4;wl3++){
     var wa2=0.15+0.15*Math.sin(dTime*0.04+wl3*1.0);
     ctx.strokeStyle='rgba(255,184,0,'+wa2+')'; ctx.lineWidth=0.8; ctx.setLineDash([4,6]);

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hybrid Photonic Computer Architecture — Alp Eren Celebi</title>
+<title>Hybrid Photonic Computer Architecture v1.1 — Alp Eren Celebi</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -278,9 +278,9 @@
 <div class="title-page">
   <div class="doc-label">Technical Concept Paper · Computer Architecture</div>
 
-  <h1 class="main-title">Hybrid Photonic Computer Architecture: A Theoretical Framework for Base-4 Electrical Storage and Base-256 Photonic Processing with Asynchronous Priority Queue Communication</h1>
+  <h1 class="main-title">Hybrid Photonic Computer Architecture: An Electronic Host and a Photonic Linear-Algebra Accelerator Coupled by Asynchronous Priority Queues</h1>
 
-  <p class="subtitle">A novel dual-system architecture exploiting the mathematical identity 4⁴ = 256 to enable lossless conversion between quaternary electrical storage and octal-equivalent photonic processing at terahertz speeds.</p>
+  <p class="subtitle">A conceptual system design with base-4 digit-sliced optical encoding, tile-granular preemption, and a parametric energy-per-MAC model.</p>
 
   <div class="author-block">
     <div class="author-name">Alp Eren Celebi</div>
@@ -288,11 +288,12 @@
   </div>
 
   <div class="meta-block">
-    <p><span class="meta-key">Date:</span> March 26, 2026</p>
-    <p><span class="meta-key">Version:</span> 1.0 — Initial Public Disclosure</p>
+    <p><span class="meta-key">Date:</span> October 19, 2026</p>
+    <p><span class="meta-key">Version:</span> 1.1 — Revised. Corrects technical claims made in v1.0 (see Appendix A)</p>
+    <p><span class="meta-key">Original disclosure:</span> v1.0, March 26, 2026 · DOI 10.17605/OSF.IO/4U6QB</p>
     <p><span class="meta-key">Repository:</span> github.com/alpcelebi/hybrid-photonic-computer</p>
     <p><span class="meta-key">License:</span> MIT — Open for academic use and reference</p>
-    <p><span class="meta-key">Status:</span> Conceptual Architecture — Theoretical Projections Based on Published Physics</p>
+    <p><span class="meta-key">Status:</span> Conceptual architecture — no hardware or simulation results. All numbers are illustrative estimates with stated assumptions.</p>
   </div>
 </div>
 
@@ -302,13 +303,13 @@
 <div class="abstract-box no-break">
   <h2>Abstract</h2>
   <p>
-    This paper presents a theoretical hybrid computer architecture that combines two fully independent computing systems: a Base-4 electrical system for operating system management, storage, and general-purpose computation, and a Base-256 photonic system for artificial intelligence inference, matrix operations, and high-throughput data analysis. The two systems communicate exclusively through an asynchronous priority queue buffer implemented in Lithium Niobate (LiNbO₃) electro-optic crystal, ensuring neither system blocks or waits for the other at any point.
+    This paper describes a conceptual hybrid computer in which a conventional binary electronic host offloads linear-algebra workloads (matrix–vector products, convolutions) to a photonic accelerator. The two sides communicate through asynchronous submission and completion queues with three priority classes, held in electronic SRAM, and the accelerator is preempted at tile boundaries so that no optical memory is required.
   </p>
   <p>
-    The architectural foundation rests on the mathematical identity <strong>4⁴ = 256</strong>, which allows four Base-4 quaternary digits to map perfectly onto a single Base-256 photonic symbol with zero conversion overhead. Theoretical performance projections, derived from current photonic computing research, suggest potential improvements of 100–1000× in processing speed, 90% reduction in water consumption, 95% reduction in energy per AI query, and 15–30× acceleration in large-model training timelines compared to contemporary binary architectures. Additionally, the architecture exhibits inherent advantages for space exploration applications, including cosmic ray immunity, zero heat generation in vacuum, and compatibility with power-limited deep space missions.
+    Rather than encoding 256 optical intensity levels per symbol, which would require roughly 50 dB of signal-to-noise ratio, operands are split into base-4 digits and transmitted as PAM-4 symbols, a format already in production in optical Ethernet. Results are recombined electronically by shift-and-add, using the identity <strong>x = Σ 4ᵏ·xₖ</strong>. A parametric energy model, with every assumption stated, puts the photonic core at roughly 100–150 fJ per 8-bit MAC in its best configurations. That is about 5–7× below a contemporary GPU's ~700 fJ/MAC and far short of the 100× often quoted. The model also shows that thermo-optic weight tuning without wavelength multiplexing erases the advantage entirely. Because matrix multiplication is only part of total facility energy, the system-level reduction is bounded at roughly 40% under the assumptions used. Version 1.0 made several claims that this version withdraws or corrects (Appendix A).
   </p>
   <div class="keywords">
-    <strong>Keywords:</strong> photonic computing, hybrid architecture, Base-4, quaternary logic, electro-optic modulator, LiNbO₃, asynchronous communication, priority queue, wavelength division multiplexing, AI hardware acceleration, space computing
+    <strong>Keywords:</strong> photonic computing, hybrid electronic–photonic architecture, AI accelerator, PAM-4, digit slicing, thin-film lithium niobate, wavelength division multiplexing, priority queues, preemption, energy per MAC
   </div>
 </div>
 
@@ -319,328 +320,371 @@
 <h2 class="sec">1. Introduction</h2>
 
 <p>
-  Contemporary computer architectures are built almost exclusively on binary (Base-2) logic, a design choice driven by the simplicity of distinguishing two voltage states in silicon transistors. While this foundation has enabled seven decades of exponential progress, the industry is approaching fundamental physical constraints: transistor gates are measured in atoms, copper interconnects dissipate heat proportional to the square of current, and binary logic requires 8 separate signals to carry what a single photonic symbol can encode at 256 intensity levels.
+  Data centres used about 415 TWh of electricity in 2024, roughly 1.5% of global electricity consumption, and demand is growing quickly with AI workloads [15]. Much of the arithmetic in neural-network inference is matrix multiplication, an operation that optical interference can, in principle, perform with an energy that scales favourably with vector size [1, 5, 9].
 </p>
 <p>
-  The growing computational demands of artificial intelligence have made these constraints acutely visible. Training large language models requires months of operation across thousands of GPUs, consuming energy equivalent to thousands of households and generating heat that demands millions of liters of cooling water daily. The carbon footprint of the AI sector is estimated to represent 3–4% of global emissions, exceeding commercial aviation.
+  In practice, photonic accelerators are limited not by the speed of light but by everything around it: the digital-to-analog and analog-to-digital converters at the boundary, the optical signal-to-noise ratio that bounds precision, the power needed to hold weights in tunable elements, and the memory traffic that feeds the accelerator [1, 5]. This paper proposes a system organisation that takes those limits as the starting point. Its contributions are:
 </p>
+<ol>
+  <li>A system-level arrangement: an unmodified binary electronic host, priority-classed asynchronous queues, and tile-granular preemption, so that the accelerator never needs optical memory (Sections 3 and 7).</li>
+  <li>Base-4 digit slicing, which lowers the optical precision requirement to PAM-4 at the cost of extra passes and makes the number base a design parameter (Section 6).</li>
+  <li>A parametric energy-per-MAC model that identifies which component dominates and bounds the facility-level benefit (Section 8).</li>
+</ol>
 <p>
-  This paper proposes a theoretical architecture that addresses these constraints at a fundamental level rather than through incremental engineering refinement. The key insight is that two technologies — proven quaternary electrical storage and emerging photonic processing — can be unified by a single mathematical relationship:
-</p>
-
-<div class="formula-box no-break">
-  <div class="formula">4⁴ = 256</div>
-  <div class="formula-caption">Four Base-4 quaternary digits encode exactly one Base-256 photonic symbol — zero conversion loss by mathematical identity.</div>
-</div>
-
-<p>
-  This is not an approximation or a compression scheme. It is an exact mathematical identity that allows the bridge between the two systems to be implemented without any information loss, rounding error, or translation overhead.
+  No novelty is claimed for any individual component. Each is drawn from published work, cited where it is used.
 </p>
 
 
 <!-- ═══════════════════════════════════════════════════════
-     2. ARCHITECTURE OVERVIEW
+     2. RELATED WORK
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">2. Architecture Overview</h2>
+<h2 class="sec">2. Related Work</h2>
 
 <p>
-  The architecture consists of three distinct subsystems, each with a well-defined role and communication boundary. Critically, the two computing systems share no resources — no memory, no CPU cycles, no bus bandwidth. They are as independent as two separate computers that communicate only through a message-passing interface.
+  <strong>Photonic neural-network hardware.</strong> Shen et al. demonstrated matrix multiplication with meshes of Mach–Zehnder interferometers [2]. Feldmann et al. used phase-change-material weights and a frequency comb to run parallel convolutions across many wavelengths [4]. Shastri et al. review the field [1], and Pérez-López et al. describe programmable, self-configuring photonic circuits [11]. Ahmed et al. reported an electronic–photonic processor that runs ResNet and BERT models with near-electronic precision for many workloads [6]. That system is the closest prior art to the organisation proposed here.
+</p>
+<p>
+  <strong>Energy analyses.</strong> Nahmias et al. compared photonic and electronic multiply–accumulate hardware and found the photonic advantage concentrated at large vector sizes and low precision (≈4 bits or less) [5]. Miller analysed the energy limits of optoelectronic conversion [9]. Both results motivate the digit slicing of Section 6 and the model of Section 8.
+</p>
+<p>
+  <strong>Materials and devices.</strong> Thin-film lithium niobate (TFLN) modulators operate at CMOS-compatible voltages [3, 7]. Silicon nitride offers low-loss waveguides [8]. Multi-level signalling is mature in optical communications [10].
+</p>
+<p>
+  <strong>Multi-valued logic and queues.</strong> Multi-valued electronic logic has been studied for decades without displacing binary logic in processors [12]. Host–accelerator command queues with doorbells, completion interrupts and priority arbitration are standard. NVMe, for example, specifies weighted round-robin arbitration with an urgent priority class [13]. The queue design in Section 7 adopts those mechanisms.
+</p>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     3. ARCHITECTURE OVERVIEW
+═══════════════════════════════════════════════════════ -->
+<h2 class="sec">3. Architecture Overview</h2>
+
+<p>
+  The system has three parts. An <strong>electronic host</strong> runs the operating system and applications. A <strong>control die</strong> holds the queues, the converters, the scheduler and the partial-sum memory. A <strong>photonic core</strong> performs linear operations only. All state lives in electronics. The photonic core is stateless between passes.
 </p>
 
 <div class="figure no-break">
-  <div style="border:1px solid #ccc;padding:16px;background:#fafafa;font-family:'Courier New',monospace;font-size:9pt;line-height:1.8;text-align:left;">
-  ┌──────────────────────┐     write →      ┌─────────────────┐    optical →    ┌──────────────────────┐<br>
-  │  BASE-4 ELECTRIC     │ ────────────────► │  LiNbO₃ ASYNC   │ ──────────────► │  BASE-256 PHOTONIC   │<br>
-  │                      │ ◄──────────────── │  PRIORITY BUFFER│ ◄────────────── │                      │<br>
-  │  CPU · RAM · Storage │    ← interrupt    │  P0 / P1 / P2   │    ← result     │  Laser · WDM · InP   │<br>
-  │  Silicon (Si) · ~5GHz│                  │  ~1–5 ns conv.  │                 │  ~THz · >10 Tbps     │<br>
-  └──────────────────────┘                  └─────────────────┘                 └──────────────────────┘
-  </div>
-  <figcaption>Figure 1. System architecture data flow. The electric system writes to the buffer and immediately continues execution. The photonic system reads optically and returns results via interrupt callback.</figcaption>
+  <div style="border:1px solid #ccc;padding:16px;background:#fafafa;font-family:'Courier New',monospace;font-size:9pt;line-height:1.8;text-align:left;white-space:pre;overflow-x:auto;">┌────────────────────┐  submit  ┌──────────────────────────┐  PAM-4   ┌──────────────────────┐
+│  ELECTRONIC HOST   │ ───────► │  CONTROL DIE             │ ───────► │  PHOTONIC CORE       │
+│  binary CMOS       │          │  SQ/CQ rings P0/P1/P2    │  TFLN    │  N×N weight mesh     │
+│  CPU · DRAM        │ ◄─────── │  scheduler · DAC / ADC   │ ◄─────── │  Si₃N₄ · M λ (WDM)   │
+│  MLC/TLC NAND      │ complete │  partial-sum SRAM        │  Ge PD   │  stateless per pass  │
+└────────────────────┘  + IRQ   └──────────────────────────┘          └──────────────────────┘</div>
+  <figcaption>Figure 1. Data flow. The host enqueues work and continues. The control die slices operands into base-4 digits, drives the modulators, digitises the photodetector outputs, recombines partial results and posts completions.</figcaption>
 </div>
 
 
 <!-- ═══════════════════════════════════════════════════════
-     3. BASE-4 ELECTRIC SYSTEM
+     4. ELECTRONIC HOST
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">3. Base-4 Electric System</h2>
+<h2 class="sec">4. Electronic Host</h2>
 
-<h3 class="subsec">3.1 Voltage Level Design</h3>
+<h3 class="subsec">4.1 Why the Host Stays Binary</h3>
 <p>
-  The electrical system stores and processes information using four discrete voltage levels, each separated by approximately 1.1V. This spacing provides substantial noise margins comparable to, and in many cases exceeding, those of binary systems:
+  Version 1.0 proposed base-4 logic with levels at 0, 1.1, 2.2 and 3.3 V. Two problems rule this out. First, at a fixed supply voltage V<sub>DD</sub>, a binary signal has a gap of V<sub>DD</sub> between levels while a four-level signal has V<sub>DD</sub>/3, so the noise margin is worse, not better. Second, dynamic power scales as αCV²f. Raising the supply to 3.3 V from a modern ~0.75 V costs about (3.3/0.75)² ≈ 19× in dynamic power.
 </p>
-
 <div class="spec-block no-break">
-  Level 0  →  0.0 V  (no signal)<br>
-  Level 1  →  1.1 V  (low)<br>
-  Level 2  →  2.2 V  (medium)<br>
-  Level 3  →  3.3 V  (high)<br>
-  ─────────────────────────────<br>
-  Noise margin:  ~1.1 V per level<br>
-  Information:   2 bits per cell (vs. 1 bit/cell in binary)<br>
-  Storage density: 2× binary at identical fabrication node
+  Same supply, level gap:   binary = V<sub>DD</sub>      quaternary = V<sub>DD</sub>/3<br>
+  Dynamic power ratio:      (3.3 V / 0.75 V)² ≈ 19×<br>
+  ─────────────────────────────────────────────<br>
+  Decision: host logic is standard binary CMOS (~0.7–0.9 V)
 </div>
-
-<h3 class="subsec">3.2 Technology Basis</h3>
 <p>
-  Multi-level cell (MLC) NAND flash memory already stores 2 bits per cell using exactly four voltage levels, and triple-level cell (TLC) technology stores 3 bits per cell using eight levels. The proposed Base-4 system extends this proven principle to all forms of storage and computational registers. The primary fabrication material remains Silicon (Si), maintaining full compatibility with existing CMOS manufacturing processes.
+  A binary host also means existing operating systems, compilers and applications run unchanged. The accelerator needs only a driver, a runtime and a compiler back-end, as any GPU or NPU does.
 </p>
 
-<h3 class="subsec">3.3 Role and Scope</h3>
+<h3 class="subsec">4.2 Where Multi-Level Encoding Belongs</h3>
 <p>
-  The Base-4 electric system handles all operating system functions, file management, user input/output, networking, and general-purpose computation. It is the "host" system that schedules work and dispatches computationally intensive tasks to the photonic system via the buffer. It operates in the ~5 GHz clock range, consistent with contemporary processor frequencies.
+  Multi-level encoding works where the physical medium is analog and the extra levels are paid for by slower or more careful sensing. Two examples are storage cells (MLC, TLC and QLC NAND flash, already standard) and optical links (PAM-4). The design uses multi-level encoding in exactly those two places, not in logic gates [12].
 </p>
 
 
 <!-- ═══════════════════════════════════════════════════════
-     4. BASE-256 PHOTONIC SYSTEM
+     5. PHOTONIC ACCELERATOR
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">4. Base-256 Photonic System</h2>
+<h2 class="sec">5. Photonic Accelerator</h2>
 
-<h3 class="subsec">4.1 Signal Encoding</h3>
+<h3 class="subsec">5.1 Scope</h3>
 <p>
-  The photonic system encodes information as 256 discrete light intensity levels (0–255), allowing each optical symbol to carry 8 bits of information — eight times the information density of a binary electrical signal. The intensity modulation is performed by electro-optic modulators, which alter the refractive index of a material proportional to an applied voltage, changing the transmission of a laser beam through the modulator with sub-nanosecond response times.
+  The photonic core computes linear operations y = Wx, which covers matrix–vector products, convolutions and fixed linear transforms. Non-linear activations, normalisation, control flow and all storage stay in electronics. The design targets inference. Training requires FP16/BF16-class precision for gradients and weight updates, which is beyond what the optical path provides, so training is out of scope.
 </p>
 
-<h3 class="subsec">4.2 Wavelength Division Multiplexing (WDM)</h3>
+<h3 class="subsec">5.2 Precision and Signal-to-Noise Ratio</h3>
 <p>
-  A single optical waveguide can simultaneously carry 80 or more independent wavelength channels through Wavelength Division Multiplexing — a mature technology deployed at commercial scale in global fiber optic networks. Each wavelength channel operates independently, multiplying the aggregate bandwidth without requiring additional physical waveguides. A single Si₃N₄ waveguide carrying 80 WDM channels, each at 256 intensity levels, has a theoretical aggregate bandwidth exceeding 10 Tbps.
+  Each additional bit per optical symbol costs about 6 dB of signal-to-noise ratio. The ideal quantisation limit is SNR ≈ 6.02·b + 1.76 dB:
 </p>
-
-<h3 class="subsec">4.3 Materials</h3>
-
 <div class="tbl-wrap no-break">
   <table>
-    <caption>Table 1. Photonic system materials and their functional roles.</caption>
-    <tr><th>Component</th><th>Material</th><th>Reason for Selection</th></tr>
-    <tr><td>Processor substrate</td><td>Indium Phosphide (InP)</td><td>Direct bandgap enables efficient photon emission and detection; mature photonic foundry ecosystem</td></tr>
-    <tr><td>Waveguides</td><td>Silicon Nitride (Si₃N₄)</td><td>Ultra-low propagation loss (&lt;0.1 dB/cm), CMOS-compatible deposition, broad transparency window</td></tr>
-    <tr><td>Laser source</td><td>III-V Semiconductors (InGaAsP)</td><td>Direct bandgap materials enable efficient electrically-pumped lasing at telecom wavelengths</td></tr>
-    <tr><td>Electro-optic modulator</td><td>Lithium Niobate (LiNbO₃)</td><td>Highest electro-optic coefficient (r₃₃ ≈ 30 pm/V), sub-picosecond response, proven manufacturing</td></tr>
-    <tr><td>Photodetector</td><td>Germanium on Silicon (Ge/Si)</td><td>High responsivity at 1550 nm, CMOS-integrable, bandwidth &gt;100 GHz demonstrated</td></tr>
+    <caption>Table 1. Ideal SNR required per optical symbol as a function of bits per symbol.</caption>
+    <tr><th>Bits per symbol</th><th>Levels</th><th>Required SNR (ideal)</th><th>Practicality</th></tr>
+    <tr><td>2</td><td>4 (PAM-4)</td><td>13.8 dB</td><td class="badge-up">In production (optical Ethernet)</td></tr>
+    <tr><td>4</td><td>16</td><td>25.8 dB</td><td>Demonstrated in research</td></tr>
+    <tr><td>6</td><td>64</td><td>37.9 dB</td><td>Difficult at tens of GBd</td></tr>
+    <tr><td>8</td><td>256 (v1.0 proposal)</td><td>49.9 dB</td><td class="badge-dn">Not practical with intensity detection</td></tr>
+  </table>
+</div>
+<p>
+  Shot noise, laser relative intensity noise and receiver thermal noise all eat into these margins. Intensity is non-negative, so signed values need differential (balanced) detection or offset encoding.
+</p>
+
+<h3 class="subsec">5.3 Speed</h3>
+<p>
+  Throughput is set by the symbol rate of modulators, converters and detectors, not by the propagation speed of light. Electrical signals in copper also travel at a large fraction of c. TFLN modulators reach tens of GHz of electro-optic bandwidth at CMOS-compatible drive voltages [3, 7]. Time of flight through a millimetre-scale mesh is in the picosecond range, so the latency of a single pass is low, but sustained throughput is symbol rate × parallelism. The model assumes f = 10 GBd per channel, with parallelism from an N×N mesh and M wavelengths.
+</p>
+
+<h3 class="subsec">5.4 Components</h3>
+<div class="tbl-wrap no-break">
+  <table>
+    <caption>Table 2. Photonic-side components and the trade-offs that matter for this design.</caption>
+    <tr><th>Component</th><th>Candidate</th><th>Trade-off</th></tr>
+    <tr><td>Waveguides</td><td>Silicon nitride (Si₃N₄)</td><td>Low propagation loss, broad transparency, CMOS-compatible deposition [8]</td></tr>
+    <tr><td>Input modulators</td><td>Thin-film lithium niobate (TFLN)</td><td>Pockels effect, low drive voltage, high bandwidth [3, 7]. Phase shifters are long (mm-scale), which costs footprint</td></tr>
+    <tr><td>Weight elements</td><td>Thermo-optic / electro-optic (TFLN) / non-volatile phase-change [4]</td><td>Thermo-optic: mature, but mW-scale static power per element. EO: near-zero static power, larger area. Phase-change: zero hold power, limited endurance</td></tr>
+    <tr><td>Light source</td><td>III–V (InP-based) lasers, external or heterogeneously integrated</td><td>Wall-plug efficiency ~10–30%. The rest is heat. Temperature-sensitive, so they need active stabilisation</td></tr>
+    <tr><td>Photodetectors</td><td>Germanium on silicon</td><td>Good responsivity at 1310/1550 nm, CMOS-integrable</td></tr>
+    <tr><td>Converters</td><td>PAM-4 drivers (DAC), ~6-bit ADCs on the control die</td><td>The ADC dominates conversion energy (Section 8)</td></tr>
   </table>
 </div>
 
-<h3 class="subsec">4.4 Role and Scope</h3>
+
+<!-- ═══════════════════════════════════════════════════════
+     6. BASE-4 DIGIT SLICING
+═══════════════════════════════════════════════════════ -->
+<h2 class="sec">6. Base-4 Digit Slicing</h2>
+
+<h3 class="subsec">6.1 What 4⁴ = 256 Does and Does Not Give</h3>
 <p>
-  The photonic system handles all computationally intensive workloads: neural network inference, model training, matrix multiplication, Fourier transforms, and large-scale data analysis. It operates in the terahertz frequency range and generates near-zero waste heat, since photons experience no resistive losses in dielectric waveguides. It has no direct user interface and is never directly addressed by user software; all communication passes through the priority queue buffer.
+  Version 1.0 presented 4⁴ = 256 as a property unique to base 4 that makes the electronic–photonic bridge lossless. It is not unique: 2⁸ = 16² = 256 as well, and an 8-bit byte already maps bijectively onto 0–255. Any power-of-two base gives the same exact mapping. The real cost of the bridge is analog conversion (DAC and ADC), which is independent of how the digital bits are grouped.
+</p>
+
+<h3 class="subsec">6.2 Where Base 4 Actually Helps</h3>
+<p>
+  The identity does become useful when it decides how many optical levels each pass must resolve. Write an 8-bit input as four base-4 digits and use linearity:
+</p>
+<div class="formula-box no-break">
+  <div class="formula" style="font-size:11pt;letter-spacing:0;">x = Σₖ 4ᵏ·xₖ ,   xₖ ∈ {0,1,2,3}   ⟹   Wx = Σₖ 4ᵏ·(W xₖ)</div>
+  <div class="formula-caption">Each pass W·xₖ needs only PAM-4 inputs (13.8 dB instead of 49.9 dB).<br>The control die recombines the four partial results by shift-and-add.</div>
+</div>
+<p>
+  The cost is four passes per 8-bit operand, or four parallel wavelength groups. The number base thus becomes a design parameter that trades precision against throughput:
+</p>
+<div class="tbl-wrap no-break">
+  <table>
+    <caption>Table 3. Digit-slicing options for an 8-bit operand.</caption>
+    <tr><th>Base</th><th>Passes</th><th>Optical format</th><th>Required SNR (ideal)</th></tr>
+    <tr><td>2</td><td>8</td><td>On–off keying</td><td>7.8 dB</td></tr>
+    <tr><td><strong>4 (chosen)</strong></td><td><strong>4</strong></td><td><strong>PAM-4</strong></td><td><strong>13.8 dB</strong></td></tr>
+    <tr><td>16</td><td>2</td><td>PAM-16</td><td>25.8 dB</td></tr>
+    <tr><td>256</td><td>1</td><td>PAM-256</td><td>49.9 dB</td></tr>
+  </table>
+</div>
+<p>
+  Base 4 is chosen because PAM-4 transmitters and receivers are already in volume production for optical interconnects, and because it halves the pass count of bit-serial (base-2) operation.
+</p>
+
+<h3 class="subsec">6.3 The Remaining Bottleneck: Output Precision</h3>
+<p>
+  Slicing the inputs does not reduce the precision needed at the output. Exactly accumulating N = 64 products of 2-bit digits and 4-bit weights needs log₂(64·3·15) ≈ 11.5 bits. ADCs in the energy class assumed in Section 8 deliver about 6 bits at 10 GS/s, so partial sums are quantised. Quantisation-aware training can tolerate this for inference. Otherwise N per tile must shrink, which raises the conversion energy per MAC. This trade-off is the central open problem of the design.
 </p>
 
 
 <!-- ═══════════════════════════════════════════════════════
-     5. ASYNCHRONOUS PRIORITY QUEUE BUFFER
+     7. ASYNCHRONOUS PRIORITY QUEUES
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">5. Asynchronous Priority Queue Buffer</h2>
+<h2 class="sec">7. Asynchronous Priority Queues</h2>
 
-<h3 class="subsec">5.1 Material and Operating Principle</h3>
+<h3 class="subsec">7.1 Where the Queue Lives</h3>
 <p>
-  The buffer is implemented in Lithium Niobate (LiNbO₃), a ferroelectric crystal whose optical refractive index changes linearly with applied electric field (the Pockels effect). This property allows the electrical system to write data by applying voltage, while the photonic system reads the stored state optically, without any electrical contact between the two systems. The conversion latency at the electro-optic boundary is approximately 1–5 nanoseconds.
+  Version 1.0 placed the queue in a LiNbO₃ crystal. The Pockels effect changes the refractive index only while the field is applied, so LiNbO₃ modulates but does not store data. In this version the queues are SRAM ring buffers on the control die (or in host memory, NVMe-style), with doorbell registers for submission and completion queues for results. LiNbO₃ moves to where it excels: the input modulators and, optionally, the electro-optic weight elements.
 </p>
 
-<h3 class="subsec">5.2 Priority Queue Structure</h3>
-<p>
-  The buffer implements three independent ring queues with strict priority ordering. The photonic processor always services the highest non-empty queue before descending to lower priorities:
-</p>
-
+<h3 class="subsec">7.2 Priority Classes and Arbitration</h3>
 <div class="tbl-wrap no-break">
   <table>
-    <caption>Table 2. Priority queue levels and their characteristics.</caption>
-    <tr><th>Level</th><th>Name</th><th>Use Cases</th><th>Behavior</th></tr>
-    <tr><td><strong>P0</strong></td><td>Critical</td><td>Real-time sensors, safety systems, security alerts, hardware interrupts</td><td>Immediate interrupt — photonic processor preempts current task</td></tr>
-    <tr><td><strong>P1</strong></td><td>Normal</td><td>AI inference requests, matrix operations, standard heavy computation</td><td>FIFO queue; processed in submission order</td></tr>
-    <tr><td><strong>P2</strong></td><td>Background</td><td>Model optimization, batch analytics, background learning tasks</td><td>Low-priority; processed only when P0 and P1 are empty</td></tr>
+    <caption>Table 4. Priority classes. Arbitration follows the urgent-class + weighted-round-robin scheme of [13].</caption>
+    <tr><th>Class</th><th>Use cases</th><th>Arbitration</th></tr>
+    <tr><td><strong>P0</strong> Urgent</td><td>Real-time sensing, safety, latency-critical inference</td><td>Strict priority. Preempts at the next tile boundary</td></tr>
+    <tr><td><strong>P1</strong> Normal</td><td>Interactive inference, standard matrix work</td><td>Weighted round-robin with P2</td></tr>
+    <tr><td><strong>P2</strong> Background</td><td>Batch analytics, offline evaluation</td><td>Guaranteed minimum share (e.g. 1 in 16 slots) plus aging, so it never starves</td></tr>
   </table>
 </div>
 
-<h3 class="subsec">5.3 Packet Structure</h3>
-<p>Each work item submitted to the buffer carries the following fields:</p>
+<h3 class="subsec">7.3 Tile-Granular Preemption Without Optical Memory</h3>
+<p>
+  A photonic pass holds no state once it completes. Tile indices, partial sums and digit counters all live in control-die SRAM. The scheduler can therefore switch to a P0 job between any two tiles at negligible cost. The real preemption latency comes from weights: if the P0 job needs different weights, the mesh must be reprogrammed. That takes nanoseconds with electro-optic elements but microseconds or more with thermo-optic ones. Latency-critical work should therefore have its weights kept resident on a dedicated mesh or wavelength group.
+</p>
 
+<h3 class="subsec">7.4 The Non-Blocking Contract, Stated Precisely</h3>
+<p>
+  Submission never blocks. If a queue is full, the call returns <code>BUSY</code> (backpressure) and the host decides whether to retry or yield. Completion is signalled by an interrupt, with coalescing under load. Asynchrony raises throughput by overlapping independent requests, such as batched or pipelined inference. It cannot remove data dependencies: autoregressive decoding, for example, must wait for each token before it can submit the next.
+</p>
 <div class="spec-block no-break">
-  {<br>
-  &nbsp;&nbsp;priority  : P0 | P1 | P2<br>
-  &nbsp;&nbsp;size      : payload_size_bytes<br>
-  &nbsp;&nbsp;timestamp : submission_time_ns<br>
-  &nbsp;&nbsp;callback  : return_address_pointer<br>
-  &nbsp;&nbsp;payload   : data_block<br>
+  submission_entry {<br>
+  &nbsp;&nbsp;priority   : P0 | P1 | P2<br>
+  &nbsp;&nbsp;weight_id  : handle to resident weights<br>
+  &nbsp;&nbsp;input_ptr  : host/SRAM address of operand tile<br>
+  &nbsp;&nbsp;output_ptr : address for result tile<br>
+  &nbsp;&nbsp;shape      : (rows, cols, batch)<br>
+  &nbsp;&nbsp;digits     : passes per operand (e.g. 4 for 8-bit, base-4)<br>
+  &nbsp;&nbsp;timestamp  : submission time (for aging)<br>
+  &nbsp;&nbsp;cq_id      : completion queue to post to<br>
   }
 </div>
 
-<h3 class="subsec">5.4 Non-Blocking Communication Contract</h3>
-<p>
-  The defining characteristic of the buffer design is its strict non-blocking contract: the electric system writes a packet to the buffer and immediately resumes execution without waiting for the result. When the photonic system completes processing, it writes the result back to the buffer and triggers a hardware interrupt at the callback address specified in the original packet. This design ensures that neither system ever idles waiting for the other, eliminating the primary bottleneck present in tightly-coupled hybrid architectures.
-</p>
-
-<div class="highlight no-break">
-  <strong>Key architectural invariant:</strong> At no point does the execution of the Base-4 electric system block on the completion of a photonic operation. Communication is entirely event-driven via interrupt callbacks. This allows independent scaling — additional photonic processors can be added without any modification to the electric system software stack.
-</div>
-
 
 <!-- ═══════════════════════════════════════════════════════
-     6. MATHEMATICAL FOUNDATION
+     8. ENERGY MODEL
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">6. Mathematical Foundation: The 4⁴ = 256 Identity</h2>
+<h2 class="sec">8. Energy Model</h2>
 
 <p>
-  The central mathematical insight of this architecture is the exact identity between the maximum value expressible by four Base-4 digits and the number of discrete levels in the photonic system:
+  Consider an N×N weight mesh driven at symbol rate f with M wavelengths. Each pass performs M·N² multiply–accumulates, needs M·N input conversions and M·N output conversions, and burns laser power P<sub>L</sub> per wavelength plus static tuning power P<sub>T</sub> for the whole mesh. With D passes per operand (digit slicing), the energy per full-precision MAC is:
 </p>
-
 <div class="formula-box no-break">
-  <div class="formula">4⁴ = 4 × 4 × 4 × 4 = 256</div>
-  <div class="formula-caption">A group of four quaternary digits (each ∈ {0, 1, 2, 3}) can represent exactly 256 distinct values (0–255).<br>This is identical to the number of intensity levels in the photonic system.</div>
+  <div class="formula" style="font-size:10pt;letter-spacing:0;">E<sub>MAC</sub> = D · [ (E<sub>DAC</sub> + E<sub>ADC</sub>) / N  +  P<sub>L</sub> / (f·N²)  +  P<sub>T</sub> / (f·M·N²) ]</div>
+  <div class="formula-caption">Conversion cost amortises as 1/N. Laser cost amortises as 1/N². Tuning cost is additionally amortised across wavelengths.</div>
 </div>
 
+<div class="tbl-wrap no-break">
+  <table>
+    <caption>Table 5. Illustrative assumptions. Each value is an order-of-magnitude placeholder to be replaced with device data.</caption>
+    <tr><th>Parameter</th><th>Value</th><th>Basis</th></tr>
+    <tr><td>N (mesh size)</td><td>64</td><td>Limited by output ADC precision (Section 6.3) and optical loss</td></tr>
+    <tr><td>f (symbol rate)</td><td>10 GBd</td><td>Well within TFLN modulator bandwidth [3]</td></tr>
+    <tr><td>D (passes per 8-bit operand)</td><td>4</td><td>Base-4 digit slicing</td></tr>
+    <tr><td>E<sub>DAC</sub></td><td>0.1 pJ</td><td>PAM-4 driver</td></tr>
+    <tr><td>E<sub>ADC</sub></td><td>1 pJ</td><td>~6-bit converter at ~10 GS/s</td></tr>
+    <tr><td>P<sub>L</sub> (wall-plug, per wavelength)</td><td>0.3 W</td><td>Enough received power for ~6-bit SNR after ~10 dB mesh loss at ~20% laser efficiency</td></tr>
+    <tr><td>P<sub>T</sub>, thermo-optic</td><td>8 W</td><td>4096 elements × ~2 mW</td></tr>
+    <tr><td>P<sub>T</sub>, electro-optic / non-volatile</td><td>0.05 W</td><td>Leakage and bias only</td></tr>
+  </table>
+</div>
+
+<div class="tbl-wrap no-break">
+  <table>
+    <caption>Table 6. Model output (8-bit inputs, fJ per MAC). Reference: an NVIDIA H100 SXM delivers ~990 TMAC/s dense FP8 at 700 W, i.e. ~700 fJ/MAC [17].</caption>
+    <tr><th>Configuration</th><th>Conversion</th><th>Laser</th><th>Tuning</th><th>Total</th><th>vs GPU</th><th>Throughput / core</th></tr>
+    <tr><td>A. Thermo-optic, M = 1</td><td>69</td><td>29</td><td>781</td><td><strong>879</strong></td><td class="badge-dn">0.8× (worse)</td><td>10 TMAC/s</td></tr>
+    <tr><td>B. Thermo-optic, M = 16</td><td>69</td><td>29</td><td>49</td><td><strong>147</strong></td><td class="badge-up">4.8×</td><td>164 TMAC/s</td></tr>
+    <tr><td>C. Electro-optic / NV, M = 1</td><td>69</td><td>29</td><td>5</td><td><strong>103</strong></td><td class="badge-up">6.9×</td><td>10 TMAC/s</td></tr>
+    <tr><td>D. Electro-optic / NV, M = 16</td><td>69</td><td>29</td><td>0.3</td><td><strong>98</strong></td><td class="badge-up">7.2×</td><td>164 TMAC/s</td></tr>
+  </table>
+</div>
+
+<p>Three conclusions follow:</p>
+<ol>
+  <li><strong>Weight-element technology decides whether there is any advantage.</strong> Thermo-optic tuning on a single wavelength (A) is worse than the GPU. Either WDM, which amortises tuning (B), or electro-optic / non-volatile weights (C, D) are needed.</li>
+  <li><strong>The best case is about 5–7×, not 100×.</strong> Once tuning is solved, conversion dominates. Further gains need larger N, which ADC precision and optical loss limit, or cheaper ADCs.</li>
+  <li><strong>Throughput per core is modest.</strong> At 10–164 TMAC/s per core against ~990 TMAC/s for a GPU, many cores per package are needed, so area and packaging become first-order problems.</li>
+</ol>
 <p>
-  The consequence of this identity is that the conversion between the two systems requires no rounding, no approximation, and no information loss. A block of four Base-4 digits from the electric system maps to exactly one Base-256 photonic symbol via a simple lookup table. No bits are added or discarded. The conversion is purely a reinterpretation of the same bit pattern.
+  These numbers are favourable to photonics. They exclude memory traffic, the host and control-die logic, while the GPU figure includes on-chip data movement.
 </p>
 
+<h3 class="subsec">8.1 Facility-Level Bound</h3>
 <p>
-  This can be stated formally: let <em>q</em> = (q₃, q₂, q₁, q₀) be a vector of four quaternary digits where each qᵢ ∈ {0, 1, 2, 3}. The corresponding photonic symbol value <em>p</em> is:
+  If a fraction φ of facility energy goes to the linear algebra that can be offloaded, and that part becomes S times cheaper, Amdahl's law [16] bounds the total reduction:
 </p>
-
 <div class="formula-box no-break">
-  <div class="formula" style="font-size:12pt;">p = 64·q₃ + 16·q₂ + 4·q₁ + q₀,   p ∈ {0, …, 255}</div>
-  <div class="formula-caption">This is a bijective mapping — every quaternary 4-tuple maps to a unique photonic symbol and vice versa.</div>
+  <div class="formula" style="font-size:10.5pt;letter-spacing:0;">Reduction = 1 − [ (1 − φ) + φ / S ]     φ = 0.5, S = 7  ⟹  ≈ 43%</div>
+  <div class="formula-caption">Memory, networking, host CPUs and facility overheads are unchanged.</div>
 </div>
-
 <p>
-  This mathematical property was the primary motivation for selecting Base-4 as the number base for the electrical system. An analysis of other candidate bases (binary, ternary, octal, hexadecimal) shows that only Base-4 satisfies both the engineering requirement of adequate noise margin per level (~1.1V gap) and the mathematical requirement of exact mapping to the photonic system's 256 levels.
+  Cooling water scales roughly with the heat rejected, so it obeys a similar bound, not the 90% reduction claimed in v1.0. For context, Li et al. estimate that a GPT-3-class model consumes about 500 ml of water per roughly 10–50 medium-length responses, depending on location and season [14].
 </p>
 
 
 <!-- ═══════════════════════════════════════════════════════
-     7. PERFORMANCE PROJECTIONS
+     9. COMPARISON
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">7. AI Performance Projections</h2>
-
-<p>
-  The following projections are derived from the fundamental physical properties of photonic signal propagation and the thermal characteristics of optical components. They represent theoretical upper bounds under ideal conditions and are intended to establish the architectural potential, not guarantee specific engineering outcomes.
-</p>
+<h2 class="sec">9. Revised Comparison</h2>
 
 <div class="tbl-wrap no-break">
   <table>
-    <caption>Table 3. Projected AI operational metrics: contemporary binary architecture vs. hybrid photonic architecture.</caption>
-    <tr><th>Metric</th><th>Today (Binary)</th><th>Hybrid Photonic</th><th>Improvement</th></tr>
-    <tr><td>Water consumption per 100 queries</td><td>~500 ml</td><td>~50 ml</td><td class="badge-up">90% reduction</td></tr>
-    <tr><td>Energy per LLM query</td><td>~10× a Google search</td><td>~0.5× a Google search</td><td class="badge-up">95% reduction</td></tr>
-    <tr><td>GPT-4-scale model training</td><td>3–4 months</td><td>3–7 days</td><td class="badge-up">15–30× faster</td></tr>
-    <tr><td>LLM inference latency</td><td>1–5 seconds</td><td>&lt;10 milliseconds</td><td class="badge-up">98% reduction</td></tr>
-    <tr><td>Data center electricity cost</td><td>$50–100K / day</td><td>$7–15K / day</td><td class="badge-up">85% reduction</td></tr>
-    <tr><td>AI sector carbon footprint</td><td>~3–4% global emissions</td><td>&lt;0.5% global</td><td class="badge-up">85% reduction</td></tr>
-    <tr><td>Aggregate processing bandwidth</td><td>~100 Gbps</td><td>&gt;10 Tbps</td><td class="badge-up">100× increase</td></tr>
-  </table>
-</div>
-
-<p>
-  The water reduction projection is driven by the near-elimination of cooling infrastructure: photonic processors operating via stimulated emission and waveguide propagation do not generate resistive heat, removing the thermodynamic necessity for liquid cooling systems that currently account for the majority of data center water consumption.
-</p>
-<p>
-  The energy reduction projection is consistent with published estimates of photonic matrix multiplication energy per operation compared to electronic GPU implementations, which differ by approximately two orders of magnitude at equivalent precision.
-</p>
-
-
-<!-- ═══════════════════════════════════════════════════════
-     8. FEATURE COMPARISON
-═══════════════════════════════════════════════════════ -->
-<h2 class="sec">8. Feature Comparison</h2>
-
-<div class="tbl-wrap no-break">
-  <table>
-    <caption>Table 4. Full feature comparison between contemporary binary architecture and the proposed hybrid photonic architecture.</caption>
-    <tr><th>Feature</th><th>Today (Binary)</th><th>Hybrid Photonic</th><th>Assessment</th></tr>
-    <tr><td>Number system</td><td>Base-2 (0, 1)</td><td>Base-4 + Base-256</td><td class="badge-up">⬆ Better</td></tr>
-    <tr><td>Bits per storage cell</td><td>1 bit</td><td>2 bits</td><td class="badge-up">⬆ 2×</td></tr>
-    <tr><td>Bits per processing signal</td><td>1 bit</td><td>8 bits</td><td class="badge-up">⬆ 8×</td></tr>
-    <tr><td>Processing speed</td><td>~5 GHz</td><td>~THz range</td><td class="badge-up">⬆ 100–1000×</td></tr>
-    <tr><td>Processing medium</td><td>Electricity (copper)</td><td>Photons (light)</td><td class="badge-up">⬆ Better</td></tr>
-    <tr><td>Energy consumption</td><td>High — resistive losses</td><td>Very low — no resistive loss</td><td class="badge-up">⬆ Better</td></tr>
-    <tr><td>EMI resistance</td><td>Medium</td><td>Very high — photons unaffected</td><td class="badge-up">⬆ Better</td></tr>
-    <tr><td>Fault isolation</td><td>Tightly coupled subsystems</td><td>Fully independent systems</td><td class="badge-up">⬆ Better</td></tr>
-    <tr><td>Manufacturing maturity</td><td>70+ years, mass production</td><td>Early stage, lab scale</td><td class="badge-dn">⬇ Harder</td></tr>
-    <tr><td>Software ecosystem</td><td>All existing software</td><td>New compilers required</td><td class="badge-dn">⬇ New build</td></tr>
-    <tr><td>Initial hardware cost</td><td>Low — commodity pricing</td><td>Very high — prototype only</td><td class="badge-dn">⬇ Expensive</td></tr>
-    <tr><td>Optical memory</td><td>Solved — mature DRAM/NAND</td><td>Unsolved fundamental problem</td><td class="badge-dn">⬇ Barrier</td></tr>
+    <caption>Table 7. Contemporary GPU baseline vs this proposal (illustrative, from Section 8).</caption>
+    <tr><th>Aspect</th><th>GPU baseline</th><th>This proposal</th><th>Note</th></tr>
+    <tr><td>Host logic</td><td>Binary CMOS</td><td>Binary CMOS (unchanged)</td><td>Existing software runs as-is</td></tr>
+    <tr><td>Storage</td><td>MLC/TLC/QLC NAND</td><td>Same</td><td>Multi-level storage is already standard</td></tr>
+    <tr><td>Optical symbol</td><td>—</td><td>PAM-4, digit-sliced to 8 bits</td><td>4 passes per operand</td></tr>
+    <tr><td>Core energy per MAC</td><td>~700 fJ (FP8)</td><td>~100–150 fJ (best cases)</td><td class="badge-up">~5–7×, memory excluded</td></tr>
+    <tr><td>Throughput</td><td>~990 TMAC/s per GPU</td><td>10–164 TMAC/s per core</td><td class="badge-dn">Many cores needed</td></tr>
+    <tr><td>Memory bandwidth</td><td>3.35 TB/s HBM3 [17]</td><td>Set by host memory</td><td>Memory wall unchanged</td></tr>
+    <tr><td>Accumulation precision</td><td>FP8–FP32</td><td>~6-bit ADC</td><td class="badge-dn">Inference-oriented</td></tr>
+    <tr><td>Facility energy</td><td>Baseline</td><td>≤ ~40% lower (φ = 0.5)</td><td>Amdahl-bounded</td></tr>
+    <tr><td>Maturity</td><td>Mass production</td><td>Research / early commercial [6]</td><td class="badge-dn">Integration and packaging risk</td></tr>
   </table>
 </div>
 
 
 <!-- ═══════════════════════════════════════════════════════
-     9. SPACE APPLICATIONS
+     10. SPACE (SPECULATIVE)
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">9. Space Exploration Applications</h2>
+<h2 class="sec">10. Space Applications (Speculative)</h2>
 
 <p>
-  Beyond terrestrial AI applications, the physical properties of this architecture address the most critical constraints of space computing in a manner that no incremental improvement to conventional electronic computers can achieve.
+  Two properties may be useful on spacecraft. First, dielectric waveguides do not suffer the charge-deposition upsets that flip bits in transistor storage. Second, a lower energy cost for linear algebra helps power-limited missions. Both are partial advantages only. Photodetectors, lasers, converters, the control die and the host are still semiconductor electronics and need radiation hardening. Optical materials also suffer radiation-induced attenuation, and lasers need thermal stabilisation. Version 1.0's claims of radiation immunity, a 5,000× capability gain and terabit deep-space links are withdrawn. Deep-space optical links are limited by received photons (link budget), not by the number of wavelength channels. Any space use would require radiation testing of the full optoelectronic stack.
 </p>
-
-<h3 class="subsec">9.1 Cosmic Ray Single-Event Upset Immunity</h3>
-<p>
-  High-energy cosmic ray particles penetrate electronic circuits and deposit charge in transistor junctions, flipping bit states in a phenomenon called a single-event upset (SEU). This is why radiation-hardened spacecraft processors (such as the RAD750 used in Mars rovers) operate at ~200 MHz — a speed achieved by 1990s consumer processors — because hardening against SEUs requires design techniques that drastically reduce transistor density and clock frequency.
-</p>
-<p>
-  Photons carry no electric charge and are not deflected by electric or magnetic fields. A photonic processor is inherently immune to charge-deposition SEUs, allowing full terahertz-range processing in deep space without radiation hardening penalties.
-</p>
-
-<h3 class="subsec">9.2 Vacuum Thermal Management</h3>
-<p>
-  In the vacuum of space, convective heat transfer is absent. Heat can only be removed through thermal radiation, requiring large, heavy radiator panel arrays. Photonic processors generate near-zero waste heat, reducing or eliminating the radiator mass — a significant fraction (20–35%) of total spacecraft computer system mass. At launch costs of $2,200–$22,000 per kilogram depending on vehicle, this represents a potentially decisive economic advantage.
-</p>
-
-<h3 class="subsec">9.3 Deep Space Autonomous AI</h3>
-<p>
-  The one-way signal propagation delay to Mars ranges from 3 to 22 minutes. This makes Earth-directed real-time control of surface assets impossible for any decision requiring sub-minute response time. A photonic AI system operating at terahertz speeds — approximately 5,000× faster than current radiation-hardened spacecraft processors — enables fully autonomous terrain navigation, hazard detection, and scientific prioritization without waiting for Earth confirmation.
-</p>
-
-<h3 class="subsec">9.4 Deep Space Optical Communication</h3>
-<p>
-  Current deep space radio communication via NASA's Deep Space Network achieves 4–150 Mbps. NASA's Laser Communications Relay Demonstration (LCRD) and Lunar Laser Communication Demonstration (LLCD) have shown that optical communication links offer order-of-magnitude improvements in bandwidth-per-watt. Applying WDM to deep space optical links — transmitting 80+ wavelength channels on a single beam — could increase science data return rates by four to five orders of magnitude, fundamentally changing what is achievable within a mission's downlink budget.
-</p>
-
-<div class="tbl-wrap no-break">
-  <table>
-    <caption>Table 5. Space exploration challenge comparison.</caption>
-    <tr><th>Challenge</th><th>Current Technology</th><th>Hybrid Photonic</th></tr>
-    <tr><td>Cosmic ray protection</td><td>Rad-hardened chips, reduced clock (~200 MHz)</td><td>Inherently immune — photons carry no charge</td></tr>
-    <tr><td>Vacuum heat dissipation</td><td>Large radiator panels (~20–35% of computer mass)</td><td>Near-zero heat — minimal thermal hardware</td></tr>
-    <tr><td>Outer solar system power</td><td>RTG ~100–300W limits all computation</td><td>95% less power — THz AI on &lt;15W budget</td></tr>
-    <tr><td>Autonomous decision-making</td><td>~200 MHz rad-hard CPU</td><td>~THz photonic AI — 5,000× more capable</td></tr>
-    <tr><td>Science data return</td><td>4–150 Mbps (DSN radio)</td><td>&gt;10 Tbps via WDM optical comm</td></tr>
-    <tr><td>Solar storm / CME</td><td>Can destroy electronics</td><td>Immune — photons unaffected by EM fields</td></tr>
-  </table>
-</div>
 
 
 <!-- ═══════════════════════════════════════════════════════
-     10. LIMITATIONS AND OPEN PROBLEMS
+     11. LIMITATIONS AND OPEN PROBLEMS
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">10. Limitations and Open Problems</h2>
+<h2 class="sec">11. Limitations and Open Problems</h2>
 
 <ol>
-  <li><strong>Optical memory.</strong> Photons cannot be stopped and stored in the manner of electrons in a capacitor. Persistent optical memory remains an open research problem. The proposed architecture sidesteps this by assigning all persistent storage to the electric system; however, this limits the photonic system's ability to operate independently without electric-side memory support.</li>
-  <li><strong>Heterogeneous integration.</strong> Combining InP photonic devices with CMOS electronic devices on a single substrate requires either wafer-bonding or monolithic co-integration techniques that are at early research stages. Commercial foundries do not yet offer production processes for this integration level.</li>
-  <li><strong>Manufacturing cost.</strong> InP photonic chips are produced in much smaller volumes than silicon CMOS and at substantially higher per-unit cost. Mass production economics for the photonic subsystem are not yet established.</li>
-  <li><strong>Software ecosystem.</strong> Base-4 instruction set architectures, quaternary compilers, and operating systems supporting the async interrupt model described in Section 5 do not exist. A complete software stack would require significant research and engineering investment.</li>
-  <li><strong>Electro-optic conversion latency.</strong> The LiNbO₃ buffer introduces 1–5 ns of latency per crossing. For workloads requiring sub-nanosecond inter-system communication, this overhead may be significant.</li>
-  <li><strong>Talent pool.</strong> Photonic engineering expertise is concentrated in a small number of academic and industrial research groups. The cross-disciplinary requirements (photonics, computer architecture, materials science, software systems) pose a staffing challenge for any team attempting implementation.</li>
+  <li><strong>Output precision.</strong> ~6-bit ADCs quantise the partial sums (Section 6.3). Larger tiles reduce energy per MAC but need more ADC bits.</li>
+  <li><strong>Weight reprogramming.</strong> Thermo-optic elements are slow and power-hungry. Electro-optic elements are large. Phase-change elements have limited endurance. Weight-stationary operation with batching is assumed.</li>
+  <li><strong>Optical loss scaling.</strong> Insertion loss grows with mesh depth, which raises the laser power needed for a given SNR.</li>
+  <li><strong>Integration and packaging.</strong> The photonic core, the control die and the lasers must be co-packaged with dense electrical and optical I/O.</li>
+  <li><strong>Lasers.</strong> Wall-plug efficiency of 10–30% and temperature sensitivity add heat and require control loops.</li>
+  <li><strong>Memory wall.</strong> The accelerator does not reduce weight or activation traffic from host memory, which dominates many inference workloads.</li>
+  <li><strong>Training.</strong> Out of scope at the available precision.</li>
+  <li><strong>Software.</strong> A compiler back-end must map models onto tiles, digit slices and resident weights. The host software stack is unchanged.</li>
+  <li><strong>No validation yet.</strong> The model in Section 8 has not been checked against device-level simulation or measurements.</li>
 </ol>
 
 
 <!-- ═══════════════════════════════════════════════════════
-     11. CONCLUSION
+     12. CONCLUSION
 ═══════════════════════════════════════════════════════ -->
-<h2 class="sec">11. Conclusion</h2>
+<h2 class="sec">12. Conclusion</h2>
 
 <p>
-  This paper has presented a theoretical hybrid computer architecture founded on the mathematical identity 4⁴ = 256. The architecture separates computing concerns into two independent systems — a Base-4 electrical system for general-purpose work and a Base-256 photonic system for high-throughput AI and matrix computation — connected by an asynchronous priority queue buffer that ensures neither system blocks on the other.
+  This revision recasts the hybrid photonic computer as a binary electronic host with a photonic linear-algebra accelerator, coupled by priority-classed asynchronous queues and preempted at tile boundaries so that no optical memory is needed. The 4⁴ = 256 relation survives as a design choice: base-4 digit slicing lets each optical pass use mature PAM-4 signalling.
 </p>
 <p>
-  All individual components of the proposed system exist in research or commercial form: MLC storage with four voltage levels is standard in consumer NAND flash, LiNbO₃ modulators are commercially available for optical communications, and photonic neural networks have been demonstrated at lab scale by multiple research groups. The primary barriers are integration, manufacturing scale, and software ecosystem development.
+  The energy model gives a sober outlook. A best-case core-level gain of about 5–7× over a contemporary GPU is plausible. That gain depends on electro-optic or non-volatile weights, or on wavelength multiplexing, and it shrinks at the facility level because of Amdahl's law. The most valuable next steps are, first, replacing the placeholder parameters of Table 5 with measured device data and, second, a circuit-level study of the ADC precision–tile size trade-off.
 </p>
 <p>
-  The architectural concept demonstrates particular promise for two application domains where conventional electronic computing faces structural limitations: AI infrastructure, where the elimination of resistive heat generation could reduce energy and water consumption by 85–95%, and space exploration, where photonic immunity to cosmic ray single-event upsets and near-zero heat dissipation in vacuum address the two most critical constraints on spacecraft computing capability.
+  The author welcomes correspondence from researchers working on related problems.
 </p>
-<p>
-  This document is submitted as a public disclosure record establishing the date and authorship of the described architectural concept. The author welcomes correspondence from researchers and engineers working on related problems.
-</p>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     APPENDIX A — ERRATA
+═══════════════════════════════════════════════════════ -->
+<h2 class="sec">Appendix A. Errata Relative to v1.0</h2>
+
+<div class="tbl-wrap">
+  <table>
+    <caption>Table A1. Claims in v1.0 (March 26, 2026) that are corrected or withdrawn in this version.</caption>
+    <tr><th>#</th><th>v1.0 claim</th><th>Correction</th></tr>
+    <tr><td>1</td><td>Only base 4 maps exactly to 256 levels, making the bridge lossless</td><td>Every power-of-two base maps exactly (2⁸ = 16² = 256). The real cost is DAC/ADC conversion. Base 4 is retained for digit slicing (Section 6)</td></tr>
+    <tr><td>2</td><td>"Octal-equivalent" photonic processing</td><td>8 bits per symbol is not octal (base 8). Wording removed</td></tr>
+    <tr><td>3</td><td>Base-4 logic at 0/1.1/2.2/3.3 V with noise margins exceeding binary</td><td>At a fixed supply the four-level gap is V<sub>DD</sub>/3. 3.3 V costs ~19× dynamic power. The host is binary CMOS (Section 4)</td></tr>
+    <tr><td>4</td><td>256 intensity levels per optical symbol</td><td>Requires ~50 dB SNR. Replaced by PAM-4 with digit slicing (Sections 5.2, 6)</td></tr>
+    <tr><td>5</td><td>Terahertz processing, 100–1000× faster</td><td>Symbol rates are tens of GBd. Throughput comes from parallelism (Section 5.3). v1.0's own 10 Tbps figure implied ~16 GBd, not THz</td></tr>
+    <tr><td>6</td><td>Photons produce no heat, so cooling is nearly eliminated</td><td>Lasers, tuning and converters dissipate heat. Best-case core gain is ~5–7×. Facility reduction ≤ ~40% (Section 8)</td></tr>
+    <tr><td>7</td><td>The LiNbO₃ crystal stores the priority queue</td><td>The Pockels effect is not memory. Queues are in SRAM and LiNbO₃ is used as the modulator (Section 7.1)</td></tr>
+    <tr><td>8</td><td>P0 preempts photonic tasks (implicitly requiring optical state storage)</td><td>Tile-granular preemption with all state in electronics (Section 7.3)</td></tr>
+    <tr><td>9</td><td>Neither system ever waits for the other</td><td>Submission is non-blocking with backpressure. Data dependencies still serialise work (Section 7.4)</td></tr>
+    <tr><td>10</td><td>Table 3 projections: 90% less water, 95% less energy, GPT-4 training in 3–7 days, &lt;10 ms inference, ~100 Gbps bandwidth today</td><td>Withdrawn as unsupported and replaced by the model of Section 8. A current GPU already has 3.35 TB/s of memory bandwidth [17]</td></tr>
+    <tr><td>11</td><td>AI accounts for 3–4% of global emissions, exceeding aviation</td><td>Data centres as a whole used ~1.5% of global electricity in 2024 [15]. AI is a subset of that</td></tr>
+    <tr><td>12</td><td>Space: cosmic-ray and solar-storm immunity, 5,000× capability, &gt;10 Tbps deep-space links</td><td>Withdrawn. Partial potential advantages only (Section 10)</td></tr>
+    <tr><td>13</td><td>A new OS, compilers and a Base-4 ISA are required</td><td>Not required with a binary host. Only an accelerator runtime and compiler back-end are needed</td></tr>
+    <tr><td>14</td><td>References: an unrelated laser-processing review; a 2004 MRS Bulletin article on silicon nitride that could not be located; an unverified vendor note</td><td>Removed and replaced with verifiable sources</td></tr>
+  </table>
+</div>
 
 
 <!-- ═══════════════════════════════════════════════════════
@@ -652,13 +696,20 @@
   <li>[1] Shastri, B. J., Tait, A. N., Ferreira de Lima, T., Pernice, W. H. P., Bhaskaran, H., Wright, C. D., &amp; Prucnal, P. R. (2021). Photonics for artificial intelligence and neuromorphic computing. <em>Nature Photonics</em>, 15, 102–114.</li>
   <li>[2] Shen, Y., Harris, N. C., Skirlo, S., Prabhu, M., Baehr-Jones, T., Hochberg, M., ... &amp; Soljačić, M. (2017). Deep learning with coherent nanophotonic circuits. <em>Nature Photonics</em>, 11(7), 441–446.</li>
   <li>[3] Wang, C., Zhang, M., Chen, X., Bertrand, M., Shams-Ansari, A., Chandrasekhar, S., ... &amp; Lončar, M. (2018). Integrated lithium niobate electro-optic modulators operating at CMOS-compatible voltages. <em>Nature</em>, 562(7725), 101–104.</li>
-  <li>[4] Pérez-López, D., López, A., DasMahapatra, P., &amp; Capmany, J. (2020). Multipurpose self-configuration of programmable photonic circuits. <em>Nature Communications</em>, 11(1), 6359.</li>
-  <li>[5] Feldmann, J., Youngblood, N., Karpov, M., Gehring, H., Li, X., Stappers, M., ... &amp; Pernice, W. H. P. (2021). Parallel convolutional processing using an integrated photonic tensor core. <em>Nature</em>, 589(7840), 52–58.</li>
-  <li>[6] Salter, P. S., &amp; Booth, M. J. (2019). Adaptive optics in laser processing. <em>Light: Science &amp; Applications</em>, 8(1), 110.</li>
-  <li>[7] Agrell, E., Karlsson, M., Chraplyvy, A. R., Richardson, D. J., Krummrich, P. M., Winzer, P., ... &amp; Willner, A. E. (2016). Roadmap of optical communications. <em>Journal of Optics</em>, 18(6), 063002.</li>
-  <li>[8] Patterson, D., &amp; Hennessy, J. (2017). <em>Computer Organization and Design: The Hardware/Software Interface</em> (5th ed.). Morgan Kaufmann.</li>
-  <li>[9] Flash Memory Technical Note — Multi-Level Cell (MLC) Technology. Micron Technology, Inc. Technical Bulletin TN-29-08.</li>
-  <li>[10] Lucovsky, G., &amp; Fitch, J. (2004). Silicon Nitride for Photonic Applications. <em>MRS Bulletin</em>, 29(9), 616–620.</li>
+  <li>[4] Feldmann, J., Youngblood, N., Karpov, M., Gehring, H., Li, X., Stappers, M., ... &amp; Pernice, W. H. P. (2021). Parallel convolutional processing using an integrated photonic tensor core. <em>Nature</em>, 589(7840), 52–58.</li>
+  <li>[5] Nahmias, M. A., Ferreira de Lima, T., Tait, A. N., Peng, H.-T., Shastri, B. J., &amp; Prucnal, P. R. (2020). Photonic multiply-accumulate operations for neural networks. <em>IEEE Journal of Selected Topics in Quantum Electronics</em>, 26(1), 1–18.</li>
+  <li>[6] Ahmed, S. R., et al. (2025). Universal photonic artificial intelligence acceleration. <em>Nature</em>, 640(8058), 368–374. doi:10.1038/s41586-025-08854-x</li>
+  <li>[7] Zhu, D., Shao, L., Yu, M., Cheng, R., Desiatov, B., Xin, C. J., ... &amp; Lončar, M. (2021). Integrated photonics on thin-film lithium niobate. <em>Advances in Optics and Photonics</em>, 13(2), 242–352.</li>
+  <li>[8] Blumenthal, D. J., Heideman, R., Geuzebroek, D., Leinse, A., &amp; Roeloffzen, C. (2018). Silicon nitride in silicon photonics. <em>Proceedings of the IEEE</em>, 106(12), 2209–2231.</li>
+  <li>[9] Miller, D. A. B. (2017). Attojoule optoelectronics for low-energy information processing and communications. <em>Journal of Lightwave Technology</em>, 35(3), 346–396.</li>
+  <li>[10] Agrell, E., Karlsson, M., Chraplyvy, A. R., Richardson, D. J., Krummrich, P. M., Winzer, P., ... &amp; Willner, A. E. (2016). Roadmap of optical communications. <em>Journal of Optics</em>, 18(6), 063002.</li>
+  <li>[11] Pérez-López, D., López, A., DasMahapatra, P., &amp; Capmany, J. (2020). Multipurpose self-configuration of programmable photonic circuits. <em>Nature Communications</em>, 11(1), 6359.</li>
+  <li>[12] Hurst, S. L. (1984). Multiple-valued logic — its status and its future. <em>IEEE Transactions on Computers</em>, C-33(12), 1160–1179.</li>
+  <li>[13] NVM Express, Inc. (2021). <em>NVM Express Base Specification</em>, Revision 2.0 (command arbitration: round robin and weighted round robin with urgent priority class).</li>
+  <li>[14] Li, P., Yang, J., Islam, M. A., &amp; Ren, S. (2023). Making AI less "thirsty": Uncovering and addressing the secret water footprint of AI models. <em>arXiv:2304.03271</em>.</li>
+  <li>[15] International Energy Agency (2025). <em>Energy and AI</em>. IEA, Paris.</li>
+  <li>[16] Patterson, D. A., &amp; Hennessy, J. L. (2013). <em>Computer Organization and Design: The Hardware/Software Interface</em> (5th ed.). Morgan Kaufmann.</li>
+  <li>[17] NVIDIA Corporation (2023). <em>NVIDIA H100 Tensor Core GPU Datasheet</em>.</li>
 </ul>
 
 
@@ -666,7 +717,7 @@
      FOOTER
 ═══════════════════════════════════════════════════════ -->
 <div class="page-footer">
-  Alp Eren Celebi · Hybrid Photonic Computer Architecture · March 26, 2026 · github.com/alpcelebi/hybrid-photonic-computer
+  Alp Eren Celebi · Hybrid Photonic Computer Architecture · v1.1 · October 19, 2026 · github.com/alpcelebi/hybrid-photonic-computer
 </div>
 
 </body>
